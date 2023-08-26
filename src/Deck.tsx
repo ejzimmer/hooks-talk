@@ -4,6 +4,7 @@ import { options } from "./revealOptions"
 import { Title } from "./slides/Title"
 import { TwoKindsOfComponents } from "./slides/TwoKindsOfComponents"
 import { WhyFunctionalComponents } from "./slides/WhyFunctionalComponents"
+import { FunctionalComponentProblems } from "./slides/FunctionalComponentsProblems"
 
 export default function Deck() {
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function Deck() {
         <Title />
         <TwoKindsOfComponents />
         <WhyFunctionalComponents />
+        <FunctionalComponentProblems highlighted={0} />
       </div>
     </div>
   )
