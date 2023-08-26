@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import Reveal from "reveal.js"
 import { options } from "./revealOptions"
+import { Title } from "./Slides/Title"
 
 export default function Deck() {
   useEffect(() => {
@@ -14,8 +15,7 @@ export default function Deck() {
   return (
     <div className="reveal">
       <div className="slides">
-        <section> hello </section>
-        <section> slide 2</section>
+        <Title />
       </div>
     </div>
   )
