@@ -1,4 +1,4 @@
-import { Slide } from "./Slide"
+import { Slide } from "../helpers/Slide"
 
 export function Title() {
   return (
