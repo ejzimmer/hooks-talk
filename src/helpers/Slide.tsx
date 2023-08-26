@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react"
+import { ElementType, PropsWithChildren } from "react"
 
 export function Slide({ children }: PropsWithChildren<any>) {
   return <section>{children}</section>
@@ -6,10 +6,15 @@ export function Slide({ children }: PropsWithChildren<any>) {
 
 // idk. Reveal increments the fragment index by 2 for some reason, probably to do
 // with re-rendering
-export function Fragment({ children }: PropsWithChildren<any>) {
+type Props = {
+  as?: ElementType
+}
+
+export function Fragment({ as = "div", children }: PropsWithChildren<Props>) {
+  const As = as
   return (
     <>
-      <div className="fragment">{children}</div>
+      <As className="fragment">{children}</As>
       <div className="fragment"></div>
     </>
   )

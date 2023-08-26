@@ -3,6 +3,7 @@ import Reveal from "reveal.js"
 import { options } from "./revealOptions"
 import { Title } from "./slides/Title"
 import { TwoKindsOfComponents } from "./slides/TwoKindsOfComponents"
+import { WhyFunctionalComponents } from "./slides/WhyFunctionalComponents"
 
 export default function Deck() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function Deck() {
       <div className="slides">
         <Title />
         <TwoKindsOfComponents />
+        <WhyFunctionalComponents />
       </div>
     </div>
   )
