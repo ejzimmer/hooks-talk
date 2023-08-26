@@ -1,5 +1,5 @@
 import { Code } from "../helpers/Code"
-import { Fragment, Slide } from "../helpers/Slide"
+import { Fragment, Notes, Slide } from "../helpers/Slide"
 
 const classBasedComponent = `class FancyButton extends React.Component {
   constructor(props) {
@@ -31,10 +31,10 @@ export function TwoKindsOfComponents() {
       <Fragment>
         <Code>{functionalComponent}</Code>
       </Fragment>
-      <aside className="notes">
+      <Notes>
         - used React for a while, remember that there are two ways to write
         React components: classes & functions
-      </aside>
+      </Notes>
     </Slide>
   )
 }

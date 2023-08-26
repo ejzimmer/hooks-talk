@@ -14,3 +14,7 @@ export function Fragment({ children }: PropsWithChildren<any>) {
     </>
   )
 }
+
+export function Notes({ children }: PropsWithChildren<any>) {
+  return <aside className="notes">{children}</aside>
+}
