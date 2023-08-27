@@ -1,7 +1,28 @@
-import { ElementType, PropsWithChildren } from "react"
+import {
+  ElementType,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
 
-export function Slide({ children }: PropsWithChildren<any>) {
-  return <section>{children}</section>
+export function Slide({
+  renderOnVisible,
+  children,
+}: PropsWithChildren<{ renderOnVisible?: boolean }>) {
+  const ref = useRef<HTMLElement>(null)
+  const [showChildren, setShowChildren] = useState(!renderOnVisible)
+
+  useEffect(() => {
+    if (!ref.current || !renderOnVisible) return
+
+    ref.current.addEventListener("transitionend", () => {
+      const elementIsVisible = ref.current?.classList.contains("present")
+      setShowChildren(!!elementIsVisible)
+    })
+  }, [renderOnVisible])
+
+  return <section ref={ref}>{showChildren && children}</section>
 }
 
 export function ShinyTitle({ title }: { title: string }) {

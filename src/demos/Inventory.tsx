@@ -161,6 +161,44 @@ export function SlowInventory({ items }: Props) {
   )
 }
 
+export const inventoryCode = `export function Inventory({ items }: Props) {
+  const [sortedItems, setSortedItems] = useState(items)
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortedItems([...items].sort(sortFunction(sortBy)))
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", (event) => {
+      if (!event.key.match(/^[0-9]$/)) return
+
+      const indexToUpdate = Number.parseInt(event.key)
+      setSortedItems(
+        sortedItems.map((item, index) =>
+          index === indexToUpdate ? { ...item, count: --item.count } : item
+        )
+      )
+    })
+  }, [sortedItems])
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("timesUsed")}>
+        Sort by times used
+      </button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+`
+
 export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
@@ -168,18 +206,22 @@ export function Inventory({ items }: Props) {
     setSortedItems([...items].sort(sortFunction(sortBy)))
   }
 
-  // useEffect(() => {
-  window.addEventListener("keydown", (event) => {
-    if (!event.key.match(/^[0-9]$/)) return
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
 
-    const indexToUpdate = Number.parseInt(event.key)
-    setSortedItems(
-      sortedItems.map((item, index) =>
-        index === indexToUpdate ? { ...item, count: --item.count } : item
+      const indexToUpdate = Number.parseInt(event.key)
+      setSortedItems(
+        sortedItems.map((item, index) =>
+          index === indexToUpdate ? { ...item, count: --item.count } : item
+        )
       )
-    )
-  })
-  // }, [sortedItems])
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [sortedItems])
 
   return (
     <>
