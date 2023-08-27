@@ -34,6 +34,7 @@ export function RulesOfHooks() {
             overflow: "auto",
             backgroundColor: "rgba(0, 0, 0, 0.9)",
             color: "white",
+            textAlign: "left",
           }}
         >
           <div

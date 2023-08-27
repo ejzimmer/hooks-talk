@@ -20,20 +20,13 @@ export function InverseTitle({ children }: PropsWithChildren<any>) {
   )
 }
 
-// idk. Reveal increments the fragment index by 2 for some reason, probably to do
-// with re-rendering
 type Props = {
   as?: ElementType
 }
 
 export function Fragment({ as = "div", children }: PropsWithChildren<Props>) {
   const As = as
-  return (
-    <>
-      <As className="fragment">{children}</As>
-      <div className="fragment"></div>
-    </>
-  )
+  return <As className="fragment">{children}</As>
 }
 
 export function Notes({ children }: PropsWithChildren<any>) {

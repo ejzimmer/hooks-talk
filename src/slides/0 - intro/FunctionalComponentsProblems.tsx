@@ -13,6 +13,9 @@ export function FunctionalComponentProblems({ highlighted }: Props) {
         <HighlightListItem isHighlighted={highlighted === 0}>
           They can't store state
         </HighlightListItem>
+        <HighlightListItem isHighlighted={highlighted === 1}>
+          They can't trigger re-renders
+        </HighlightListItem>
       </ol>
     </Slide>
   )

@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 type Props = {
   onSubmit: (subscribe?: boolean) => void
@@ -94,4 +94,104 @@ export function AcceptTermsAndSpam({ onSubmit }: Props) {
       <button onClick={handleSubmit}>Submit</button>
     </>
   )
+}
+
+export const acceptTermsWithErrorMessageCode = `export function AcceptTermsWithErrorMessages({ onSubmit }: Props) {
+  const termsRef = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState("")
+
+  const handleSubmit = () => {
+    if (!termsRef.current?.checked) {
+      setError("Please accept the terms")
+    } else {
+      onSubmit()
+    }
+  }
+
+  return (
+    <>
+      <label>
+        <input type="checkbox" ref={termsRef} />
+        Do you accept the terms & conditions?
+      </label>
+      <div className="error">{error}</div>
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  )
+}
+`
+
+export function AcceptTermsWithErrorMessages({ onSubmit }: Props) {
+  const termsRef = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState("")
+
+  const handleSubmit = () => {
+    if (!termsRef.current?.checked) {
+      setError("Please accept the terms")
+    } else {
+      onSubmit()
+    }
+  }
+
+  return (
+    <>
+      <label>
+        <input type="checkbox" ref={termsRef} />
+        Do you accept the terms & conditions?
+      </label>
+      <div className="error">{error}</div>
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  )
+}
+
+export const acceptTermsWithErrorNoStateCode = `export function AcceptTermsWithErrorMessagesNoState({ onSubmit }: Props) {
+  const termsRef = useRef<HTMLInputElement>(null)
+  const errorRef = useRef<string>()
+  const handleSubmit = () => {
+    if (!termsRef.current?.checked)  errorRef.current = "Please accept the terms";
+    else onSubmit()
+  }
+  return (
+    <>
+      <label>
+        <input type="checkbox" ref={termsRef} />
+        Do you accept the terms & conditions?
+      </label>
+      <div className="error">{errorRef.current}</div>
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  )
+}
+`
+
+export function AcceptTermsWithErrorMessagesNoState({ onSubmit }: Props) {
+  const termsRef = useRef<HTMLInputElement>(null)
+  const errorRef = useRef<string>()
+
+  const handleSubmit = () => {
+    if (!termsRef.current?.checked) {
+      errorRef.current = "Please accept the terms"
+    } else {
+      onSubmit()
+    }
+  }
+
+  return (
+    <>
+      <label>
+        <input type="checkbox" ref={termsRef} />
+        Do you accept the terms & conditions?
+      </label>
+      <div className="error">{errorRef.current}</div>
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  )
+}
+
+export const onSubmit = (subscribe?: boolean) => {
+  const message = `Thank you for your submission.${
+    subscribe ? " You have been subscribed to our newsletter." : ""
+  }`
+  alert(message)
 }

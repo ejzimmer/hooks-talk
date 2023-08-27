@@ -3,6 +3,7 @@ import {
   AcceptTermsAndSpam,
   acceptTermsAndSpamCode,
   acceptTermsCode,
+  onSubmit,
 } from "../../demos/AcceptTerms"
 import { Code } from "../../helpers/Code"
 import { Fragment, Notes, Slide } from "../../helpers/Slide"
@@ -12,14 +13,6 @@ import {
 } from "./BasicUseRefImplementation"
 
 export function ElementRef() {
-  const onSubmit = () => alert("Thank you for your submission")
-  const onSubmitWithSpam = (subscribe?: boolean) => {
-    const message = `Thank you for your submission.${
-      subscribe ? " You have been subscribed to our newsletter." : ""
-    }`
-    alert(message)
-  }
-
   return (
     <>
       <Slide>
@@ -36,7 +29,7 @@ export function ElementRef() {
       </Slide>
 
       <Slide>
-        <AcceptTermsAndSpam onSubmit={onSubmitWithSpam} />
+        <AcceptTermsAndSpam onSubmit={onSubmit} />
         <Fragment>
           <Code>{acceptTermsAndSpamCode}</Code>
         </Fragment>
