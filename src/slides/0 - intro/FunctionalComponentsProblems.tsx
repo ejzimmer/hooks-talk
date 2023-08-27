@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react"
-import { Slide } from "../helpers/Slide"
+import { Slide } from "../../helpers/Slide"
 
 type Props = {
   highlighted: number

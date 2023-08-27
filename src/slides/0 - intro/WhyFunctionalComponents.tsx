@@ -1,4 +1,4 @@
-import { Fragment, Notes, Slide } from "../helpers/Slide"
+import { Fragment, Notes, Slide } from "../../helpers/Slide"
 
 export function WhyFunctionalComponents() {
   return (

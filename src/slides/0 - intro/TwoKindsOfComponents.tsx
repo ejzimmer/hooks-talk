@@ -1,5 +1,5 @@
-import { Code } from "../helpers/Code"
-import { Fragment, Notes, Slide } from "../helpers/Slide"
+import { Code } from "../../helpers/Code"
+import { Fragment, Notes, Slide } from "../../helpers/Slide"
 
 const classBasedComponent = `class FancyButton extends React.Component {
   constructor(props) {
