@@ -15,7 +15,7 @@ export function RenderCounterWithRerender() {
   return (
     <>
       <button onClick={() => setRerender((rerender) => !rerender)}>
-        Click to rerender
+        Trigger rerender
       </button>
       <RenderCounter />
     </>

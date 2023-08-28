@@ -12,24 +12,45 @@ const classComponentCode = `class RenderCounter extends React.Component {
   }
   render() {
     this.numberOfRenders++;
-    return <div>This component has rendered {this.numberOfRenders} times</div>  
+    return (
+      <div>
+        This component has rendered 
+        {this.numberOfRenders} times
+      </div>
+    );  
   }
 }`
 
-const brokenFunctionalComponentCode = `function BrokenRenderCounter() {
+const brokenFunctionalComponentCode = `function RenderCounter() {
   let numberOfRenders = 0
 
   numberOfRenders++
 
-  return <div>This component has rendered {numberOfRenders} times</div>
+  return (
+    <div>
+      This component has rendered {numberOfRenders} times
+    </div>
+  )
 }
 `
 
-export function ClickCounterSlides() {
+export function RenderCounterSlides() {
   return (
     <>
       <Slide>
-        <RenderCounterWithRerender />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "auto auto",
+            fontSize: "0.6em",
+          }}
+        >
+          <Code>{parentComponentCode}</Code>
+          <Code>{renderCounterCode}</Code>
+          <div style={{ gridColumn: "span 2" }}>
+            <RenderCounterWithRerender />
+          </div>
+        </div>
       </Slide>
       <Slide>
         <Code>{classComponentCode}</Code>
@@ -41,3 +62,24 @@ export function ClickCounterSlides() {
     </>
   )
 }
+
+const parentComponentCode = `class Parent extends Component {
+  ...
+  render() {
+    ...
+    return (
+      <>
+        <button onClick={this.rerender()}>
+          Trigger render
+        </button>
+        <RenderCounter />
+      </>
+    )
+  }
+}`
+
+const renderCounterCode = `export function RenderCounter() {
+  ...
+  return <div>{numberOfRenders}</div> 
+}
+`
