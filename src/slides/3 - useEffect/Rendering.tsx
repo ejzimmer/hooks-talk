@@ -1,6 +1,10 @@
 import { Code } from "../../helpers/Code"
-import { Notes, Slide } from "../../helpers/Slide"
-import { Inventory, items } from "../../demos/Inventory"
+import { Fragment, Notes, Slide } from "../../helpers/Slide"
+import {
+  Inventory,
+  InventoryWithoutCleanup,
+  items,
+} from "../../demos/Inventory"
 
 export function Rendering() {
   return (
@@ -33,7 +37,46 @@ export function Rendering() {
       </Slide>
 
       <Slide renderOnVisible={true}>
+        <InventoryWithoutCleanup items={items} />
+        <Notes>
+          <ul>
+            <li>add console log to show when event handler is being added</li>
+            <li>WHAT? so many times!</li>
+          </ul>
+        </Notes>
+      </Slide>
+
+      <Slide>
+        <Code>{useEffectCode}</Code>
+        <Notes>
+          because the event listener is being added every time the sortedItems
+          list changes
+          <p>
+            can't just not add event listener - would have stale reference to
+            sorted items
+          </p>
+          <p>
+            need to remove event listener and add a new one every time the list
+            changes
+          </p>
+        </Notes>
+      </Slide>
+
+      <Slide renderOnVisible={true}>
+        <Code>{useEffectWithCleanupCode}</Code>
         <Inventory items={items} />
+      </Slide>
+
+      <Slide>
+        <ul>
+          <li>native event handlers</li>
+          <Fragment as="li">
+            setTimeout/setInterval/requestAnimationFrame
+          </Fragment>
+          <Fragment as="li">making API calls</Fragment>
+          <Fragment as="li">interacting with 3rd party libraries</Fragment>
+        </ul>
+        <Notes>useEffect is also useful for...</Notes>
       </Slide>
     </>
   )
@@ -50,5 +93,23 @@ const useEffectCode = `useEffect(() => {
       )
     )
   })
+}, [sortedItems])
+`
+
+const useEffectWithCleanupCode = `  useEffect(() => {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (!event.key.match(/^[0-9]$/)) return
+
+    const indexToUpdate = Number.parseInt(event.key)
+    setSortedItems(
+      sortedItems.map((item, index) =>
+        index === indexToUpdate ? { ...item, count: --item.count } : item
+      )
+    )
+  }
+
+  window.addEventListener("keydown", onKeyDown)
+
+  return () => window.removeEventListener("keydown", onKeyDown)
 }, [sortedItems])
 `

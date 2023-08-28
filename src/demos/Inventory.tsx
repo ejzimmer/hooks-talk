@@ -1,8 +1,15 @@
-import { useEffect, useState } from "react"
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 
 type Item = {
   name: string
-  type: "food" | "mineral" | "monster part"
+  type: "food" | "mineral" | "monster part" | "custom"
   timesUsed: number
   count: number
 }
@@ -18,6 +25,8 @@ export const items: Item[] = [
 
 type Props = {
   items: Item[]
+  setItems?: (items: Item[]) => void
+  consumeItem?: (item: Item) => void
 }
 
 export const infiniteLoopInventoryCode = `export function FilteredItems({ items, filterBy }: Props) {
@@ -199,6 +208,44 @@ export const inventoryCode = `export function Inventory({ items }: Props) {
 }
 `
 
+export function InventoryWithoutCleanup({ items }: Props) {
+  const [sortedItems, setSortedItems] = useState(items)
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortedItems([...items].sort(sortFunction(sortBy)))
+  }
+
+  useEffect(() => {
+    console.log("attaching event handler")
+    window.addEventListener("keydown", (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+
+      const indexToUpdate = Number.parseInt(event.key)
+      setSortedItems(
+        sortedItems.map((item, index) =>
+          index === indexToUpdate ? { ...item, count: --item.count } : item
+        )
+      )
+    })
+  }, [sortedItems])
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("timesUsed")}>
+        Sort by times used
+      </button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+
 export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
@@ -209,7 +256,6 @@ export function Inventory({ items }: Props) {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return
-
       const indexToUpdate = Number.parseInt(event.key)
       setSortedItems(
         sortedItems.map((item, index) =>
@@ -239,3 +285,248 @@ export function Inventory({ items }: Props) {
     </>
   )
 }
+
+export function AddToInventoryNotWorking() {
+  const [inventory, setInventory] = useState(items)
+  const nameRef = useRef<HTMLInputElement>(null)
+
+  const handleAddItem = (event: FormEvent) => {
+    event.preventDefault()
+    const itemName = nameRef.current?.value
+    if (!itemName) return
+
+    const existingItem = inventory.find((item) => item.name === itemName)
+    if (existingItem) {
+      setInventory(
+        inventory.map((item) =>
+          item === existingItem ? { ...item, count: item.count + 1 } : item
+        )
+      )
+    } else {
+      setInventory([
+        ...inventory,
+        { name: itemName, type: "custom", timesUsed: 0, count: 1 },
+      ])
+    }
+    nameRef.current.value = ""
+  }
+
+  return (
+    <>
+      <form onSubmit={handleAddItem}>
+        <input ref={nameRef} />
+        <button onClick={handleAddItem}>Add</button>
+      </form>
+      <Inventory items={inventory} />
+    </>
+  )
+}
+
+export const inventoryWithUseEffectCode = `export function InventoryWithUseEffect({ items }: Props) {
+  const [sortedItems, setSortedItems] = useState(items)
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortedItems([...items].sort(sortFunction(sortBy)))
+  }
+
+  useEffect(() => {
+    setSortedItems(items)
+  }, [items])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+      const indexToUpdate = Number.parseInt(event.key)
+      setSortedItems(
+        sortedItems.map((item, index) =>
+          index === indexToUpdate ? { ...item, count: --item.count } : item
+        )
+      )
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [sortedItems])
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("timesUsed")}>
+        Sort by times used
+      </button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+`
+
+export const updateableInventoryCode = `export function UpdateableInventory({ items, setItems }: Props) {
+  const [sortBy, setSortBy] = useState<keyof Item>("name")
+
+  const sortedItems = [...items].sort(sortFunction(sortBy))
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortBy(sortBy)
+  }
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+      const indexToUpdate = Number.parseInt(event.key)
+      const itemToUpdate = sortedItems[indexToUpdate]
+      setItems &&
+        setItems(
+          items.map((item) =>
+            item === itemToUpdate ? { ...item, count: --item.count } : item
+          )
+        )
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [items, setItems, sortedItems])
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("timesUsed")}>
+        Sort by times used
+      </button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+`
+
+export function UpdateableInventory({ items, setItems }: Props) {
+  const [sortBy, setSortBy] = useState<keyof Item>("name")
+
+  const sortedItems = useMemo(
+    () => [...items].sort(sortFunction(sortBy)),
+    [items, sortBy]
+  )
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortBy(sortBy)
+  }
+
+  const consumeItem = useCallback(
+    (item: Item) => {
+      setItems &&
+        setItems(
+          items.map((i) => (i === item ? { ...i, count: --i.count } : i))
+        )
+    },
+    [items, setItems]
+  )
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+      const indexToUpdate = Number.parseInt(event.key)
+      const itemToUpdate = sortedItems[indexToUpdate]
+      consumeItem(itemToUpdate)
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [items, setItems, sortedItems, consumeItem])
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("timesUsed")}>
+        Sort by times used
+      </button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+
+export function AddToInventory() {
+  const [inventory, setInventory] = useState(items)
+  const nameRef = useRef<HTMLInputElement>(null)
+
+  const handleAddItem = (event: FormEvent) => {
+    event.preventDefault()
+    const itemName = nameRef.current?.value
+    if (!itemName) return
+
+    const existingItem = inventory.find((item) => item.name === itemName)
+    if (existingItem) {
+      setInventory(
+        inventory.map((item) =>
+          item === existingItem ? { ...item, count: item.count + 1 } : item
+        )
+      )
+    } else {
+      setInventory([
+        ...inventory,
+        { name: itemName, type: "custom", timesUsed: 0, count: 1 },
+      ])
+    }
+    nameRef.current.value = ""
+  }
+
+  return (
+    <>
+      <form onSubmit={handleAddItem}>
+        <input ref={nameRef} />
+        <button onClick={handleAddItem}>Add</button>
+      </form>
+      <UpdateableInventory items={inventory} setItems={setInventory} />
+    </>
+  )
+}
+
+export const extractConsumeItemCode = `const consumeItem = (item: Item) => {
+  setItems &&
+    setItems(items.map((i) => (item === i ? { ...i, count: --i.count } : i)))
+}
+
+useEffect(() => {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (!event.key.match(/^[0-9]$/)) return
+    const indexToUpdate = Number.parseInt(event.key)
+    const itemToUpdate = sortedItems[indexToUpdate]
+    consumeItem(itemToUpdate)
+  }
+
+  window.addEventListener("keydown", onKeyDown)
+
+  return () => window.removeEventListener("keydown", onKeyDown)
+}, [items, setItems, sortedItems, consumeItem])
+`
+
+export const memoisedConsumeItem = `const consumeItem = useMemo(() => (item: Item) => {
+  setItems &&
+    setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)))
+}, [items, setItems])
+`
+
+export const callbackisedConsumeItem = `  const consumeItem = useCallback((item: Item) => {
+  setItems &&
+    setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)))
+}, [items, setItems])
+`

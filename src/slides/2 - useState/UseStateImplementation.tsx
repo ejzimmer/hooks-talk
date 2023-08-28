@@ -25,6 +25,8 @@ export function UseStateImplementation() {
         </Notes>
       </Slide>
 
+      <Slide>demo it working properly</Slide>
+
       <Slide>useState implementation diagram/animation</Slide>
     </>
   )

@@ -21,6 +21,10 @@ export function UseRef() {
       </Slide>
       <BasicUseRefImplementation />
       <Slide>use ref diagram/animation</Slide>
+      <Slide>
+        put example of other times we might want use ref but don't go into them
+        in detail
+      </Slide>
       <ElementRef />
       <RulesOfHooks />
     </>

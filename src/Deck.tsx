@@ -5,6 +5,7 @@ import { Intro } from "./slides/0 - intro"
 import { UseRef } from "./slides/1 - useRef"
 import { UseState } from "./slides/2 - useState"
 import { UseEffect } from "./slides/3 - useEffect"
+import { UseMemo } from "./slides/4 - useMemo"
 
 export default function Deck() {
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function Deck() {
         <UseRef />
         <UseState />
         <UseEffect />
+        <UseMemo />
       </div>
     </div>
   )

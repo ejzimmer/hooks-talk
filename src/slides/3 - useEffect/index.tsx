@@ -1,30 +1,17 @@
-import { useEffect, useRef, useState } from "react"
 import {
-  Inventory,
-  SlowInventory,
+  InventoryWithoutCleanup,
   inventoryCode,
   items,
-  slowInventoryCode,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { Rendering } from "./Rendering"
+import { KeyboardShortcuts } from "./KeyboardShortcuts"
 
 export function UseEffect() {
   return (
     <>
-      <Slide renderOnVisible={true}>
-        <Inventory items={items} />
-      </Slide>
-      <Slide>
-        <Code>{slowInventoryCode}</Code>
-      </Slide>
-      <Slide renderOnVisible={true}>
-        <SlowInventory items={items} />
-      </Slide>
-      <Slide>
-        <Code>{slowInventoryCode}</Code>
-      </Slide>
+      <KeyboardShortcuts />
       <ShinyTitle title="useEffect" />
       <InverseTitle>
         <div>useEffect</div>
@@ -33,7 +20,7 @@ export function UseEffect() {
       <Slide>
         <Code>{inventoryCode}</Code>
         <Slide renderOnVisible={true}>
-          <Inventory items={items} />
+          <InventoryWithoutCleanup items={items} />
         </Slide>
       </Slide>
       <Rendering />
