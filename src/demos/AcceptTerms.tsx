@@ -4,8 +4,7 @@ type Props = {
   onSubmit: (subscribe?: boolean) => void
 }
 
-export const acceptTermsCode = `
-export function AcceptTerms({ onSubmit }: Props) {
+export const acceptTermsCode = `export function AcceptTerms({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = () => {
@@ -23,8 +22,7 @@ export function AcceptTerms({ onSubmit }: Props) {
       <button onClick={handleSubmit}>Submit</button>
     </>
   )
-}
-`
+}`
 
 export function AcceptTerms({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
@@ -82,7 +80,9 @@ export function AcceptTermsAndSpam({ onSubmit }: Props) {
   }
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "start" }}
+    >
       <label>
         <input type="checkbox" ref={termsRef} />
         Do you accept the terms & conditions?
@@ -92,11 +92,11 @@ export function AcceptTermsAndSpam({ onSubmit }: Props) {
         Can we send you spam?
       </label>
       <button onClick={handleSubmit}>Submit</button>
-    </>
+    </div>
   )
 }
 
-export const acceptTermsWithErrorMessageCode = `export function AcceptTermsWithErrorMessages({ onSubmit }: Props) {
+export const acceptTermsWithErrorMessageCode = `export function AcceptTerms({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState("")
 
@@ -118,8 +118,7 @@ export const acceptTermsWithErrorMessageCode = `export function AcceptTermsWithE
       <button onClick={handleSubmit}>Submit</button>
     </>
   )
-}
-`
+}`
 
 export function AcceptTermsWithErrorMessages({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
@@ -129,6 +128,7 @@ export function AcceptTermsWithErrorMessages({ onSubmit }: Props) {
     if (!termsRef.current?.checked) {
       setError("Please accept the terms")
     } else {
+      setError("")
       onSubmit()
     }
   }
@@ -139,19 +139,23 @@ export function AcceptTermsWithErrorMessages({ onSubmit }: Props) {
         <input type="checkbox" ref={termsRef} />
         Do you accept the terms & conditions?
       </label>
-      <div className="error">{error}</div>
+      <div style={{ color: "red" }}>{error}</div>
       <button onClick={handleSubmit}>Submit</button>
     </>
   )
 }
 
-export const acceptTermsWithErrorNoStateCode = `export function AcceptTermsWithErrorMessagesNoState({ onSubmit }: Props) {
+export const acceptTermsWithErrorNoStateCode = `export function AcceptTerms({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
   const errorRef = useRef<string>()
+
   const handleSubmit = () => {
-    if (!termsRef.current?.checked)  errorRef.current = "Please accept the terms";
-    else onSubmit()
+    if (!termsRef.current?.checked)  
+      errorRef.current = "Please accept the terms";
+    else 
+      onSubmit()
   }
+
   return (
     <>
       <label>
@@ -162,8 +166,7 @@ export const acceptTermsWithErrorNoStateCode = `export function AcceptTermsWithE
       <button onClick={handleSubmit}>Submit</button>
     </>
   )
-}
-`
+}`
 
 export function AcceptTermsWithErrorMessagesNoState({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
@@ -195,3 +198,55 @@ export const onSubmit = (subscribe?: boolean) => {
   }`
   alert(message)
 }
+
+export function AcceptTermsWithDisappearingErrorMessages({ onSubmit }: Props) {
+  const termsRef = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState("")
+
+  const handleSubmit = () => {
+    if (!termsRef.current?.checked) {
+      setError("Please accept the terms")
+    } else {
+      setError("")
+      onSubmit()
+    }
+  }
+
+  const handleClick = () => {
+    if (termsRef.current?.checked) {
+      setError("")
+    }
+  }
+
+  return (
+    <>
+      <label>
+        <input type="checkbox" ref={termsRef} onClick={handleClick} />
+        Do you accept the terms & conditions?
+      </label>
+      <div style={{ color: "red" }}>{error}</div>
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  )
+}
+
+export const disappearingErrorMessageCode = `export function AcceptTerms({ onSubmit }: Props) {
+  ...
+  
+  const handleClick = () => {
+    if (termsRef.current?.checked) {
+      setError("")
+    }
+  }
+
+  return (
+    <>
+      <label>
+        <input type="checkbox" ref={termsRef} onClick={handleClick} />
+        Do you accept the terms & conditions?
+      </label>
+      <div style={{ color: "red" }}>{error}</div>
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  )
+}`

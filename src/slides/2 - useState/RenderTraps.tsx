@@ -1,8 +1,15 @@
 import {
+  AcceptTermsWithDisappearingErrorMessages,
+  disappearingErrorMessageCode,
+  onSubmit,
+} from "../../demos/AcceptTerms"
+import {
   infiniteLoopInventoryCode,
-  SortedItems,
+  InventoryWithBrokenSort,
   items,
   sortedItemsCode,
+  brokenSortedItemsCode,
+  InventoryWithSort,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide, Notes, Fragment } from "../../helpers/Slide"
@@ -27,11 +34,9 @@ export function RenderTraps() {
 
       <Slide>
         <h2>Only render on change</h2>
+        <AcceptTermsWithDisappearingErrorMessages onSubmit={onSubmit} />
         <Fragment>
-          <Code>{noRerenderCode}</Code>
-        </Fragment>
-        <Fragment>
-          <Code>{betterNoRerenderCode}</Code>
+          <Code fontSize="0.4em">{disappearingErrorMessageCode}</Code>
         </Fragment>
         <Notes>
           <ul>
@@ -63,15 +68,19 @@ export function RenderTraps() {
       </Slide>
 
       <Slide>
+        <Code fontSize="0.45em">{brokenSortedItemsCode}</Code>
+      </Slide>
+
+      <Slide>
         <h2>Only render on change</h2>
-        <SortedItems items={items} />
+        <InventoryWithBrokenSort items={items} />
         <Notes>more insidious because it looks like it's working</Notes>
       </Slide>
 
       <Slide>horrified face</Slide>
 
       <Slide>
-        <p>
+        <blockquote>
           The <code>sort()</code> method of{" "}
           <a
             target="_blank"
@@ -90,21 +99,19 @@ export function RenderTraps() {
               in place
             </a>
           </em>{" "}
-          and returns the reference to the same array, now sorted. The default
-          sort order is ascending, built upon converting the elements into
-          strings, then comparing their sequences of UTF-16 code units values.
-        </p>
-        <cite>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"
-          >
-            Array.protype.sort on MDN
-          </a>
-        </cite>
+          and returns the reference to the same array, now sorted.
+          <cite style={{ display: "block" }}>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"
+            >
+              Array.protype.sort on MDN
+            </a>
+          </cite>
+        </blockquote>
         <Fragment>
-          <ul>
+          <ul style={{ columnCount: 2 }}>
             <li>copyWithin()</li>
             <li>fill()</li>
             <li>pop()</li>
@@ -121,16 +128,33 @@ export function RenderTraps() {
 
       <Slide>
         <h2>Make a copy</h2>
-        <code>items.sort()</code>➡️<code>[...items].sort()</code>
-        <code>items.reverse()</code>➡️<code>[...items].reverse()</code>
-        <code>items.push(newItem)</code>➡️<code>[...items, newItem]</code>
+        <ul>
+          <li>
+            <code>items.sort()</code> ➡️ <code>[...items].sort()</code>
+          </li>
+          <li>
+            <code>items.reverse()</code> ➡️ <code>[...items].reverse()</code>
+          </li>
+          <li>
+            <code>items.push(newItem)</code> ➡️ <code>[...items, newItem]</code>
+          </li>
+        </ul>
       </Slide>
 
       <Slide>
         <h2>New array methods</h2>
-        <code>items.sort()</code>➡️<code>items.toSoted()</code>
-        <code>items.reverse()</code>➡️<code>items.toReversed()</code>
-        <code>items.push(newItem)</code>➡️<code>items.concat([newItem])</code>
+        <ul>
+          <li>
+            <code>items.sort()</code> ➡️ <code>items.toSorted()</code>
+          </li>
+          <li>
+            <code>items.reverse()</code> ➡️ <code>items.toReversed()</code>
+          </li>
+          <li>
+            <code>items.push(newItem)</code> ➡️{" "}
+            <code>items.concat([newItem])</code>
+          </li>
+        </ul>
         <a
           target="_blank"
           rel="noreferrer"
@@ -142,7 +166,7 @@ export function RenderTraps() {
 
       <Slide>
         <Code>{sortedItemsCode}</Code>
-        <SortedItems items={items} />
+        <InventoryWithSort items={items} />
       </Slide>
     </>
   )
@@ -156,16 +180,3 @@ const multipleUseStatesCode = `onClick = () => {
   }
 }
 `
-
-const noRerenderCode = `function CheckAllowed({ userRole, allowedRoles, children}: Props) {
-  const [isAllowed, setAllowed] = useState(false)
-
-  if (allowedRoles.includes(userRole)) {
-    setIsAllowed(true)
-  }
-
-  return isAllowed ? children : <NotAllowed />
-}`
-const betterNoRerenderCode = `function CheckAllowed({ userRole, allowedRoles, children}: Props) {
-  return allowedRoles.includes(userRole) ? children : <NotAllowed />
-}`

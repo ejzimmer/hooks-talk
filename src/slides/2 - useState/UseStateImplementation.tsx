@@ -10,7 +10,7 @@ export function UseStateImplementation() {
   return (
     <>
       <Slide>
-        <Code>{acceptTermsWithErrorMessageCode}</Code>
+        <Code fontSize="0.4em">{acceptTermsWithErrorMessageCode}</Code>
         <AcceptTermsWithErrorMessages onSubmit={onSubmit} />
         <Notes>usage of useState is quite different to useRef...</Notes>
       </Slide>
@@ -24,8 +24,6 @@ export function UseStateImplementation() {
           </ul>
         </Notes>
       </Slide>
-
-      <Slide>demo it working properly</Slide>
 
       <Slide>useState implementation diagram/animation</Slide>
     </>

@@ -31,7 +31,7 @@ export function ElementRef() {
       <Slide>
         <AcceptTermsAndSpam onSubmit={onSubmit} />
         <Fragment>
-          <Code>{acceptTermsAndSpamCode}</Code>
+          <Code fontSize="0.4em">{acceptTermsAndSpamCode}</Code>
         </Fragment>
         <Notes>
           we can just add more useRefs, but it breaks our basic useRef

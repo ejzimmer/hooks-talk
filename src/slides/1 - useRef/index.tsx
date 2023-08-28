@@ -22,11 +22,22 @@ export function UseRef() {
       <BasicUseRefImplementation />
       <Slide>use ref diagram/animation</Slide>
       <Slide>
-        put example of other times we might want use ref but don't go into them
-        in detail
+        <Code>{timedButtonCode}</Code>
       </Slide>
       <ElementRef />
       <RulesOfHooks />
     </>
   )
 }
+
+const timedButtonCode = `function TimedButton({ onClick, children }: Props) {
+  const startTime = useRef(new Date().getTime())
+
+  const handleClick = () => {
+    const endTime = new Date().getTime();
+    logTime(endTime - startTime)
+    onClick()
+  }
+
+  return <button onClick={handleClick}>{children}</button>
+}`

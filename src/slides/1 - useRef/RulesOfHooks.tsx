@@ -8,11 +8,13 @@ export function RulesOfHooks() {
         <h2>Rules of Hooks</h2>
         <ul>
           <li>Only Call Hooks at the Top Level</li>
-          <li>Only Call Hooks from React Functions </li>
+          <li>Only Call Hooks from React Functions</li>
         </ul>
-        <a href="https://legacy.reactjs.org/docs/hooks-rules.html">
-          Rules of Hooks in React docs
-        </a>
+        <cite style={{ display: "block" }}>
+          <a href="https://legacy.reactjs.org/docs/hooks-rules.html">
+            Rules of Hooks in React docs
+          </a>
+        </cite>
         <Notes>
           these rules only seem to appear in the legacy docs they're mentioned
           in the new docs but don't have a fancy title
@@ -25,8 +27,8 @@ export function RulesOfHooks() {
             position: "fixed",
             boxSizing: "border-box",
             inset: "0px",
-            width: "100vw",
-            height: "100vh",
+            width: "100%",
+            height: "400px",
             fontSize: "large",
             padding: "2rem 2rem 4rem",
             lineHeight: 1.2,

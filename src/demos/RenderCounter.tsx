@@ -5,7 +5,12 @@ export const renderCounterCode = `export function RenderCounter() {
 
   numberOfRenders.current = numberOfRenders.current + 1
 
-  return <div>This component has rendered {numberOfRenders.current} times</div>
+  return (
+    <div>
+      This component has rendered 
+      {numberOfRenders.current} times
+    </div>
+  );
 }
 `
 

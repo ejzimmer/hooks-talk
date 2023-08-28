@@ -5,7 +5,7 @@ const singleRefCode = `// somewhere in React's code
 let ref = {} as { current?: any }
 
 export function useRef(initialValue: any) {
-  if (typeof ref.current === "undefined") {
+  if ('current' in ref) {
     ref.current = initialValue
   }
 

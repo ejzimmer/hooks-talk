@@ -10,17 +10,16 @@ import {
 type Item = {
   name: string
   type: "food" | "mineral" | "monster part" | "custom"
-  timesUsed: number
   count: number
 }
 
 export const items: Item[] = [
-  { name: "apple", type: "food", timesUsed: 43, count: 55 },
-  { name: "durian", type: "food", timesUsed: 27, count: 3 },
-  { name: "flint", type: "mineral", timesUsed: 68, count: 108 },
-  { name: "diamond", type: "mineral", timesUsed: 4, count: 1 },
-  { name: "bokoblin horn", type: "monster part", timesUsed: 8, count: 27 },
-  { name: "keese wing", type: "monster part", timesUsed: 34, count: 18 },
+  { name: "apple", type: "food", count: 55 },
+  { name: "durian", type: "food", count: 3 },
+  { name: "flint", type: "mineral", count: 108 },
+  { name: "diamond", type: "mineral", count: 1 },
+  { name: "bokoblin horn", type: "monster part", count: 27 },
+  { name: "keese wing", type: "monster part", count: 18 },
 ]
 
 type Props = {
@@ -33,7 +32,9 @@ export const infiniteLoopInventoryCode = `export function FilteredItems({ items,
   const [filteredItems, setFilteredItems] = useState(items)
 
   if (filterBy) {
-    setFilteredItems(items.filter((item) => item.type === filterBy))
+    setFilteredItems(
+      items.filter((item) => item.type === filterBy)
+    )
   }
 
   return (
@@ -53,10 +54,24 @@ export const sortedItemsCode = `export function SortedItems({ items }: Props) {
   }
 
   return (
+    <>...</>
+  )
+}`
+
+export const brokenSortedItemsCode = `export function SortedItemsBroken({ items }: Props) {
+  const [sortedItems, setSortedItems] = useState(items)
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortedItems(items.sort(sortFunction(sortBy)))
+  }
+
+  return (
     <>
-      <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
+      <button onClick={() => handleClick("name")}>
+        Sort by name
+      </button>
+      <button onClick={() => handleClick("count")}>
+        Sort by count
       </button>
       <ol>
         {sortedItems.map((item) => (
@@ -67,10 +82,31 @@ export const sortedItemsCode = `export function SortedItems({ items }: Props) {
       </ol>
     </>
   )
-}
-`
+}`
 
-export function SortedItems({ items }: Props) {
+export function InventoryWithBrokenSort({ items }: Props) {
+  const [sortedItems, setSortedItems] = useState(items)
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortedItems(items.sort(sortFunction(sortBy)))
+  }
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+
+export function InventoryWithSort({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -80,9 +116,7 @@ export function SortedItems({ items }: Props) {
   return (
     <>
       <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
-      </button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
       <ol>
         {sortedItems.map((item) => (
           <li key={item.name}>
@@ -156,9 +190,7 @@ export function SlowInventory({ items }: Props) {
   return (
     <>
       <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
-      </button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
       <ol>
         {sortedItems.map((item) => (
           <li key={item.name}>
@@ -232,9 +264,7 @@ export function InventoryWithoutCleanup({ items }: Props) {
   return (
     <>
       <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
-      </button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
       <ol>
         {sortedItems.map((item) => (
           <li key={item.name}>
@@ -272,9 +302,7 @@ export function Inventory({ items }: Props) {
   return (
     <>
       <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
-      </button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
       <ol>
         {sortedItems.map((item) => (
           <li key={item.name}>
@@ -303,10 +331,7 @@ export function AddToInventoryNotWorking() {
         )
       )
     } else {
-      setInventory([
-        ...inventory,
-        { name: itemName, type: "custom", timesUsed: 0, count: 1 },
-      ])
+      setInventory([...inventory, { name: itemName, type: "custom", count: 1 }])
     }
     nameRef.current.value = ""
   }
@@ -450,9 +475,7 @@ export function UpdateableInventory({ items, setItems }: Props) {
   return (
     <>
       <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
-      </button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
       <ol>
         {sortedItems.map((item) => (
           <li key={item.name}>
@@ -481,10 +504,7 @@ export function AddToInventory() {
         )
       )
     } else {
-      setInventory([
-        ...inventory,
-        { name: itemName, type: "custom", timesUsed: 0, count: 1 },
-      ])
+      setInventory([...inventory, { name: itemName, type: "custom", count: 1 }])
     }
     nameRef.current.value = ""
   }
