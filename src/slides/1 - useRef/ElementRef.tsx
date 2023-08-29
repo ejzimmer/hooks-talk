@@ -44,7 +44,6 @@ export function ElementRef() {
         <Code>{singleRefCode}</Code>
       </Slide>
       <MultpleRefsUseRefImplementation />
-      <Slide>multiple refs diagram/animation</Slide>
     </>
   )
 }

@@ -69,6 +69,20 @@ export const acceptTermsAndSpamCode = `export function AcceptTermsAndSpam({ onSu
   )
 }`
 
+export const abridgedAcceptTermsAndSpamCode = `// our component
+export function AcceptTermsAndSpam({ onSubmit }: Props) {
+  const termsRef = useRef<HTMLInputElement>(null)
+  const subscribeRef = useRef<HTMLInputElement>(null)
+
+  const handleSubmit = () => {
+    if (termsRef.current?.checked) {
+      onSubmit({ subscribe: !!subscribeRef.current?.checked })
+    }
+  }
+
+  return (...)
+}`
+
 export function AcceptTermsAndSpam({ onSubmit }: Props) {
   const termsRef = useRef<HTMLInputElement>(null)
   const subscribeRef = useRef<HTMLInputElement>(null)

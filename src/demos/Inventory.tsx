@@ -46,7 +46,7 @@ export const infiniteLoopInventoryCode = `export function FilteredItems({ items,
   )
 }`
 
-export const sortedItemsCode = `export function SortedItems({ items }: Props) {
+export const sortedItemsCode = `export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -58,7 +58,7 @@ export const sortedItemsCode = `export function SortedItems({ items }: Props) {
   )
 }`
 
-export const brokenSortedItemsCode = `export function SortedItemsBroken({ items }: Props) {
+export const brokenSortedItemsCode = `export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {

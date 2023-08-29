@@ -16,7 +16,9 @@ export function UseRefNoRerender() {
       </Slide>
 
       <Slide>
-        <Code fontSize="0.4em">{acceptTermsWithErrorNoStateCode}</Code>
+        <Code fontSize="0.4em" highlightLines="|3|6-7|18">
+          {acceptTermsWithErrorNoStateCode}
+        </Code>
         <AcceptTermsWithErrorMessagesNoState onSubmit={onSubmit} />
       </Slide>
 
