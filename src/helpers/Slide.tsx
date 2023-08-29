@@ -34,7 +34,12 @@ export const Slide = forwardRef<
 
 export function ShinyTitle({ title }: { title: string }) {
   return (
-    <Slide>
+    <Slide
+      data-background-image="chest.png"
+      data-background-size="50%"
+      data-background-position="center 75%"
+      data-transition="slide-up"
+    >
       <h2>{title}</h2>
     </Slide>
   )

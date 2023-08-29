@@ -1,6 +1,7 @@
 import React, {
   PropsWithChildren,
   createContext,
+  memo,
   useContext,
   useEffect,
   useState,
@@ -45,16 +46,22 @@ export default function Deck() {
     <DeckProvider deck={deck}>
       <div className="reveal">
         <div className="slides">
-          <Intro />
-          <UseRef />
-          <UseState />
-          <UseEffect />
-          <UseMemo />
-          <Slide>conclusion</Slide>
-          <Slide>further reading</Slide>
-          <Slide>thanks</Slide>
+          <AllSlides />
         </div>
       </div>
     </DeckProvider>
   )
 }
+
+const AllSlides = memo(() => (
+  <>
+    <Intro />
+    <UseRef />
+    <UseState />
+    <UseEffect />
+    <UseMemo />
+    <Slide>conclusion</Slide>
+    <Slide>further reading</Slide>
+    <Slide>thanks</Slide>
+  </>
+))

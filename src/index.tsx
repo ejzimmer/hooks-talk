@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals"
 
 import "reveal.js/dist/reveal.css"
 import "reveal.js/dist/theme/black.css"
+import "./overrides.css"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(

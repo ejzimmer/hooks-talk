@@ -1,0 +1,14 @@
+.reveal-viewport {
+  background-color: var(--background-colour);
+}
+
+.reveal.slide {
+  color: white;
+  --r-heading-font: "Hylian Serif", serif;
+  --r-heading-color: var(--primary-colour);
+  --r-heading-text-transform: none;
+}
+
+.slides > section[data-transition="slide-up"].future {
+  transform: translateY(150%);
+}

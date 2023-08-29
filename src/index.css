@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --primary-colour: #4ad59c;
+  --background-colour: #333;
 }
 
 code {
@@ -14,5 +16,11 @@ code {
 
 #root {
   height: 100%;
-  --primary-colour: #4ad59c;
+}
+
+@font-face {
+  font-family: "Hylian Serif";
+  src: url("/public/HyliaSerifBeta-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
