@@ -1,7 +1,10 @@
 import { Code } from "../../helpers/Code"
 import { Notes, Slide } from "../../helpers/Slide"
 import { useDeck } from "../../Deck"
-import { abridgedRenderCounterCode } from "../../demos/RenderCounter"
+import {
+  abridgedRenderCounterCode,
+  abridgedRenderCounterCodeWithoutCurrent,
+} from "../../demos/RenderCounter"
 import { RefObject, useCallback, useEffect, useRef, useState } from "react"
 import { abridgedAcceptTermsAndSpamCode } from "../../demos/AcceptTerms"
 
@@ -63,74 +66,64 @@ export function BasicUseRefImplementation() {
   const fragment = useFragment(slideRef, "simple-use-ref")
 
   return (
-    <>
-      <Slide data-transition="slide-in fade-out">
-        <Code fontSize="0.34em">
+    <Slide
+      ref={slideRef}
+      data-state="simple-use-ref"
+      data-transition="fade-in slide-out"
+    >
+      <div style={{ position: "relative" }}>
+        <Code
+          fontSize="0.34em"
+          highlightLines="|2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18|"
+        >
           {singleRefCode + "\n" + abridgedRenderCounterCode}
         </Code>
-      </Slide>
 
-      <Slide
-        ref={slideRef}
-        data-state="simple-use-ref"
-        data-transition="fade-in slide-out"
-      >
-        <div style={{ position: "relative" }}>
-          <Code
-            fontSize="0.34em"
-            highlightLines="2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18"
+        {fragment > -1 && <BoxPic top="0" />}
+
+        {fragment > 2 && (
+          <div
+            style={{
+              position: "absolute",
+              top: "70px",
+              right: "250px",
+              transform: "rotate(-.15turn)",
+            }}
           >
-            {singleRefCode + "\n" + abridgedRenderCounterCode}
-          </Code>
-          <BoxPic top="0" />
+            current: {fragment < 7 ? 0 : fragment < 17 ? 1 : 2}
+          </div>
+        )}
+        {((fragment > 4 && fragment < 9) || fragment > 13) && (
+          <div
+            style={{
+              width: "219px",
+              border: "4px solid rebeccapurple",
+              position: "absolute",
+              bottom: "100px",
+              left: "285px",
+              transformOrigin: "bottom left",
+              transform: "rotate(-.05turn)",
+            }}
+          />
+        )}
+      </div>
 
-          {fragment > 1 && (
-            <div
-              style={{
-                position: "absolute",
-                top: "70px",
-                right: "250px",
-                transform: "rotate(-.15turn)",
-              }}
-            >
-              current: {fragment < 6 ? 0 : fragment < 16 ? 1 : 2}
-            </div>
-          )}
-          {((fragment > 3 && fragment < 8) || fragment > 12) && (
-            <div
-              style={{
-                width: "219px",
-                border: "4px solid rebeccapurple",
-                position: "absolute",
-                bottom: "100px",
-                left: "285px",
-                transformOrigin: "bottom left",
-                transform: "rotate(-.05turn)",
-              }}
-            />
-          )}
-        </div>
-
-        <Notes>
-          <ul>
-            <li>this code can only deal with one call to useRef</li>
-            <li>
-              in reality, each component would have its own version of this
-            </li>
-            <li>
-              we'll look at how to deal with multiple calls to useRef in a
-              minute
-            </li>
-            <li>
-              also, the real code doesn't reset the value to initialValue when
-              you set it to undefined, just didn't want to complicate tracking
-              whether it had been set
-            </li>
-          </ul>
-          - - - -
-        </Notes>
-      </Slide>
-    </>
+      <Notes>
+        <ul>
+          <li>this code can only deal with one call to useRef</li>
+          <li>in reality, each component would have its own version of this</li>
+          <li>
+            we'll look at how to deal with multiple calls to useRef in a minute
+          </li>
+          <li>
+            also, the real code doesn't reset the value to initialValue when you
+            set it to undefined, just didn't want to complicate tracking whether
+            it had been set
+          </li>
+        </ul>
+        - - - -
+      </Notes>
+    </Slide>
   )
 }
 
@@ -143,13 +136,13 @@ export function UseRefWithoutCurrent() {
       <div style={{ position: "relative" }}>
         <Code
           fontSize="0.34em"
-          highlightLines="2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18"
+          highlightLines="|2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18|"
         >
-          {singleRefCode + "\n" + abridgedRenderCounterCode}
+          {singleRefCode + "\n" + abridgedRenderCounterCodeWithoutCurrent}
         </Code>
-        <BoxPic top="0" />
-        {fragment > 5 && <BoxPic top="unset" bottom="-50px" right="100px" />}
-        {fragment > 1 && (
+        {fragment > -1 && <BoxPic top="0" />}
+        {fragment > 6 && <BoxPic top="unset" bottom="-50px" right="100px" />}
+        {fragment > 2 && (
           <div
             style={{
               position: "absolute",
@@ -158,10 +151,10 @@ export function UseRefWithoutCurrent() {
               transform: "rotate(-.15turn)",
             }}
           >
-            current: {fragment < 6 ? 0 : fragment < 16 ? 1 : 2}
+            current: {fragment < 7 ? 0 : fragment < 17 ? 1 : 2}
           </div>
         )}
-        {((fragment > 3 && fragment < 6) || fragment > 12) && (
+        {((fragment > 4 && fragment < 7) || fragment > 13) && (
           <div
             style={{
               width: "219px",
@@ -205,7 +198,7 @@ export function MultpleRefsUseRefImplementation() {
       <div>
         <Code
           fontSize="0.34em"
-          highlightLines="2,3|21,22|22,5-8|22,10|22,11|22,13|22|23|23,5-8|23,10|23,11|23,13|23|31|16-18|25-29"
+          highlightLines="|2,3|21,22|22,5-8|22,10|22,11|22,13|22|23|23,5-8|23,10|23,11|23,13|23|31|16-18|25-29|"
         >
           {multipleRefsCode + "\n" + abridgedAcceptTermsAndSpamCode}
         </Code>

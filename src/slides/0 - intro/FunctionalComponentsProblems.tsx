@@ -9,7 +9,7 @@ export function FunctionalComponentProblems({ highlighted }: Props) {
   return (
     <Slide>
       <h2>Some problems with functional components</h2>
-      <ol style={{ fontSize: "1.5em" }}>
+      <ol className="r-fit-text">
         <HighlightListItem isHighlighted={highlighted === 0}>
           They can't store state
         </HighlightListItem>
@@ -22,7 +22,6 @@ export function FunctionalComponentProblems({ highlighted }: Props) {
 }
 
 export function HighlightListItem({
-  isHighlighted,
   children,
 }: PropsWithChildren<{ isHighlighted: boolean }>) {
   return <li>{children}</li>

@@ -1,4 +1,4 @@
-import { InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
+import { ShinyTitle, Slide } from "../../helpers/Slide"
 import { FunctionalComponentProblems } from "./FunctionalComponentsProblems"
 import { RenderCounterSlides } from "./RenderCounterSlides"
 import { Title } from "./Title"
@@ -22,7 +22,9 @@ export function Intro() {
           <li>useMemo & useCallback</li>
         </ul>
       </Slide>
-      <InverseTitle>Why hooks?</InverseTitle>
+      <Slide>
+        <h2 className="r-fit-text">Why hooks?</h2>
+      </Slide>
       <TwoKindsOfComponents />
       <WhyFunctionalComponents />
       <FunctionalComponentProblems highlighted={0} />

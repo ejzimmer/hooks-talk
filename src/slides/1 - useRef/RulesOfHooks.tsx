@@ -1,4 +1,3 @@
-import { useRef } from "react"
 import { Notes, Slide } from "../../helpers/Slide"
 
 export function RulesOfHooks() {
@@ -10,7 +9,7 @@ export function RulesOfHooks() {
           <li>Only Call Hooks at the Top Level</li>
           <li>Only Call Hooks from React Functions</li>
         </ul>
-        <cite style={{ display: "block" }}>
+        <cite className="footnote">
           <a href="https://legacy.reactjs.org/docs/hooks-rules.html">
             Rules of Hooks in React docs
           </a>
@@ -34,9 +33,10 @@ export function RulesOfHooks() {
             lineHeight: 1.2,
             whiteSpace: "pre-wrap",
             overflow: "auto",
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
             color: "white",
             textAlign: "left",
+            borderRadius: "10px",
           }}
         >
           <div

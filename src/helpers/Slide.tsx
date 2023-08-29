@@ -47,8 +47,11 @@ export function ShinyTitle({ title }: { title: string }) {
 
 export function InverseTitle({ children }: PropsWithChildren<any>) {
   return (
-    <Slide>
-      <h2>{children}</h2>
+    <Slide
+      data-background="linear-gradient(var(--primary-colour), #00acd8)"
+      data-transition="fade"
+    >
+      <div className="inverse">{children}</div>
     </Slide>
   )
 }
