@@ -15,6 +15,7 @@ import { UseMemo } from "./slides/4 - useMemo"
 import RevealHighlight from "reveal.js/plugin/highlight/highlight"
 
 import "reveal.js/plugin/highlight/monokai.css"
+import { Slide } from "./helpers/Slide"
 
 const DeckContext = createContext<Api | null>(null)
 
@@ -49,6 +50,9 @@ export default function Deck() {
           <UseState />
           <UseEffect />
           <UseMemo />
+          <Slide>conclusion</Slide>
+          <Slide>further reading</Slide>
+          <Slide>thanks</Slide>
         </div>
       </div>
     </DeckProvider>

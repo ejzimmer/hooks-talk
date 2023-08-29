@@ -4,7 +4,10 @@ import {
 } from "../../demos/RenderCounter"
 import { Code } from "../../helpers/Code"
 import { Fragment, InverseTitle, Slide } from "../../helpers/Slide"
-import { BasicUseRefImplementation } from "./BasicUseRefImplementation"
+import {
+  BasicUseRefImplementation,
+  UseRefWithoutCurrent,
+} from "./BasicUseRefImplementation"
 import { ElementRef } from "./ElementRef"
 import { RulesOfHooks } from "./RulesOfHooks"
 
@@ -20,7 +23,7 @@ export function UseRef() {
         <RenderCounterWithRerender />
       </Slide>
       <BasicUseRefImplementation />
-      <Slide>use ref diagram/animation</Slide>
+      <UseRefWithoutCurrent />
       <Slide>
         <Code>{timedButtonCode}</Code>
       </Slide>

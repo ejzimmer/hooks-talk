@@ -16,6 +16,16 @@ export function useRef(initialValue: any) {
 }
 `
 
+export const noCurrentCode = `// in our code
+export function RenderCounter() {
+  const numberOfRenders = useRef(0)
+
+  numberOfRenders = numberOfRenders + 1
+
+  return (...);
+}
+`
+
 export function BasicUseRefImplementation() {
   const deck = useDeck()
   const slideRef = useRef<HTMLElement>(null)
@@ -73,6 +83,97 @@ export function BasicUseRefImplementation() {
             </div>
           )}
           {((fragment > 3 && fragment < 8) || fragment > 12) && (
+            <div
+              style={{
+                width: "219px",
+                border: "4px solid rebeccapurple",
+                position: "absolute",
+                bottom: "100px",
+                left: "285px",
+                transformOrigin: "bottom left",
+                transform: "rotate(-.05turn)",
+              }}
+            />
+          )}
+        </div>
+
+        <Notes>
+          <ul>
+            <li>this code can only deal with one call to useRef</li>
+            <li>
+              in reality, each component would have its own version of this
+            </li>
+            <li>
+              we'll look at how to deal with multiple calls to useRef in a
+              minute
+            </li>
+            <li>
+              also, the real code doesn't reset the value to initialValue when
+              you set it to undefined, just didn't want to complicate tracking
+              whether it had been set
+            </li>
+          </ul>
+          - - - -
+        </Notes>
+      </Slide>
+    </>
+  )
+}
+
+export function UseRefWithoutCurrent() {
+  const deck = useDeck()
+  const slideRef = useRef<HTMLElement>(null)
+  const [fragment, setFragment] = useState(-1)
+
+  const onKeyDown = useCallback(() => {
+    setFragment(Number.parseInt(slideRef.current?.dataset.fragment ?? "-1"))
+  }, [])
+
+  useEffect(() => {
+    if (deck) {
+      deck.addEventListener("use-ref-no-current", function () {
+        window.addEventListener("keydown", onKeyDown)
+      })
+    }
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [deck, onKeyDown])
+
+  return (
+    <>
+      <Slide ref={slideRef} data-state="use-ref-no-current">
+        <div style={{ position: "relative" }}>
+          <Code
+            fontSize="0.34em"
+            highlightLines="2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18"
+          >
+            {singleRefCode + "\n" + abridgedRenderCounterCode}
+          </Code>
+          <img
+            alt=""
+            src="./box.jpeg"
+            style={{ position: "absolute", top: "0" }}
+          ></img>
+          {fragment > 5 && (
+            <img
+              alt=""
+              src="./box.jpeg"
+              style={{ position: "absolute", bottom: "-50px", right: "100px" }}
+            ></img>
+          )}
+          {fragment > 1 && (
+            <div
+              style={{
+                position: "absolute",
+                top: "70px",
+                right: "250px",
+                transform: "rotate(-.15turn)",
+              }}
+            >
+              current: {fragment < 6 ? 0 : fragment < 16 ? 1 : 2}
+            </div>
+          )}
+          {((fragment > 3 && fragment < 6) || fragment > 12) && (
             <div
               style={{
                 width: "219px",
