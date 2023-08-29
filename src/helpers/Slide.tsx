@@ -1,16 +1,19 @@
 import {
   ElementType,
   PropsWithChildren,
+  RefObject,
+  forwardRef,
   useEffect,
   useRef,
   useState,
 } from "react"
 
-export function Slide({
-  renderOnVisible,
-  children,
-}: PropsWithChildren<{ renderOnVisible?: boolean }>) {
-  const ref = useRef<HTMLElement>(null)
+export const Slide = forwardRef<
+  HTMLElement,
+  PropsWithChildren<{ renderOnVisible?: boolean }>
+>(function Slide({ renderOnVisible, children, ...data }, externalRef) {
+  const internalRef = useRef<HTMLElement>(null)
+  const ref = (externalRef || internalRef) as RefObject<HTMLElement>
   const [showChildren, setShowChildren] = useState(!renderOnVisible)
 
   useEffect(() => {
@@ -20,10 +23,14 @@ export function Slide({
       const elementIsVisible = ref.current?.classList.contains("present")
       setShowChildren(!!elementIsVisible)
     })
-  }, [renderOnVisible])
+  }, [renderOnVisible, ref])
 
-  return <section ref={ref}>{showChildren && children}</section>
-}
+  return (
+    <section ref={ref} {...data}>
+      {showChildren && children}
+    </section>
+  )
+})
 
 export function ShinyTitle({ title }: { title: string }) {
   return (

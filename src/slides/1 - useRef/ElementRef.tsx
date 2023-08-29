@@ -10,6 +10,7 @@ import { Fragment, Notes, Slide } from "../../helpers/Slide"
 import {
   BasicUseRefImplementation,
   MultpleRefsUseRefImplementation,
+  singleRefCode,
 } from "./BasicUseRefImplementation"
 
 export function ElementRef() {
@@ -39,7 +40,9 @@ export function ElementRef() {
         </Notes>
       </Slide>
 
-      <BasicUseRefImplementation />
+      <Slide>
+        <Code>{singleRefCode}</Code>
+      </Slide>
       <MultpleRefsUseRefImplementation />
       <Slide>multiple refs diagram/animation</Slide>
     </>
