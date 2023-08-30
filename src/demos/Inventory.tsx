@@ -1,5 +1,6 @@
 import {
   FormEvent,
+  KeyboardEventHandler,
   useCallback,
   useEffect,
   useMemo,
@@ -26,6 +27,7 @@ type Props = {
   items: Item[]
   setItems?: (items: Item[]) => void
   consumeItem?: (item: Item) => void
+  addEventHandler?: any
 }
 
 export const infiniteLoopInventoryCode = `export function FilteredItems({ items, filterType }: Props) {
@@ -170,24 +172,26 @@ export const slowInventoryCode = `export function Inventory({ items }: Props) {
 }
 `
 
-export function BrokenInventory({ items }: Props) {
+export function BrokenInventory({ items, addEventHandler }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
     setSortedItems([...items].sort(sortFunction(sortBy)))
   }
 
-  window.addEventListener("keydown", (event) => {
+  const onKeyDown = (event: KeyboardEvent) => {
     console.log("keydown handler called")
     if (!event.key.match(/^[0-9]$/)) return
 
-    const indexToUpdate = Number.parseInt(event.key)
+    const indexToUpdate = Number.parseInt(event.key) - 1
     setSortedItems(
       sortedItems.map((item, index) =>
         index === indexToUpdate ? { ...item, count: --item.count } : item
       )
     )
-  })
+  }
+  addEventHandler && addEventHandler(onKeyDown)
+  window.addEventListener("keydown", onKeyDown)
 
   return (
     <>
@@ -282,7 +286,7 @@ export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
-    setSortedItems([...items].sort(sortFunction(sortBy)))
+    setSortedItems([...sortedItems].sort(sortFunction(sortBy)))
   }
 
   useEffect(() => {

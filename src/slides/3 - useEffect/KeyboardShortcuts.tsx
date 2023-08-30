@@ -1,4 +1,11 @@
 import {
+  KeyboardEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import {
   items,
   slowInventoryCode,
   BrokenInventory,
@@ -6,8 +13,32 @@ import {
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
+import { useDeck } from "../../Deck"
 
 export function KeyboardShortcuts() {
+  const deck = useDeck()
+  const brokenInventoryRef = useRef(null)
+  const handlers = useRef<any[]>([])
+  const [, setBrokenIsCurrent] = useState(false)
+
+  const addEventHandler = useCallback((handler: any) => {
+    handlers.current.push(handler)
+  }, [])
+
+  useEffect(() => {
+    deck &&
+      deck.addEventListener("slidechanged", (event: any) => {
+        if (event.currentSlide !== brokenInventoryRef.current) {
+          handlers.current.forEach((handler) => {
+            window.removeEventListener("keydown", handler)
+            setBrokenIsCurrent(false)
+          })
+        } else {
+          setBrokenIsCurrent(true)
+        }
+      })
+  }, [deck])
+
   return (
     <>
       <Slide>
@@ -18,8 +49,8 @@ export function KeyboardShortcuts() {
           {slowInventoryCode}
         </Code>
       </Slide>
-      <Slide renderOnVisible={true}>
-        <BrokenInventory items={items} />
+      <Slide ref={brokenInventoryRef}>
+        <BrokenInventory items={items} addEventHandler={addEventHandler} />
       </Slide>
       <Slide>
         <Code fontSize=".5em" highlightLines="8-19">
