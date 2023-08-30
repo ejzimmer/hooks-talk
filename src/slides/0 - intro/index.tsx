@@ -27,7 +27,7 @@ export function Intro() {
       </Slide>
       <TwoKindsOfComponents />
       <WhyFunctionalComponents />
-      <FunctionalComponentProblems highlighted={0} />
+      <FunctionalComponentProblems />
       <RenderCounterSlides />
       <ShinyTitle title="useRef" />
     </>

@@ -19,7 +19,7 @@ export function UseRef() {
         <div>maintain data between renders</div>
       </InverseTitle>
       <Slide>
-        <Code>{renderCounterCode}</Code>
+        <Code highlightLines="|2|4|6-10">{renderCounterCode}</Code>
         <RenderCounterWithRerender />
       </Slide>
       <BasicUseRefImplementation />

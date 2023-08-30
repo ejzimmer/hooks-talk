@@ -36,7 +36,9 @@ export function RenderTraps() {
         <h2>Only render on change</h2>
         <AcceptTermsWithDisappearingErrorMessages onSubmit={onSubmit} />
         <Fragment>
-          <Code fontSize="0.4em">{disappearingErrorMessageCode}</Code>
+          <Code fontSize="0.4em" highlightLines="4-8">
+            {disappearingErrorMessageCode}
+          </Code>
         </Fragment>
         <Notes>
           <ul>
@@ -51,7 +53,9 @@ export function RenderTraps() {
 
       <Slide>
         <h2>Only render on change</h2>
-        <Code>{infiniteLoopInventoryCode}</Code>
+        <Code highlightLines="|2|4-8" fontSize="0.5em">
+          {infiniteLoopInventoryCode}
+        </Code>
       </Slide>
 
       <Slide>
@@ -68,7 +72,9 @@ export function RenderTraps() {
       </Slide>
 
       <Slide>
-        <Code fontSize="0.45em">{brokenSortedItemsCode}</Code>
+        <Code fontSize="0.45em" highlightLines="|10-15|4-6">
+          {brokenSortedItemsCode}
+        </Code>
       </Slide>
 
       <Slide>
@@ -165,7 +171,7 @@ export function RenderTraps() {
       </Slide>
 
       <Slide>
-        <Code>{sortedItemsCode}</Code>
+        <Code highlightLines="|5">{sortedItemsCode}</Code>
         <InventoryWithSort items={items} />
       </Slide>
     </>

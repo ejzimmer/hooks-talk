@@ -22,12 +22,14 @@ export function UseRefNoRerender() {
         <AcceptTermsWithErrorMessagesNoState onSubmit={onSubmit} />
       </Slide>
 
-      <FunctionalComponentProblems highlighted={1} />
+      <FunctionalComponentProblems />
       <ShinyTitle title="useState" />
       <InverseTitle>
-        <div>useState</div>
-        <Fragment>maintain data between renders</Fragment>
-        <Fragment>trigger render when that data changes</Fragment>
+        <h2>useState</h2>
+        <ul>
+          <Fragment as="li">maintain data between renders</Fragment>
+          <Fragment as="li">trigger render when that data changes</Fragment>
+        </ul>
       </InverseTitle>
     </>
   )

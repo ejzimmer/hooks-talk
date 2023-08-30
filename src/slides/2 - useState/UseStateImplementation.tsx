@@ -18,7 +18,15 @@ export function UseStateImplementation() {
       </Slide>
 
       <Slide>
-        <Code>{useStateImplementationCode}</Code>
+        <Code
+          fontSize="0.45em"
+          highlightLines="|2-3|26-27|28|28,5-13|28,8|28,9-11|28,15|28,16|28,17|28|32|20-23|"
+        >
+          {useStateImplementationCode +
+            "\n" +
+            "// in our component\n" +
+            acceptTermsWithErrorMessageCode}
+        </Code>
         <Notes>
           <ul>
             <li>needs to return value & setter function</li>
@@ -30,26 +38,27 @@ export function UseStateImplementation() {
   )
 }
 
-const useStateImplementationCode = `const state: [any, Dispatch<React.SetStateAction<any>>][] = []
-let stateIndex = 0
+const useStateImplementationCode = `// somewhere in React's code
+const state: [T, Dispatch<React.SetStateAction<T>>][] = []
+let currentIndex = 0
 
 export function useState<T>(initialValue: T): [T, (value: T) => void] {
   if (typeof state[stateIndex] === "undefined") {
-    state[stateIndex] = [
+    state[currentIndex] = [
       initialValue,
       (value: T) => {
-        state[stateIndex][0] = value
+        state[currentIndex][0] = value
       },
     ]
   }
 
-  const thisState = state[stateIndex]
-  stateIndex++
+  const thisState = state[currentIndex]
+  currentIndex++
   return thisState
 }
 
 export function afterState() {
-  stateIndex = 0
+  currentIndex = 0
   renderIfRequired()
 }            
 `

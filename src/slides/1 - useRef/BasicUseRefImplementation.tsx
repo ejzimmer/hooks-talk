@@ -30,6 +30,18 @@ export function RenderCounter() {
 }
 `
 
+export const singleRefWithoutCurrentCode = `// somewhere in React's code
+let ref;
+
+export function useRef(initialValue: any) {
+  if (typeof ref ==== 'undefined') {
+    ref = initialValue
+  }
+
+  return ref
+}
+`
+
 function useFragment(slideRef: RefObject<HTMLElement>, eventName: string) {
   const deck = useDeck()
   const [fragment, setFragment] = useState(-1)
@@ -138,7 +150,9 @@ export function UseRefWithoutCurrent() {
           fontSize="0.34em"
           highlightLines="|2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18|"
         >
-          {singleRefCode + "\n" + abridgedRenderCounterCodeWithoutCurrent}
+          {singleRefWithoutCurrentCode +
+            "\n" +
+            abridgedRenderCounterCodeWithoutCurrent}
         </Code>
         {fragment > -1 && <BoxPic top="0" />}
         {fragment > 6 && <BoxPic top="unset" bottom="-50px" right="100px" />}
@@ -146,12 +160,22 @@ export function UseRefWithoutCurrent() {
           <div
             style={{
               position: "absolute",
-              top: "70px",
-              right: "250px",
-              transform: "rotate(-.15turn)",
+              top: "110px",
+              right: "350px",
             }}
           >
-            current: {fragment < 7 ? 0 : fragment < 17 ? 1 : 2}
+            {0}
+          </div>
+        )}
+        {fragment > 6 && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              right: "270px",
+            }}
+          >
+            {1}
           </div>
         )}
         {((fragment > 4 && fragment < 7) || fragment > 13) && (
@@ -164,6 +188,19 @@ export function UseRefWithoutCurrent() {
               left: "285px",
               transformOrigin: "bottom left",
               transform: "rotate(-.05turn)",
+            }}
+          />
+        )}
+        {fragment > 6 && (
+          <div
+            style={{
+              width: "300px",
+              border: "4px solid rebeccapurple",
+              position: "absolute",
+              bottom: "90px",
+              left: "285px",
+              transformOrigin: "bottom left",
+              transform: "rotate(.02turn)",
             }}
           />
         )}

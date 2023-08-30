@@ -33,7 +33,7 @@ export function ElementRef() {
       <Slide>
         <AcceptTermsAndSpam onSubmit={onSubmit} />
         <Fragment>
-          <Code fontSize="0.3em" highlightLines="|2,3|6-8">
+          <Code fontSize="0.3em" highlightLines="|2,3|14,18|6-8">
             {acceptTermsAndSpamCode}
           </Code>
         </Fragment>

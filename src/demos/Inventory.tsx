@@ -28,12 +28,12 @@ type Props = {
   consumeItem?: (item: Item) => void
 }
 
-export const infiniteLoopInventoryCode = `export function FilteredItems({ items, filterBy }: Props) {
+export const infiniteLoopInventoryCode = `export function FilteredItems({ items, filterType }: Props) {
   const [filteredItems, setFilteredItems] = useState(items)
 
-  if (filterBy) {
+  if (filterType) {
     setFilteredItems(
-      items.filter((item) => item.type === filterBy)
+      items.filter((item) => item.type === filterType)
     )
   }
 
