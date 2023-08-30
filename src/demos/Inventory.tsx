@@ -142,10 +142,12 @@ export const slowInventoryCode = `export function Inventory({ items }: Props) {
   window.addEventListener("keydown", (event) => {
     if (!event.key.match(/^[0-9]$/)) return
 
-    const indexToUpdate = Number.parseInt(event.key)
+    const indexToUpdate = Number.parseInt(event.key) - 1
     setSortedItems(
       sortedItems.map((item, index) =>
-        index === indexToUpdate ? { ...item, count: --item.count } : item
+        index === indexToUpdate ? 
+          { ...item, count: --item.count } : 
+          item
       )
     )
   })
@@ -168,7 +170,7 @@ export const slowInventoryCode = `export function Inventory({ items }: Props) {
 }
 `
 
-export function SlowInventory({ items }: Props) {
+export function BrokenInventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -286,7 +288,7 @@ export function Inventory({ items }: Props) {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return
-      const indexToUpdate = Number.parseInt(event.key)
+      const indexToUpdate = Number.parseInt(event.key) - 1
       setSortedItems(
         sortedItems.map((item, index) =>
           index === indexToUpdate ? { ...item, count: --item.count } : item

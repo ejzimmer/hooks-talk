@@ -72,7 +72,7 @@ export function UseMemo() {
       <Slide>
         <Code>{updateableInventoryCode}</Code>
       </Slide>
-      <Slide>
+      <Slide renderOnVisible={true}>
         <AddToInventory />
       </Slide>
       <Slide>

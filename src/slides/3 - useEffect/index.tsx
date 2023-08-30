@@ -14,9 +14,19 @@ export function UseEffect() {
       <KeyboardShortcuts />
       <ShinyTitle title="useEffect" />
       <InverseTitle>
-        <div>useEffect</div>
+        <h2>useEffect</h2>
         <Fragment>handle stuff that's not managed by React</Fragment>
       </InverseTitle>
+      <Slide>
+        <ul>
+          <li>native event handlers</li>
+          <Fragment as="li">
+            setTimeout/setInterval/requestAnimationFrame
+          </Fragment>
+          <Fragment as="li">making API calls</Fragment>
+          <Fragment as="li">interacting with 3rd party libraries</Fragment>
+        </ul>
+      </Slide>
       <Slide>
         <Code>{inventoryCode}</Code>
         <Slide renderOnVisible={true}>

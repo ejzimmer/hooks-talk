@@ -1,8 +1,8 @@
 import {
-  InventoryWithoutCleanup,
   items,
   slowInventoryCode,
-  SlowInventory,
+  BrokenInventory,
+  Inventory,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
@@ -10,17 +10,21 @@ import { Slide } from "../../helpers/Slide"
 export function KeyboardShortcuts() {
   return (
     <>
-      <Slide renderOnVisible={true}>
-        <InventoryWithoutCleanup items={items} />
+      <Slide>
+        <Inventory items={items} />
       </Slide>
       <Slide>
-        <Code>{slowInventoryCode}</Code>
+        <Code fontSize=".5em" highlightLines="8-19|8|9|11|12-18">
+          {slowInventoryCode}
+        </Code>
       </Slide>
       <Slide renderOnVisible={true}>
-        <SlowInventory items={items} />
+        <BrokenInventory items={items} />
       </Slide>
       <Slide>
-        <Code>{slowInventoryCode}</Code>
+        <Code fontSize=".5em" highlightLines="8-19">
+          {slowInventoryCode}
+        </Code>
       </Slide>
     </>
   )

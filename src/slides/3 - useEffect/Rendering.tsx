@@ -66,18 +66,6 @@ export function Rendering() {
         <Code>{useEffectWithCleanupCode}</Code>
         <Inventory items={items} />
       </Slide>
-
-      <Slide>
-        <ul>
-          <li>native event handlers</li>
-          <Fragment as="li">
-            setTimeout/setInterval/requestAnimationFrame
-          </Fragment>
-          <Fragment as="li">making API calls</Fragment>
-          <Fragment as="li">interacting with 3rd party libraries</Fragment>
-        </ul>
-        <Notes>useEffect is also useful for...</Notes>
-      </Slide>
     </>
   )
 }
