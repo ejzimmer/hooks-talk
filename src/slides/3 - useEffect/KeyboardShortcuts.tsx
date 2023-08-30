@@ -6,6 +6,7 @@ import {
   Inventory,
   abridgedSlowInventoryCode,
   useDodgyEventHandlers,
+  InventorySlide,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
@@ -18,9 +19,7 @@ export function KeyboardShortcuts() {
 
   return (
     <>
-      <Slide>
-        <Inventory items={items} />
-      </Slide>
+      <InventorySlide />
       <Slide>
         <Code fontSize=".5em" highlightLines="8-19|8|9|11|12-18">
           {slowInventoryCode}

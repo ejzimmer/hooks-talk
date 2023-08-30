@@ -7,6 +7,7 @@ import {
   useState,
 } from "react"
 import { useDeck } from "../Deck"
+import { Slide } from "../helpers/Slide"
 
 export type Item = {
   name: string
@@ -351,7 +352,63 @@ export function InventoryWithoutCleanup({
   )
 }
 
-export function Inventory({ items }: Props) {
+export function InventoryWithoutCleanupOrDependency({
+  items,
+  isCurrent,
+  addEventHandler,
+  showCount,
+}: Props & { showCount?: boolean }) {
+  const [sortedItems, setSortedItems] = useState(items)
+  const numberOfKeydowns = useRef(0)
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortedItems([...items].sort(sortFunction(sortBy)))
+  }
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+
+      const indexToUpdate = Number.parseInt(event.key) - 1
+      numberOfKeydowns.current++
+      setSortedItems(
+        sortedItems.map((item, index) =>
+          index === indexToUpdate ? { ...item, count: --item.count } : item
+        )
+      )
+    }
+
+    if (isCurrent) {
+      window.addEventListener("keydown", onKeyDown)
+      addEventHandler(onKeyDown)
+    }
+  }, [isCurrent, addEventHandler])
+
+  return (
+    <>
+      {showCount && (
+        <div>
+          OnKeydown called{" "}
+          <span style={{ color: "var(--primary-colour)", fontSize: "1.5em" }}>
+            {numberOfKeydowns.current}
+          </span>{" "}
+          times
+        </div>
+      )}
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            {item.name} {item.count}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+
+export function Inventory({ items, isCurrent }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -369,10 +426,10 @@ export function Inventory({ items }: Props) {
       )
     }
 
-    window.addEventListener("keydown", onKeyDown)
+    isCurrent && window.addEventListener("keydown", onKeyDown)
 
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [sortedItems])
+  }, [sortedItems, isCurrent])
 
   return (
     <>
@@ -386,6 +443,16 @@ export function Inventory({ items }: Props) {
         ))}
       </ol>
     </>
+  )
+}
+
+export function InventorySlide() {
+  const inventoryRef = useRef(null)
+  const { isCurrent } = useDodgyEventHandlers(inventoryRef.current)
+  return (
+    <Slide ref={inventoryRef}>
+      <Inventory items={items} isCurrent={isCurrent} />
+    </Slide>
   )
 }
 
