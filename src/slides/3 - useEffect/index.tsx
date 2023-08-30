@@ -1,12 +1,14 @@
 import {
   InventoryWithoutCleanup,
-  inventoryCode,
+  inventoryWithoutCleanupCode,
   items,
+  useDodgyEventHandlers,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { Rendering } from "./Rendering"
 import { KeyboardShortcuts } from "./KeyboardShortcuts"
+import { useRef } from "react"
 
 export function UseEffect() {
   return (
@@ -28,12 +30,40 @@ export function UseEffect() {
         </ul>
       </Slide>
       <Slide>
-        <Code>{inventoryCode}</Code>
-        <Slide renderOnVisible={true}>
-          <InventoryWithoutCleanup items={items} />
-        </Slide>
+        <Code fontSize="0.4em" highlightLines="|4,18|5-16|17">
+          {inventoryWithoutCleanupCode}
+        </Code>
       </Slide>
+      <Slide>
+        <h2>useEffect's callback runs</h2>
+        <ul>
+          <Fragment as="li">
+            <em>after</em> the component renders
+          </Fragment>
+          <Fragment as="li">whenever the dependency array changes</Fragment>
+        </ul>
+      </Slide>
+      <WithoutCleanup />
+      <WithoutCleanup showCount={true} />
       <Rendering />
     </>
+  )
+}
+
+function WithoutCleanup({ showCount }: { showCount?: boolean }) {
+  const withoutCleanupRef = useRef(null)
+  const { addEventHandler, isCurrent } = useDodgyEventHandlers(
+    withoutCleanupRef.current
+  )
+
+  return (
+    <Slide ref={withoutCleanupRef}>
+      <InventoryWithoutCleanup
+        items={items}
+        addEventHandler={addEventHandler}
+        isCurrent={isCurrent}
+        showCount={showCount}
+      />
+    </Slide>
   )
 }

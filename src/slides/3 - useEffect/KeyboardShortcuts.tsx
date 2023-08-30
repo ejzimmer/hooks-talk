@@ -1,44 +1,20 @@
-import {
-  KeyboardEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import { useRef } from "react"
 import {
   items,
   slowInventoryCode,
   BrokenInventory,
   Inventory,
   abridgedSlowInventoryCode,
+  useDodgyEventHandlers,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
-import { useDeck } from "../../Deck"
 
 export function KeyboardShortcuts() {
-  const deck = useDeck()
   const brokenInventoryRef = useRef(null)
-  const handlers = useRef<any[]>([])
-  const [, setBrokenIsCurrent] = useState(false)
-
-  const addEventHandler = useCallback((handler: any) => {
-    handlers.current.push(handler)
-  }, [])
-
-  useEffect(() => {
-    deck &&
-      deck.addEventListener("slidechanged", (event: any) => {
-        if (event.currentSlide !== brokenInventoryRef.current) {
-          handlers.current.forEach((handler) => {
-            window.removeEventListener("keydown", handler)
-            setBrokenIsCurrent(false)
-          })
-        } else {
-          setBrokenIsCurrent(true)
-        }
-      })
-  }, [deck])
+  const { addEventHandler, isCurrent } = useDodgyEventHandlers(
+    brokenInventoryRef.current
+  )
 
   return (
     <>
@@ -51,7 +27,11 @@ export function KeyboardShortcuts() {
         </Code>
       </Slide>
       <Slide ref={brokenInventoryRef}>
-        <BrokenInventory items={items} addEventHandler={addEventHandler} />
+        <BrokenInventory
+          items={items}
+          addEventHandler={addEventHandler}
+          isCurrent={isCurrent}
+        />
       </Slide>
       <Slide>
         <Code fontSize=".4em" highlightLines="">

@@ -10,17 +10,7 @@ export function Rendering() {
   return (
     <>
       <Slide>
-        <h2>useEffect's callback runs</h2>
-        <ul>
-          <li>
-            <em>after</em> the component renders
-          </li>
-          <li>whenever the dependency array changes</li>
-        </ul>
-      </Slide>
-
-      <Slide>
-        <Code>{useEffectCode}</Code>
+        <Code fontSize="0.4em">{useEffectCode}</Code>
         <Notes>
           all variables used by useEffect should be included in the dependency
           array, else things won't work properly. eg our useEffect would have

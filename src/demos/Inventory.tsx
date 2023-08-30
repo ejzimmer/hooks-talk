@@ -1,14 +1,14 @@
 import {
   FormEvent,
-  KeyboardEventHandler,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react"
+import { useDeck } from "../Deck"
 
-type Item = {
+export type Item = {
   name: string
   type: "food" | "mineral" | "monster part" | "custom"
   count: number
@@ -28,6 +28,7 @@ type Props = {
   setItems?: (items: Item[]) => void
   consumeItem?: (item: Item) => void
   addEventHandler?: any
+  isCurrent?: boolean
 }
 
 export const infiniteLoopInventoryCode = `export function FilteredItems({ items, filterType }: Props) {
@@ -130,7 +131,7 @@ export function InventoryWithSort({ items }: Props) {
   )
 }
 
-function sortFunction(by: keyof Item) {
+export function sortFunction(by: keyof Item) {
   return (a: Item, b: Item) => (a[by] === b[by] ? 0 : a[by] < b[by] ? -1 : 1)
 }
 
@@ -191,7 +192,7 @@ export const abridgedSlowInventoryCode = `export function Inventory({ items }: P
 }
 `
 
-export function BrokenInventory({ items, addEventHandler }: Props) {
+export function BrokenInventory({ items, addEventHandler, isCurrent }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -209,8 +210,11 @@ export function BrokenInventory({ items, addEventHandler }: Props) {
       )
     )
   }
-  addEventHandler && addEventHandler(onKeyDown)
-  window.addEventListener("keydown", onKeyDown)
+
+  if (isCurrent) {
+    addEventHandler && addEventHandler(onKeyDown)
+    window.addEventListener("keydown", onKeyDown)
+  }
 
   return (
     <>
@@ -265,29 +269,75 @@ export const inventoryCode = `export function Inventory({ items }: Props) {
 }
 `
 
-export function InventoryWithoutCleanup({ items }: Props) {
+export const inventoryWithoutCleanupCode = `export function Inventory({ items }: Props) {
+  ...
+
+  useEffect(
+    () => {
+      window.addEventListener("keydown", (event) => {
+        if (!event.key.match(/^[0-9]$/)) return
+
+        const indexToUpdate = Number.parseInt(event.key)
+        setSortedItems(
+          sortedItems.map((item, index) =>
+            index === indexToUpdate ? { ...item, count: --item.count } : item
+          )
+        )
+      })
+    }, 
+    [sortedItems]
+  )
+
+  return (...)
+}
+`
+
+export function InventoryWithoutCleanup({
+  items,
+  isCurrent,
+  addEventHandler,
+  showCount,
+}: Props & { showCount?: boolean }) {
+  console.log("rendering component")
   const [sortedItems, setSortedItems] = useState(items)
+  const numberOfKeydowns = useRef(0)
 
   const handleClick = (sortBy: keyof Item) => {
     setSortedItems([...items].sort(sortFunction(sortBy)))
   }
 
   useEffect(() => {
-    console.log("attaching event handler")
-    window.addEventListener("keydown", (event: KeyboardEvent) => {
+    console.log("running useEffect")
+    const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return
 
-      const indexToUpdate = Number.parseInt(event.key)
+      const indexToUpdate = Number.parseInt(event.key) - 1
+      console.log("setting state")
+      numberOfKeydowns.current++
       setSortedItems(
         sortedItems.map((item, index) =>
           index === indexToUpdate ? { ...item, count: --item.count } : item
         )
       )
-    })
-  }, [sortedItems])
+    }
+
+    if (isCurrent) {
+      window.addEventListener("keydown", onKeyDown)
+      addEventHandler(onKeyDown)
+    }
+  }, [sortedItems, isCurrent, addEventHandler])
 
   return (
     <>
+      {showCount && (
+        <div>
+          OnKeydown called{" "}
+          <span style={{ color: "var(--primary-colour)", fontSize: "1.5em" }}>
+            {numberOfKeydowns.current}
+          </span>{" "}
+          times
+        </div>
+      )}
       <button onClick={() => handleClick("name")}>Sort by name</button>
       <button onClick={() => handleClick("count")}>Sort by count</button>
       <ol>
@@ -575,3 +625,34 @@ export const callbackisedConsumeItem = `  const consumeItem = useCallback((item:
     setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)))
 }, [items, setItems])
 `
+
+export function useDodgyEventHandlers(slideRef: HTMLElement | null) {
+  const deck = useDeck()
+  const handlers = useRef<any[]>([])
+  const [isCurrent, setIsCurrent] = useState(false)
+
+  const addEventHandler = useCallback((handler: any) => {
+    handlers.current.push(handler)
+  }, [])
+
+  // just in case we reload the page with the component already loaded
+  useEffect(() => {
+    slideRef && setIsCurrent(slideRef.classList.contains("present"))
+  }, [slideRef])
+
+  useEffect(() => {
+    deck &&
+      deck.addEventListener("slidechanged", (event: any) => {
+        if (event.currentSlide !== slideRef) {
+          handlers.current.forEach((handler) => {
+            window.removeEventListener("keydown", handler)
+            setIsCurrent(false)
+          })
+        } else {
+          setIsCurrent(true)
+        }
+      })
+  }, [deck, slideRef])
+
+  return { addEventHandler, isCurrent }
+}
