@@ -172,6 +172,25 @@ export const slowInventoryCode = `export function Inventory({ items }: Props) {
 }
 `
 
+export const abridgedSlowInventoryCode = `export function Inventory({ items }: Props) {
+  const [sortedItems, setSortedItems] = useState(items)
+  ... 
+
+  window.addEventListener("keydown", (event) => {
+    ...
+    setSortedItems(
+      sortedItems.map((item, index) =>
+        index === indexToUpdate ? 
+          { ...item, count: --item.count } : 
+          item
+      )
+    )
+  })
+
+  return (...)
+}
+`
+
 export function BrokenInventory({ items, addEventHandler }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 

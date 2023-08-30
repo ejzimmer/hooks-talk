@@ -10,6 +10,7 @@ import {
   slowInventoryCode,
   BrokenInventory,
   Inventory,
+  abridgedSlowInventoryCode,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
@@ -53,8 +54,8 @@ export function KeyboardShortcuts() {
         <BrokenInventory items={items} addEventHandler={addEventHandler} />
       </Slide>
       <Slide>
-        <Code fontSize=".5em" highlightLines="8-19">
-          {slowInventoryCode}
+        <Code fontSize=".4em" highlightLines="">
+          {abridgedSlowInventoryCode}
         </Code>
       </Slide>
     </>
