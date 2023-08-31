@@ -55,13 +55,13 @@ export default function Deck() {
 
 const AllSlides = memo(() => (
   <>
-    {/* <Intro />
+    <Intro />
     <UseRef />
-    <UseState /> */}
+    <UseState />
     <UseEffect />
-    {/* <UseMemo />
+    <UseMemo />
     <Slide>conclusion</Slide>
     <Slide>further reading</Slide>
-    <Slide>thanks</Slide> */}
+    <Slide>thanks</Slide>
   </>
 ))

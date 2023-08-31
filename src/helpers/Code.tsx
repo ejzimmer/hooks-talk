@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const Code = forwardRef<HTMLElement, Props>(function Code(
-  { highlightLines = "", fontSize, children },
+  { highlightLines, fontSize, children },
   ref
 ) {
   return (

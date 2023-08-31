@@ -1,12 +1,15 @@
+import { useRef } from "react"
 import {
   AddToInventory,
   AddToInventoryNotWorking,
+  addToInventoryNotWorkingCode,
   callbackisedConsumeItem,
   extractConsumeItemCode,
   inventoryCode,
   inventoryWithUseEffectCode,
   memoisedConsumeItem,
   updateableInventoryCode,
+  useDodgyEventHandlers,
 } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import {
@@ -20,18 +23,27 @@ import {
 export function UseMemo() {
   return (
     <>
-      <Slide renderOnVisible={true}>
-        <AddToInventoryNotWorking />
-      </Slide>
+      <AddToInventorySlide />
       <Slide>
-        <Code>{inventoryCode}</Code>
+        <Code fontSize=".4em" highlightLines="|8-11|4|12">
+          {addToInventoryNotWorkingCode}
+        </Code>
+      </Slide>
+      <AddToInventoryNotWorkingSlide />
+      <Slide>
+        <Code fontSize=".3em" highlightLines="2|5,14,19,28">
+          {inventoryCode}
+        </Code>
         <Notes>
-          it doesn't work becuase right at the start of the component we set the
+          it doesn't work because right at the start of the component we set the
           state from the props and then just use the state
         </Notes>
       </Slide>
+
       <Slide>
-        <Code>{inventoryWithUseEffectCode}</Code>
+        <Code fontSize=".4em" highlightLines="8-10">
+          {inventoryWithUseEffectCode}
+        </Code>
         <Notes>
           <p>
             we might be tempted to do somthing like this, but it breaks the
@@ -43,7 +55,7 @@ export function UseMemo() {
         <blockquote>
           Effects are an escape hatch from the React paradigm.
         </blockquote>
-        <cite>
+        <cite className="footnote">
           <a
             href="https://react.dev/learn/you-might-not-need-an-effect"
             target="_blank"
@@ -70,25 +82,34 @@ export function UseMemo() {
         </Notes>
       </Slide>
       <Slide>
-        <Code>{updateableInventoryCode}</Code>
+        <h2>use props directly</h2>
       </Slide>
-      <Slide renderOnVisible={true}>
-        <AddToInventory />
+      <Slide>
+        <Code fontSize=".4em" highlightLines="|1|2|4|6-8">
+          {updateableInventoryCode}
+        </Code>
       </Slide>
+      <AddToInventorySlide />
+
       <Slide>
         <h2>But what if my calculation is really expensive?</h2>
       </Slide>
       <ShinyTitle title="useMemo" />
       <InverseTitle>
-        <div>useMemo</div>
-        <Fragment>memoise a value</Fragment>
-        <Fragment>ie only recalculate if it changes</Fragment>
+        <h2>useMemo</h2>
+        <ul>
+          <Fragment as="li">memoise a value</Fragment>
+          <Fragment as="li">ie only recalculate if it changes</Fragment>
+        </ul>
       </InverseTitle>
-      <Slide>
+      <Slide data-transition="slide-in fade-out">
         <Code>{unmemoisedCode}</Code>
         <Fragment>
           <Code>{memoisedCode}</Code>
         </Fragment>
+      </Slide>
+      <Slide data-transition="fade-in slide-out">
+        <Code highlightLines="2|3">{memoisedCode}</Code>
       </Slide>
       <Slide>
         <h2>useMemo</h2>
@@ -97,8 +118,6 @@ export function UseMemo() {
           <li>only recalculates the value if the dependencies change</li>
         </ul>
       </Slide>
-
-      <InverseTitle>useCallback</InverseTitle>
 
       <Slide>
         <Code>{extractConsumeItemCode}</Code>
@@ -128,9 +147,34 @@ export function UseMemo() {
         <Fragment>{callbackisedConsumeItem}</Fragment>
         <Notes>luckily we have a tool for this already</Notes>
       </Slide>
+
+      <InverseTitle>useCallback</InverseTitle>
     </>
   )
 }
 
 const unmemoisedCode = `const sortedItems = [...items].sort(sortFunction(sortBy))`
-const memoisedCode = `const sortedItems = useMemo(() => [...items].sort(sortFunction(sortBy)), [items, sortBy])`
+const memoisedCode = `const sortedItems = useMemo(
+  () => [...items].sort(sortFunction(sortBy)), 
+  [items, sortBy]
+)`
+
+export function AddToInventorySlide() {
+  const addToInventoryRef = useRef(null)
+  const { isCurrent } = useDodgyEventHandlers(addToInventoryRef.current)
+  return (
+    <Slide ref={addToInventoryRef}>
+      <AddToInventory isCurrent={isCurrent} />
+    </Slide>
+  )
+}
+
+export function AddToInventoryNotWorkingSlide() {
+  const addToInventoryRef = useRef(null)
+  const { isCurrent } = useDodgyEventHandlers(addToInventoryRef.current)
+  return (
+    <Slide ref={addToInventoryRef}>
+      <AddToInventoryNotWorking isCurrent={isCurrent} />
+    </Slide>
+  )
+}

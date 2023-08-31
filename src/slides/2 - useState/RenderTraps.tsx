@@ -72,6 +72,7 @@ export function RenderTraps() {
       </Slide>
 
       <Slide>
+        <h2>Only render on change</h2>
         <Code fontSize="0.45em" highlightLines="|10-15|4-6">
           {brokenSortedItemsCode}
         </Code>
@@ -106,7 +107,7 @@ export function RenderTraps() {
             </a>
           </em>{" "}
           and returns the reference to the same array, now sorted.
-          <cite style={{ display: "block" }}>
+          <cite className="footnote">
             <a
               target="_blank"
               rel="noreferrer"
@@ -116,58 +117,61 @@ export function RenderTraps() {
             </a>
           </cite>
         </blockquote>
-        <Fragment>
-          <ul style={{ columnCount: 2 }}>
-            <li>copyWithin()</li>
-            <li>fill()</li>
-            <li>pop()</li>
-            <li>push(v1, v2)</li>
-            <li>reverse()</li>
-            <li>shift()</li>
-            <li>sort()</li>
-            <li>splice()</li>
-            <li>unshift(v1, v2)</li>
-          </ul>
-        </Fragment>
         <Notes>these are called Mutating methods</Notes>
+      </Slide>
+      <Slide>
+        <ul style={{ columnCount: 2 }}>
+          <li>copyWithin()</li>
+          <li>fill()</li>
+          <li>pop()</li>
+          <li>push(v1, v2)</li>
+          <li>reverse()</li>
+          <li>shift()</li>
+          <li>sort()</li>
+          <li>splice()</li>
+          <li>unshift(v1, v2)</li>
+        </ul>
       </Slide>
 
       <Slide>
         <h2>Make a copy</h2>
         <ul>
-          <li>
+          <Fragment as="li">
             <code>items.sort()</code> ➡️ <code>[...items].sort()</code>
-          </li>
-          <li>
+          </Fragment>
+          <Fragment as="li">
             <code>items.reverse()</code> ➡️ <code>[...items].reverse()</code>
-          </li>
-          <li>
-            <code>items.push(newItem)</code> ➡️ <code>[...items, newItem]</code>
-          </li>
+          </Fragment>
+          <Fragment as="li">
+            <code>items.push(newItem)</code> ➡️ <br />
+            <code>[...items, newItem]</code>
+          </Fragment>
         </ul>
       </Slide>
 
       <Slide>
         <h2>New array methods</h2>
         <ul>
-          <li>
+          <Fragment as="li">
             <code>items.sort()</code> ➡️ <code>items.toSorted()</code>
-          </li>
-          <li>
+          </Fragment>
+          <Fragment as="li">
             <code>items.reverse()</code> ➡️ <code>items.toReversed()</code>
-          </li>
-          <li>
+          </Fragment>
+          <Fragment as="li">
             <code>items.push(newItem)</code> ➡️{" "}
             <code>items.concat([newItem])</code>
-          </li>
+          </Fragment>
         </ul>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#copying_methods_and_mutating_methods"
-        >
-          Full list of replacement methods on MDN
-        </a>
+        <cite className="footnote">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#copying_methods_and_mutating_methods"
+          >
+            Full list of replacement methods on MDN
+          </a>
+        </cite>
       </Slide>
 
       <Slide>

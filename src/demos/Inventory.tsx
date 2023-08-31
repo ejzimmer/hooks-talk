@@ -236,7 +236,7 @@ export const inventoryCode = `export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
-    setSortedItems([...items].sort(sortFunction(sortBy)))
+    setSortedItems([...sortedItems].sort(sortFunction(sortBy)))
   }
 
   useEffect(() => {
@@ -456,7 +456,27 @@ export function InventorySlide() {
   )
 }
 
-export function AddToInventoryNotWorking() {
+export const addToInventoryNotWorkingCode = `export function InventoryManager() {
+  const [inventory, setInventory] = useState(items)
+
+  const handleAddItem = (event: FormEvent) => {...}
+
+  return (
+    <>
+      <form onSubmit={handleAddItem}>
+        <input ref={nameRef} />
+        <button onClick={handleAddItem}>Add</button>
+      </form>
+      <Inventory items={inventory} />
+    </>
+  )
+}`
+
+export function AddToInventoryNotWorking({
+  isCurrent,
+}: {
+  isCurrent: boolean
+}) {
   const [inventory, setInventory] = useState(items)
   const nameRef = useRef<HTMLInputElement>(null)
 
@@ -484,7 +504,7 @@ export function AddToInventoryNotWorking() {
         <input ref={nameRef} />
         <button onClick={handleAddItem}>Add</button>
       </form>
-      <Inventory items={inventory} />
+      <Inventory items={inventory} isCurrent={isCurrent} />
     </>
   )
 }
@@ -493,7 +513,7 @@ export const inventoryWithUseEffectCode = `export function InventoryWithUseEffec
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
-    setSortedItems([...items].sort(sortFunction(sortBy)))
+    setSortedItems([...sortedItems].sort(sortFunction(sortBy)))
   }
 
   useEffect(() => {
@@ -579,7 +599,7 @@ export const updateableInventoryCode = `export function UpdateableInventory({ it
 }
 `
 
-export function UpdateableInventory({ items, setItems }: Props) {
+export function UpdateableInventory({ items, setItems, isCurrent }: Props) {
   const [sortBy, setSortBy] = useState<keyof Item>("name")
 
   const sortedItems = useMemo(
@@ -604,15 +624,15 @@ export function UpdateableInventory({ items, setItems }: Props) {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return
-      const indexToUpdate = Number.parseInt(event.key)
+      const indexToUpdate = Number.parseInt(event.key) - 1
       const itemToUpdate = sortedItems[indexToUpdate]
       consumeItem(itemToUpdate)
     }
 
-    window.addEventListener("keydown", onKeyDown)
+    isCurrent && window.addEventListener("keydown", onKeyDown)
 
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [items, setItems, sortedItems, consumeItem])
+  }, [items, setItems, sortedItems, consumeItem, isCurrent])
 
   return (
     <>
@@ -629,7 +649,7 @@ export function UpdateableInventory({ items, setItems }: Props) {
   )
 }
 
-export function AddToInventory() {
+export function AddToInventory({ isCurrent }: { isCurrent: boolean }) {
   const [inventory, setInventory] = useState(items)
   const nameRef = useRef<HTMLInputElement>(null)
 
@@ -657,7 +677,11 @@ export function AddToInventory() {
         <input ref={nameRef} />
         <button onClick={handleAddItem}>Add</button>
       </form>
-      <UpdateableInventory items={inventory} setItems={setInventory} />
+      <UpdateableInventory
+        items={inventory}
+        setItems={setInventory}
+        isCurrent={isCurrent}
+      />
     </>
   )
 }
