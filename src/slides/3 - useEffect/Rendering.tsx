@@ -7,6 +7,7 @@ import {
   useDodgyEventHandlers,
 } from "../../demos/Inventory"
 import { useRef } from "react"
+import { LinterError } from "../../helpers/LinterError"
 
 export function Rendering() {
   return (
@@ -18,58 +19,22 @@ export function Rendering() {
         <Code fontSize="0.4em">{useEffectWithoutDependencyCode}</Code>
       </Slide>
       <Slide>
-        <div
-          style={{
-            fontFamily: "monospace",
-            fontSize: ".6em",
-            width: "80%",
-            margin: "auto",
-            textAlign: "start",
-            border: "1px solid",
-            borderRadius: "5px",
-            padding: "0.5em",
-            backgroundColor: "#444",
-            color: "#ccc",
-            overflow: "hidden",
-          }}
+        <LinterError
+          ruleName="react-hooks/exhaustive-deps"
+          ruleLink="https://github.com/facebook/react/issues/14920"
+          code={
+            <>
+              (parameter) isCurrent: boolean{" "}
+              <span style={{ color: "#f92672" }}>|</span>{" "}
+              <span style={{ color: "#ab6ec3" }}>undefined</span>
+            </>
+          }
         >
           React Hook useEffect has a missing dependency: 'sortedItems'. Either
           include it or remove the dependency array. You can also do a
           functional update 'setSortedItems(s =&gt; ...)' if you only need
-          'sortedItems' in the 'setSortedItems' call.{" "}
-          <span style={{ color: "#888" }}>
-            eslint(
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://github.com/facebook/react/issues/14920"
-              style={{
-                color: "hsl(200 100% 30%)",
-                textDecoration: "underline",
-              }}
-            >
-              react-hooks/exhaustive-deps
-            </a>
-            )
-          </span>
-          <hr style={{ marginInline: "-.5em", color: "inherit" }} />
-          <div>
-            (parameter) isCurrent: boolean{" "}
-            <span style={{ color: "#f92672" }}>|</span>{" "}
-            <span style={{ color: "#ab6ec3" }}>undefined</span>
-          </div>
-          <hr style={{ marginInline: "-.5em", color: "inherit" }} />
-          <div
-            style={{
-              backgroundColor: "#555",
-              color: "hsl(200 100% 60%)",
-              margin: "-.5em",
-              padding: ".5em",
-            }}
-          >
-            View Problem (Alt+F8)&nbps;&nbsp;&nbsp;Quick Fix... (Ctrl+.)
-          </div>
-        </div>
+          'sortedItems' in the 'setSortedItems' call.
+        </LinterError>
       </Slide>
       <WithoutDependency />
 

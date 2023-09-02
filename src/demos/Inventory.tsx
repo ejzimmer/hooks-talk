@@ -611,15 +611,19 @@ export function UpdateableInventory({ items, setItems, isCurrent }: Props) {
     setSortBy(sortBy)
   }
 
-  const consumeItem = useCallback(
-    (item: Item) => {
-      setItems &&
-        setItems(
-          items.map((i) => (i === item ? { ...i, count: --i.count } : i))
-        )
-    },
-    [items, setItems]
-  )
+  const consumeItem = (item: Item) => {
+    setItems &&
+      setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)))
+  }
+  // const consumeItem = useCallback(
+  //   (item: Item) => {
+  //     setItems &&
+  //       setItems(
+  //         items.map((i) => (i === item ? { ...i, count: --i.count } : i))
+  //       )
+  //   },
+  //   [items, setItems]
+  // )
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -641,7 +645,9 @@ export function UpdateableInventory({ items, setItems, isCurrent }: Props) {
       <ol>
         {sortedItems.map((item) => (
           <li key={item.name}>
-            {item.name} {item.count}
+            <button onClick={() => consumeItem(item)}>
+              {item.name} {item.count}
+            </button>
           </li>
         ))}
       </ol>
@@ -686,36 +692,84 @@ export function AddToInventory({ isCurrent }: { isCurrent: boolean }) {
   )
 }
 
-export const extractConsumeItemCode = `const consumeItem = (item: Item) => {
-  setItems &&
-    setItems(items.map((i) => (item === i ? { ...i, count: --i.count } : i)))
-}
+export const extractConsumeItemCode = `export function UpdateableInventory({ items, setItems, isCurrent }: Props) {
+  const [sortBy, setSortBy] = useState<keyof Item>("name")
 
-useEffect(() => {
-  const onKeyDown = (event: KeyboardEvent) => {
-    if (!event.key.match(/^[0-9]$/)) return
-    const indexToUpdate = Number.parseInt(event.key)
-    const itemToUpdate = sortedItems[indexToUpdate]
-    consumeItem(itemToUpdate)
+  const sortedItems = useMemo(
+    () => [...items].sort(sortFunction(sortBy)),
+    [items, sortBy]
+  )
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortBy(sortBy)
   }
 
-  window.addEventListener("keydown", onKeyDown)
+  const consumeItem = (item: Item) => {
+    setItems(
+      items.map((i) => (i === item ? { ...i, count: --i.count } : i))
+    )
+  }
 
-  return () => window.removeEventListener("keydown", onKeyDown)
-}, [items, setItems, sortedItems, consumeItem])
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+      const indexToUpdate = Number.parseInt(event.key) - 1
+      const itemToUpdate = sortedItems[indexToUpdate]
+      consumeItem(itemToUpdate)
+    }
+
+    isCurrent && window.addEventListener("keydown", onKeyDown)
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+    }, 
+    [
+      items, 
+      setItems, 
+      sortedItems, 
+      consumeItem, 
+      isCurrent
+    ]
+  )
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            <button onClick={() => consumeItem(item)}>
+              {item.name} {item.count}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
 `
 
-export const memoisedConsumeItem = `const consumeItem = useMemo(() => (item: Item) => {
-  setItems &&
-    setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)))
-}, [items, setItems])
-`
+export const memoisedConsumeItem = `const consumeItem = useMemo(
+  () => (item: Item) => {
+    setItems(
+      items.map(
+        (i) => (i === item ? { ...i, count: --i.count } : i)
+      )
+    )
+  }, 
+  [items, setItems]
+)`
 
-export const callbackisedConsumeItem = `  const consumeItem = useCallback((item: Item) => {
-  setItems &&
-    setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)))
-}, [items, setItems])
-`
+export const callbackisedConsumeItem = `const consumeItem = useCallback(
+  (item: Item) => {
+    setItems(
+      items.map(
+        (i) => (i === item ? { ...i, count: --i.count } : i)
+      )
+    )
+  }, 
+  [items, setItems]
+  )`
 
 export function useDodgyEventHandlers(slideRef: HTMLElement | null) {
   const deck = useDeck()

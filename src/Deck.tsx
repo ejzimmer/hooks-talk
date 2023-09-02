@@ -16,7 +16,8 @@ import { UseMemo } from "./slides/4 - useMemo"
 import RevealHighlight from "reveal.js/plugin/highlight/highlight"
 
 import "reveal.js/plugin/highlight/monokai.css"
-import { Slide } from "./helpers/Slide"
+import { Fragment, Slide } from "./helpers/Slide"
+import { UseCallback } from "./slides/5 - useCallback"
 
 const DeckContext = createContext<Api | null>(null)
 
@@ -60,8 +61,39 @@ const AllSlides = memo(() => (
     <UseState />
     <UseEffect />
     <UseMemo />
-    <Slide>conclusion</Slide>
-    <Slide>further reading</Slide>
+    <UseCallback />
+    <Slide>
+      <h2>What have we learnt?</h2>
+      <ul>
+        <Fragment as="li">Hooks are basically arrays in closures</Fragment>
+        <Fragment as="li">
+          useRef & useState let us store data between renders
+        </Fragment>
+        <Fragment as="li">useState triggers re-renders</Fragment>
+        <Fragment as="li">useEffect is an escape hatch</Fragment>
+        <Fragment as="li">useMemo & useCallback memoise things</Fragment>
+      </ul>
+    </Slide>
+    <Slide>
+      <h2>Further reading</h2>
+      <ul>
+        <li>
+          <a href="https://www.swyx.io/hooks">
+            Swyx's Getting Closure on React Hooks
+          </a>
+        </li>
+        <li>
+          <a href="https://advanced-react.com">
+            Advanced React by Nadia Makarevich
+          </a>
+        </li>
+        <li>
+          <a href="https://justjavascript.com/">
+            Dan Abramov's Just JavaScript
+          </a>
+        </li>
+      </ul>
+    </Slide>
     <Slide>thanks</Slide>
   </>
 ))

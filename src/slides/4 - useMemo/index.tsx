@@ -3,11 +3,8 @@ import {
   AddToInventory,
   AddToInventoryNotWorking,
   addToInventoryNotWorkingCode,
-  callbackisedConsumeItem,
-  extractConsumeItemCode,
   inventoryCode,
   inventoryWithUseEffectCode,
-  memoisedConsumeItem,
   updateableInventoryCode,
   useDodgyEventHandlers,
 } from "../../demos/Inventory"
@@ -118,37 +115,6 @@ export function UseMemo() {
           <li>only recalculates the value if the dependencies change</li>
         </ul>
       </Slide>
-
-      <Slide>
-        <Code>{extractConsumeItemCode}</Code>
-        <Notes>
-          <p>sometimes we need to pass a callback into a dependency array</p>
-          <p>
-            extracted consume item code out so we could use it in an onclick as
-            well
-          </p>
-        </Notes>
-      </Slide>
-
-      <Slide>
-        The 'consumeItem' function makes the dependencies of useEffect Hook (at
-        line 533) change on every render. Move it inside the useEffect callback.
-        Alternatively, wrap the definition of 'consumeItem' in its own
-        useCallback() Hook.eslintreact-hooks/exhaustive-deps
-      </Slide>
-
-      <Slide>
-        <Code>{extractConsumeItemCode}</Code>
-        <Notes>explanation for linter error</Notes>
-      </Slide>
-
-      <Slide>
-        <Code>{memoisedConsumeItem}</Code>
-        <Fragment>{callbackisedConsumeItem}</Fragment>
-        <Notes>luckily we have a tool for this already</Notes>
-      </Slide>
-
-      <InverseTitle>useCallback</InverseTitle>
     </>
   )
 }
