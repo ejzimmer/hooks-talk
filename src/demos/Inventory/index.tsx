@@ -6,23 +6,9 @@ import {
   useRef,
   useState,
 } from "react"
-import { useDeck } from "../Deck"
-import { Slide } from "../helpers/Slide"
-
-export type Item = {
-  name: string
-  type: "food" | "mineral" | "monster part" | "custom"
-  count: number
-}
-
-export const items: Item[] = [
-  { name: "apple", type: "food", count: 55 },
-  { name: "durian", type: "food", count: 3 },
-  { name: "flint", type: "mineral", count: 108 },
-  { name: "diamond", type: "mineral", count: 1 },
-  { name: "bokoblin horn", type: "monster part", count: 27 },
-  { name: "keese wing", type: "monster part", count: 18 },
-]
+import { useDeck } from "../../Deck"
+import { Slide } from "../../helpers/Slide"
+import { Item, items } from "./utils"
 
 type Props = {
   items: Item[]
@@ -32,25 +18,7 @@ type Props = {
   isCurrent?: boolean
 }
 
-export const infiniteLoopInventoryCode = `export function FilteredItems({ items, filterType }: Props) {
-  const [filteredItems, setFilteredItems] = useState(items)
-
-  if (filterType) {
-    setFilteredItems(
-      items.filter((item) => item.type === filterType)
-    )
-  }
-
-  return (
-    <ul>
-      {filteredItems.map((item) => (
-        <li>{item.name}</li>
-      ))}
-    </ul>
-  )
-}`
-
-export const sortedItemsCode = `export function Inventory({ items }: Props) {
+export const inventoryWithSortCode = `export function Inventory({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -61,54 +29,6 @@ export const sortedItemsCode = `export function Inventory({ items }: Props) {
     <>...</>
   )
 }`
-
-export const brokenSortedItemsCode = `export function Inventory({ items }: Props) {
-  const [sortedItems, setSortedItems] = useState(items)
-
-  const handleClick = (sortBy: keyof Item) => {
-    setSortedItems(items.sort(sortFunction(sortBy)))
-  }
-
-  return (
-    <>
-      <button onClick={() => handleClick("name")}>
-        Sort by name
-      </button>
-      <button onClick={() => handleClick("count")}>
-        Sort by count
-      </button>
-      <ol>
-        {sortedItems.map((item) => (
-          <li key={item.name}>
-            {item.name} {item.count}
-          </li>
-        ))}
-      </ol>
-    </>
-  )
-}`
-
-export function InventoryWithBrokenSort({ items }: Props) {
-  const [sortedItems, setSortedItems] = useState(items)
-
-  const handleClick = (sortBy: keyof Item) => {
-    setSortedItems(items.sort(sortFunction(sortBy)))
-  }
-
-  return (
-    <>
-      <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("count")}>Sort by count</button>
-      <ol>
-        {sortedItems.map((item) => (
-          <li key={item.name}>
-            {item.name} {item.count}
-          </li>
-        ))}
-      </ol>
-    </>
-  )
-}
 
 export function InventoryWithSort({ items }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
@@ -801,3 +721,4 @@ export function useDodgyEventHandlers(slideRef: HTMLElement | null) {
 
   return { addEventHandler, isCurrent }
 }
+export { items }

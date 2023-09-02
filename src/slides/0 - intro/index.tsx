@@ -10,8 +10,12 @@ export function Intro() {
     <>
       <Title />
       <Slide>
-        <h2>Erin Zimmer</h2>
-        <p>Atlassian</p>
+        <div style={{ width: "max-content", margin: "auto" }}>
+          <h2>Erin Zimmer</h2>
+          <a href="https://www.atlassian.com/" target="blank" rel="noreferrer">
+            <img alt="Atlassian" src="/Atlassian-horizontal-blue-rgb.svg" />
+          </a>
+        </div>
       </Slide>
       <Slide>
         <ul>

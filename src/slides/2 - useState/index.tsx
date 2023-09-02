@@ -1,5 +1,5 @@
 import { Slide } from "../../helpers/Slide"
-import { RenderTraps } from "./RenderTraps"
+import { RenderTraps } from "./render-traps"
 import { UseRefNoRerender } from "./UseRefNoRerender"
 import { UseStateImplementation } from "./UseStateImplementation"
 
