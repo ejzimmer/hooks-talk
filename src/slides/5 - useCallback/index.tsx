@@ -1,23 +1,13 @@
-import {
-  extractConsumeItemCode,
-  memoisedConsumeItem,
-  callbackisedConsumeItem,
-} from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
-import {
-  Slide,
-  Notes,
-  InverseTitle,
-  Fragment,
-  ShinyTitle,
-} from "../../helpers/Slide"
+import { Slide, InverseTitle, Fragment, ShinyTitle } from "../../helpers/Slide"
 import { AddToInventorySlide } from "../4 - useMemo"
 import { LinterError } from "../../helpers/LinterError"
+import { UpdateableInventory } from "../../demos/Inventory/AddToInventory"
 
 export function UseCallback() {
   return (
     <>
-      <AddToInventorySlide />
+      <AddToInventorySlide inventoryComponent={UpdateableInventory} />
       <Slide>
         <Code highlightLines="|4">{onClickCode}</Code>
       </Slide>
@@ -53,7 +43,7 @@ export function UseCallback() {
       </Slide>
 
       <Slide>
-        <Code highlightLines="|2">{memoisedConsumeItem}</Code>
+        <Code highlightLines="|2">{memoisedConsumeItemCode}</Code>
       </Slide>
 
       <ShinyTitle title="useCallback" />
@@ -67,11 +57,11 @@ export function UseCallback() {
       </InverseTitle>
       <Slide>
         <Code fontSize=".4em" highlightLines="">
-          {memoisedConsumeItem}
+          {memoisedConsumeItemCode}
         </Code>
         <Fragment>
           <Code fontSize=".4em" highlightLines="|2">
-            {callbackisedConsumeItem}
+            {callbackisedConsumeItemCode}
           </Code>
         </Fragment>
       </Slide>
@@ -105,3 +95,82 @@ const useItemCode = `useEffect(() => {
   return () => window.removeEventListener("keydown", onKeyDown)
 }, [sortedItems, isCurrent])
 `
+
+export const extractConsumeItemCode = `export function Inventory({ items, setItems }: Props) {
+  const [sortBy, setSortBy] = useState<keyof Item>("name")
+
+  const sortedItems = useMemo(
+    () => items.toSorted(sortFunction(sortBy)),
+    [items, sortBy]
+  )
+
+  const handleClick = (sortBy: keyof Item) => {
+    setSortBy(sortBy)
+  }
+
+  const consumeItem = (item: Item) => {
+    setItems(
+      items.map((i) => (i === item ? { ...i, count: --i.count } : i))
+    )
+  }
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return
+      const indexToUpdate = Number.parseInt(event.key) - 1
+      const itemToUpdate = sortedItems[indexToUpdate]
+      consumeItem(itemToUpdate)
+    }
+
+    isCurrent && window.addEventListener("keydown", onKeyDown)
+
+    return () => window.removeEventListener("keydown", onKeyDown)
+    }, 
+    [
+      items, 
+      setItems, 
+      sortedItems, 
+      consumeItem, 
+      isCurrent
+    ]
+  )
+
+  return (
+    <>
+      <button onClick={() => handleClick("name")}>Sort by name</button>
+      <button onClick={() => handleClick("count")}>Sort by count</button>
+      <ol>
+        {sortedItems.map((item) => (
+          <li key={item.name}>
+            <button onClick={() => consumeItem(item)}>
+              {item.name} {item.count}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+`
+
+export const memoisedConsumeItemCode = `const consumeItem = useMemo(
+  () => (item: Item) => {
+    setItems(
+      items.map(
+        (i) => (i === item ? { ...i, count: --i.count } : i)
+      )
+    )
+  }, 
+  [items, setItems]
+)`
+
+export const callbackisedConsumeItemCode = `const consumeItem = useCallback(
+  (item: Item) => {
+    setItems(
+      items.map(
+        (i) => (i === item ? { ...i, count: --i.count } : i)
+      )
+    )
+  }, 
+  [items, setItems]
+  )`

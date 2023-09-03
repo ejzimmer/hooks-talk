@@ -1,20 +1,18 @@
 import { useRef } from "react"
-import {
-  items,
-  slowInventoryCode,
-  BrokenInventory,
-  Inventory,
-  abridgedSlowInventoryCode,
-  useDodgyEventHandlers,
-  InventorySlide,
-} from "../../demos/Inventory"
+import { items, useDodgyEventHandlers } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
+import {
+  WithoutUseEffect,
+  abridgedWithoutUseEffectCode,
+  withoutUseEffectCode,
+} from "../../demos/Inventory/KeyboardShortcuts"
+import { InventorySlide } from "."
 
 export function KeyboardShortcuts() {
-  const brokenInventoryRef = useRef(null)
+  const withoutUseEffectRef = useRef(null)
   const { addEventHandler, isCurrent } = useDodgyEventHandlers(
-    brokenInventoryRef.current
+    withoutUseEffectRef.current
   )
 
   return (
@@ -22,11 +20,11 @@ export function KeyboardShortcuts() {
       <InventorySlide />
       <Slide>
         <Code fontSize=".5em" highlightLines="8-19|8|9|11|12-18">
-          {slowInventoryCode}
+          {withoutUseEffectCode}
         </Code>
       </Slide>
-      <Slide ref={brokenInventoryRef}>
-        <BrokenInventory
+      <Slide ref={withoutUseEffectRef}>
+        <WithoutUseEffect
           items={items}
           addEventHandler={addEventHandler}
           isCurrent={isCurrent}
@@ -34,7 +32,7 @@ export function KeyboardShortcuts() {
       </Slide>
       <Slide>
         <Code fontSize=".4em" highlightLines="">
-          {abridgedSlowInventoryCode}
+          {abridgedWithoutUseEffectCode}
         </Code>
       </Slide>
     </>

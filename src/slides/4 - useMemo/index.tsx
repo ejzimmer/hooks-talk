@@ -1,13 +1,5 @@
 import { useRef } from "react"
-import {
-  AddToInventory,
-  AddToInventoryNotWorking,
-  addToInventoryNotWorkingCode,
-  inventoryCode,
-  inventoryWithUseEffectCode,
-  updateableInventoryCode,
-  useDodgyEventHandlers,
-} from "../../demos/Inventory"
+import { useDodgyEventHandlers } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import {
   Fragment,
@@ -16,20 +8,33 @@ import {
   ShinyTitle,
   Slide,
 } from "../../helpers/Slide"
+import {
+  InventoryManager,
+  UpdateableInventory,
+  addToInventoryNotWorkingCode,
+  inventoryWithUseEffectCode,
+  updateableInventoryCode,
+} from "../../demos/Inventory/AddToInventory"
+import {
+  InventoryWithKeyboardShortcuts,
+  inventoryWithKeyboardShortcutsCode,
+} from "../../demos/Inventory/KeyboardShortcuts"
 
 export function UseMemo() {
   return (
     <>
-      <AddToInventorySlide />
+      <AddToInventorySlide inventoryComponent={UpdateableInventory} />
       <Slide>
         <Code fontSize=".4em" highlightLines="|8-11|4|12">
           {addToInventoryNotWorkingCode}
         </Code>
       </Slide>
-      <AddToInventoryNotWorkingSlide />
+      <AddToInventorySlide
+        inventoryComponent={InventoryWithKeyboardShortcuts}
+      />
       <Slide>
         <Code fontSize=".3em" highlightLines="2|5,14,19,28">
-          {inventoryCode}
+          {inventoryWithKeyboardShortcutsCode}
         </Code>
         <Notes>
           it doesn't work because right at the start of the component we set the
@@ -86,7 +91,7 @@ export function UseMemo() {
           {updateableInventoryCode}
         </Code>
       </Slide>
-      <AddToInventorySlide />
+      <AddToInventorySlide inventoryComponent={UpdateableInventory} />
 
       <Slide>
         <h2>But what if my calculation is really expensive?</h2>
@@ -125,22 +130,20 @@ const memoisedCode = `const sortedItems = useMemo(
   [items, sortBy]
 )`
 
-export function AddToInventorySlide() {
+export function AddToInventorySlide({
+  inventoryComponent,
+}: {
+  inventoryComponent: any
+}) {
   const addToInventoryRef = useRef(null)
   const { isCurrent } = useDodgyEventHandlers(addToInventoryRef.current)
-  return (
-    <Slide ref={addToInventoryRef}>
-      <AddToInventory isCurrent={isCurrent} />
-    </Slide>
-  )
-}
 
-export function AddToInventoryNotWorkingSlide() {
-  const addToInventoryRef = useRef(null)
-  const { isCurrent } = useDodgyEventHandlers(addToInventoryRef.current)
   return (
     <Slide ref={addToInventoryRef}>
-      <AddToInventoryNotWorking isCurrent={isCurrent} />
+      <InventoryManager
+        isCurrent={isCurrent}
+        inventoryComponent={inventoryComponent}
+      />
     </Slide>
   )
 }

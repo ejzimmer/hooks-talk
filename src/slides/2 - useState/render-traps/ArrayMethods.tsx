@@ -1,12 +1,10 @@
-import {
-  InventoryWithSort,
-  inventoryWithSortCode,
-  items,
-} from "../../../demos/Inventory/"
+import { items } from "../../../demos/Inventory/"
 import {
   InventoryWithBrokenSort,
+  SortableInventory,
   brokenSortedItemsCode,
-} from "../../../demos/Inventory/BrokenSort"
+  sortableInventoryCode,
+} from "../../../demos/Inventory/SortableInventory"
 import { Code } from "../../../helpers/Code"
 import { Fragment, Notes, Slide } from "../../../helpers/Slide"
 
@@ -32,8 +30,8 @@ export function ArrayMethods() {
       <NewArrayMethods />
 
       <Slide>
-        <Code highlightLines="|5">{inventoryWithSortCode}</Code>
-        <InventoryWithSort items={items} />
+        <Code highlightLines="|5">{sortableInventoryCode}</Code>
+        <SortableInventory items={items} />
       </Slide>
     </>
   )
