@@ -5,10 +5,11 @@ type Props = {
   children: string
   highlightLines?: string
   transparent?: boolean
+  className?: string
 }
 
 export const Code = forwardRef<HTMLElement, Props>(function Code(
-  { highlightLines, fontSize, transparent, children },
+  { highlightLines, fontSize, transparent, className, children },
   ref
 ) {
   return (
@@ -19,6 +20,7 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
         backgroundColor: transparent ? "transparent" : undefined,
         boxShadow: transparent ? "none" : undefined,
       }}
+      className={className}
     >
       <code
         className="tsx"

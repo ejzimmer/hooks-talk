@@ -3,11 +3,8 @@ import {
   renderCounterCode,
 } from "../../demos/RenderCounter"
 import { Code } from "../../helpers/Code"
-import { Fragment, InverseTitle, Slide } from "../../helpers/Slide"
-import {
-  BasicUseRefImplementation,
-  UseRefWithoutCurrent,
-} from "./BasicUseRefImplementation"
+import { InverseTitle, Slide } from "../../helpers/Slide"
+import { BasicUseRefImplementation } from "./BasicUseRefImplementation"
 import { ElementRef } from "./ElementRef"
 import { RulesOfHooks } from "./RulesOfHooks"
 
@@ -16,14 +13,15 @@ export function UseRef() {
     <>
       <InverseTitle>
         <h2>useRef</h2>
-        <div>maintain data between renders</div>
+        <ul>
+          <li>maintain data between renders</li>
+        </ul>
       </InverseTitle>
       <Slide>
         <Code highlightLines="|2|4|6-10">{renderCounterCode}</Code>
         <RenderCounterWithRerender />
       </Slide>
       <BasicUseRefImplementation />
-      <UseRefWithoutCurrent />
       <Slide>
         <Code>{timedButtonCode}</Code>
       </Slide>

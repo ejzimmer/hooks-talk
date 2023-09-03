@@ -14,11 +14,10 @@ export const renderCounterCode = `export function RenderCounter() {
 }
 `
 
-export const abridgedRenderCounterCode = `// in our code
-export function RenderCounter() {
-  const numberOfRenders = useRef(0)
+export const abridgedRenderCounterCode = `export function RenderCounter() {
+  const count = useRef(0)
 
-  numberOfRenders.current = numberOfRenders.current + 1
+  count.current = count.current + 1
 
   return (...);
 }

@@ -58,11 +58,28 @@ export function InverseTitle({ children }: PropsWithChildren<any>) {
 
 type Props = {
   as?: ElementType
+  className?: string
+  index?: number
+  style?: any
 }
 
-export function Fragment({ as = "div", children }: PropsWithChildren<Props>) {
+export function Fragment({
+  as = "div",
+  className,
+  index,
+  style,
+  children,
+}: PropsWithChildren<Props>) {
   const As = as
-  return <As className="fragment">{children}</As>
+  return (
+    <As
+      className={"fragment " + className}
+      data-fragment-index={index}
+      style={style}
+    >
+      {children}
+    </As>
+  )
 }
 
 export function Notes({ children }: PropsWithChildren<any>) {

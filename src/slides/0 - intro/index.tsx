@@ -15,6 +15,7 @@ export function Intro() {
           <a href="https://www.atlassian.com/" target="blank" rel="noreferrer">
             <img alt="Atlassian" src="/Atlassian-horizontal-blue-rgb.svg" />
           </a>
+          <a href="https://hooks.ez.codes">hooks.ez.codes</a>
         </div>
       </Slide>
       <Slide>

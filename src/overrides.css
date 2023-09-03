@@ -26,3 +26,15 @@ cite.footnote {
   bottom: 0;
   transform: translateY(150%);
 }
+
+.fragment.fade {
+  visibility: visible;
+  opacity: 1;
+}
+.fragment.fade.current-fragment {
+  opacity: 0.4;
+}
+
+pre.background tr {
+  opacity: 0.4;
+}

@@ -7,10 +7,8 @@ import {
 } from "../../demos/AcceptTerms"
 import { Code } from "../../helpers/Code"
 import { Fragment, Notes, Slide } from "../../helpers/Slide"
-import {
-  MultpleRefsUseRefImplementation,
-  singleRefCode,
-} from "./BasicUseRefImplementation"
+import { MultpleRefsUseRefImplementation } from "./BasicUseRefImplementation"
+import { singleRefCode } from "./SingleRef"
 
 export function ElementRef() {
   return (

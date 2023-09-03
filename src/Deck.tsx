@@ -92,8 +92,15 @@ const AllSlides = memo(() => (
             Dan Abramov's Just JavaScript
           </a>
         </li>
+        <li>
+          <a href="https://artsyomni.com/hyliaserif/download">
+            Omni Jacala's Hylia Serif
+          </a>
+        </li>
       </ul>
     </Slide>
-    <Slide>thanks</Slide>
+    <Slide>
+      <h2>thanks</h2>
+    </Slide>
   </>
 ))

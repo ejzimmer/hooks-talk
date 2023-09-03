@@ -1,211 +1,74 @@
 import { Code } from "../../helpers/Code"
 import { Notes, Slide } from "../../helpers/Slide"
-import { useDeck } from "../../Deck"
-import {
-  abridgedRenderCounterCode,
-  abridgedRenderCounterCodeWithoutCurrent,
-} from "../../demos/RenderCounter"
-import { RefObject, useCallback, useEffect, useRef, useState } from "react"
 import { abridgedAcceptTermsAndSpamCode } from "../../demos/AcceptTerms"
-
-export const singleRefCode = `// somewhere in React's code
-let ref = {} as { current?: any }
-
-export function useRef(initialValue: any) {
-  if (!('current' in ref)) {
-    ref.current = initialValue
-  }
-
-  return ref
-}
-`
-
-export const noCurrentCode = `// in our code
-export function RenderCounter() {
-  const numberOfRenders = useRef(0)
-
-  numberOfRenders = numberOfRenders + 1
-
-  return (...);
-}
-`
-
-export const singleRefWithoutCurrentCode = `// somewhere in React's code
-let ref;
-
-export function useRef(initialValue: any) {
-  if (typeof ref ==== 'undefined') {
-    ref = initialValue
-  }
-
-  return ref
-}
-`
-
-function useFragment(slideRef: RefObject<HTMLElement>, eventName: string) {
-  const deck = useDeck()
-  const [fragment, setFragment] = useState(-1)
-
-  const onKeyDown = useCallback(() => {
-    setFragment(Number.parseInt(slideRef.current?.dataset.fragment ?? "-1"))
-  }, [slideRef])
-
-  useEffect(() => {
-    if (deck) {
-      deck.addEventListener(eventName, function () {
-        window.addEventListener("keydown", onKeyDown)
-      })
-    }
-
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [deck, onKeyDown, eventName])
-
-  return fragment
-}
-
-function BoxPic(style: Record<string, string>) {
-  return (
-    <img
-      alt=""
-      src="./box.jpeg"
-      style={{ position: "absolute", ...style }}
-    ></img>
-  )
-}
+import { SingleRefImplementation, singleRefCode } from "./SingleRef"
+import { NoCurrentRef } from "./NoCurrentRef"
+import { abridgedRenderCounterCode } from "../../demos/RenderCounter"
 
 export function BasicUseRefImplementation() {
-  const slideRef = useRef<HTMLElement>(null)
-  const fragment = useFragment(slideRef, "simple-use-ref")
-
   return (
-    <Slide
-      ref={slideRef}
-      data-state="simple-use-ref"
-      data-transition="fade-in slide-out"
-    >
-      <div style={{ position: "relative" }}>
-        <Code
-          fontSize="0.34em"
-          highlightLines="|2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18|"
-        >
-          {singleRefCode + "\n" + abridgedRenderCounterCode}
-        </Code>
-
-        {fragment > -1 && <BoxPic top="0" />}
-
-        {fragment > 2 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "70px",
-              right: "250px",
-              transform: "rotate(-.15turn)",
-            }}
-          >
-            current: {fragment < 7 ? 0 : fragment < 17 ? 1 : 2}
-          </div>
-        )}
-        {((fragment > 4 && fragment < 9) || fragment > 13) && (
-          <div
-            style={{
-              width: "219px",
-              border: "4px solid rebeccapurple",
-              position: "absolute",
-              bottom: "100px",
-              left: "285px",
-              transformOrigin: "bottom left",
-              transform: "rotate(-.05turn)",
-            }}
-          />
-        )}
-      </div>
-
-      <Notes>
-        <ul>
-          <li>this code can only deal with one call to useRef</li>
-          <li>in reality, each component would have its own version of this</li>
-          <li>
-            we'll look at how to deal with multiple calls to useRef in a minute
-          </li>
-          <li>
-            also, the real code doesn't reset the value to initialValue when you
-            set it to undefined, just didn't want to complicate tracking whether
-            it had been set
-          </li>
-        </ul>
-        - - - -
-      </Notes>
-    </Slide>
+    <>
+      <SingleRefImplementation />
+      <NoCurrentRef />
+      <Slide>
+        <Code>{singleRefCode}</Code>
+        <Code>{abridgedRenderCounterCode}</Code>
+      </Slide>
+    </>
   )
 }
 
-export function UseRefWithoutCurrent() {
-  const slideRef = useRef<HTMLElement>(null)
-  const fragment = useFragment(slideRef, "use-ref-no-current")
-
+export function RefContainer({
+  isBackground,
+  current,
+}: {
+  isBackground?: boolean
+  current?: string
+}) {
   return (
-    <Slide ref={slideRef} data-state="use-ref-no-current">
-      <div style={{ position: "relative" }}>
-        <Code
-          fontSize="0.34em"
-          highlightLines="|2|14|4-7, 14|4-7,14|9, 14|14|16|16|18|13|14|4,14|5,14|9,14|9,14|14|16|16|18|"
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        display: "flex",
+        gap: ".25em",
+        alignItems: "center",
+        opacity: isBackground ? ".4" : 1,
+      }}
+    >
+      <code>ref</code>➡️
+      <img alt="a container" src="./box.jpeg" style={{ width: "150px" }} />
+      {current && (
+        <div
+          style={{
+            position: "absolute",
+            right: "0",
+            width: "150px",
+            color: "black",
+          }}
         >
-          {singleRefWithoutCurrentCode +
-            "\n" +
-            abridgedRenderCounterCodeWithoutCurrent}
-        </Code>
-        {fragment > -1 && <BoxPic top="0" />}
-        {fragment > 6 && <BoxPic top="unset" bottom="-50px" right="100px" />}
-        {fragment > 2 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "110px",
-              right: "350px",
-            }}
-          >
-            {0}
-          </div>
-        )}
-        {fragment > 6 && (
-          <div
-            style={{
-              position: "absolute",
-              bottom: "10px",
-              right: "270px",
-            }}
-          >
-            {1}
-          </div>
-        )}
-        {((fragment > 4 && fragment < 7) || fragment > 13) && (
-          <div
-            style={{
-              width: "219px",
-              border: "4px solid rebeccapurple",
-              position: "absolute",
-              bottom: "100px",
-              left: "285px",
-              transformOrigin: "bottom left",
-              transform: "rotate(-.05turn)",
-            }}
-          />
-        )}
-        {fragment > 6 && (
-          <div
-            style={{
-              width: "300px",
-              border: "4px solid rebeccapurple",
-              position: "absolute",
-              bottom: "90px",
-              left: "285px",
-              transformOrigin: "bottom left",
-              transform: "rotate(.02turn)",
-            }}
-          />
-        )}
-      </div>
-    </Slide>
+          {current}
+        </div>
+      )}
+    </div>
+  )
+}
+export function CountContainer() {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "115px",
+        right: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <div>⬆️</div>
+      <code>count</code>
+    </div>
   )
 }
 

@@ -58,7 +58,9 @@ export function RenderCounterSlides() {
         </Code>
       </Slide>
       <Slide>
-        <Code highlightLines="|2|4|7-9">{brokenFunctionalComponentCode}</Code>
+        <Code highlightLines="|2|4|7-9|1|2">
+          {brokenFunctionalComponentCode}
+        </Code>
         <BrokenRenderCounterWithRerender />
       </Slide>
     </>
