@@ -6,6 +6,7 @@ import { Code } from "../../helpers/Code"
 import { InverseTitle, Slide } from "../../helpers/Slide"
 import { BasicUseRefImplementation } from "./BasicUseRefImplementation"
 import { ElementRef } from "./ElementRef"
+import { MultipleRefs } from "./MultipleRefs"
 import { RulesOfHooks } from "./RulesOfHooks"
 
 export function UseRef() {
@@ -26,6 +27,7 @@ export function UseRef() {
         <Code>{timedButtonCode}</Code>
       </Slide>
       <ElementRef />
+      <MultipleRefs />
       <RulesOfHooks />
     </>
   )

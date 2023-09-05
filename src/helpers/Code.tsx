@@ -6,10 +6,11 @@ type Props = {
   highlightLines?: string
   transparent?: boolean
   className?: string
+  style?: any
 }
 
 export const Code = forwardRef<HTMLElement, Props>(function Code(
-  { highlightLines, fontSize, transparent, className, children },
+  { highlightLines, fontSize, transparent, className, style, children },
   ref
 ) {
   return (
@@ -19,12 +20,16 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
         margin: transparent ? 0 : undefined,
         backgroundColor: transparent ? "transparent" : undefined,
         boxShadow: transparent ? "none" : undefined,
+        ...style,
       }}
       className={className}
     >
       <code
         className="tsx"
-        style={{ backgroundColor: transparent ? "transparent" : undefined }}
+        style={{
+          backgroundColor: transparent ? "transparent" : undefined,
+          overflow: "hidden",
+        }}
         data-line-numbers={highlightLines}
         ref={ref}
       >

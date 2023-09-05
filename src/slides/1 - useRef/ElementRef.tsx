@@ -1,23 +1,20 @@
 import {
-  AcceptTerms,
-  AcceptTermsAndSpam,
-  acceptTermsAndSpamCode,
-  acceptTermsCode,
-  onSubmit,
-} from "../../demos/AcceptTerms"
+  AddItemForm,
+  addItemFormCode,
+  addItemFormWithCountCode,
+} from "../../demos/Inventory/AddItemForm"
 import { Code } from "../../helpers/Code"
 import { Fragment, Notes, Slide } from "../../helpers/Slide"
-import { MultpleRefsUseRefImplementation } from "./BasicUseRefImplementation"
 import { singleRefCode } from "./SingleRef"
 
 export function ElementRef() {
   return (
     <>
       <Slide>
-        <AcceptTerms onSubmit={onSubmit} />
+        <AddItemForm onSubmit={(value) => alert(`Adding ${value}`)} />
         <Fragment>
-          <Code fontSize="0.4em" highlightLines="|2|13|5">
-            {acceptTermsCode}
+          <Code fontSize=".5em" highlightLines="|2|11|6">
+            {addItemFormCode}
           </Code>
         </Fragment>
         <Notes>
@@ -29,10 +26,13 @@ export function ElementRef() {
       </Slide>
 
       <Slide>
-        <AcceptTermsAndSpam onSubmit={onSubmit} />
+        <AddItemForm
+          showCount
+          onSubmit={(value, count) => alert(`Adding ${count} ${value}s`)}
+        />
         <Fragment>
-          <Code fontSize="0.3em" highlightLines="|2,3|14,18|6-8">
-            {acceptTermsAndSpamCode}
+          <Code fontSize="0.4em" highlightLines="|2,3|12,13|7">
+            {addItemFormWithCountCode}
           </Code>
         </Fragment>
         <Notes>
@@ -44,7 +44,6 @@ export function ElementRef() {
       <Slide>
         <Code>{singleRefCode}</Code>
       </Slide>
-      <MultpleRefsUseRefImplementation />
     </>
   )
 }

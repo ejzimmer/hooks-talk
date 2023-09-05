@@ -22,15 +22,15 @@ const classComponentCode = `class RenderCounter extends React.Component {
 }`
 
 const brokenFunctionalComponentCode = `function RenderCounter() {
-  let numberOfRenders = 0
+  let numberOfRenders = 0;
 
-  numberOfRenders++
+  numberOfRenders++;
 
   return (
     <div>
       This component has rendered {numberOfRenders} times
     </div>
-  )
+  );
 }
 `
 
@@ -58,7 +58,7 @@ export function RenderCounterSlides() {
         </Code>
       </Slide>
       <Slide>
-        <Code highlightLines="|2|4|7-9|1|2">
+        <Code highlightLines="|2|4|7-9|1,11|2">
           {brokenFunctionalComponentCode}
         </Code>
         <BrokenRenderCounterWithRerender />

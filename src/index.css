@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   --primary-colour: #4ad59c;
   --background-colour: #333;
+  --purple: hsl(300 50% 50%);
 }
 
 code {
