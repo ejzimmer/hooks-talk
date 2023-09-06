@@ -3,7 +3,7 @@ import {
   renderCounterCode,
 } from "../../demos/RenderCounter"
 import { Code } from "../../helpers/Code"
-import { InverseTitle, Slide } from "../../helpers/Slide"
+import { Fragment, InverseTitle, Slide } from "../../helpers/Slide"
 import { BasicUseRefImplementation } from "./BasicUseRefImplementation"
 import { ElementRef } from "./ElementRef"
 import { MultipleRefs } from "./MultipleRefs"
@@ -29,6 +29,12 @@ export function UseRef() {
       <ElementRef />
       <MultipleRefs />
       <RulesOfHooks />
+      <InverseTitle>
+        <ul>
+          <Fragment as="li">Hooks store data in arrays & closures</Fragment>
+          <Fragment as="li">Each component has its own array/closure</Fragment>
+        </ul>
+      </InverseTitle>
     </>
   )
 }

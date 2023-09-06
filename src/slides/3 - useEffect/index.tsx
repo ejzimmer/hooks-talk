@@ -28,13 +28,3 @@ export function UseEffect() {
     </>
   )
 }
-
-export function InventorySlide() {
-  const inventoryRef = useRef(null)
-  const { isCurrent } = useDodgyEventHandlers(inventoryRef.current)
-  return (
-    <Slide ref={inventoryRef}>
-      <InventoryWithKeyboardShortcuts items={items} isCurrent={isCurrent} />
-    </Slide>
-  )
-}

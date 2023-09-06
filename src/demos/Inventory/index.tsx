@@ -1,6 +1,61 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useDeck } from "../../Deck"
-import { items } from "./utils"
+import { Item, addItemToInventory, items as defaultItems } from "./utils"
+import { AddItemForm } from "./AddItemForm"
+import { ItemList } from "./ItemList"
+import { Slide } from "../../helpers/Slide"
+
+export function InventorySlide({
+  hideSortButtons,
+  items,
+}: {
+  hideSortButtons?: boolean
+  items?: Item[]
+}) {
+  const inventoryRef = useRef(null)
+  const { isCurrent } = useDodgyEventHandlers(inventoryRef.current)
+  return (
+    <Slide ref={inventoryRef}>
+      <Inventory
+        isCurrent={isCurrent}
+        hideSortButtons={hideSortButtons}
+        items={items}
+      />
+    </Slide>
+  )
+}
+
+export function Inventory({
+  isCurrent,
+  hideSortButtons,
+  hideFilter,
+  items = defaultItems,
+}: {
+  isCurrent: boolean
+  hideSortButtons?: boolean
+  hideFilter?: boolean
+  items?: Item[]
+}) {
+  const [inventory, setInventory] = useState(items)
+
+  const addItem = (name?: string, count?: string) => {
+    const updatedInventory = addItemToInventory(inventory, name, count)
+    setInventory(updatedInventory)
+  }
+
+  return (
+    <>
+      <AddItemForm onSubmit={addItem} />
+      <ItemList
+        items={inventory}
+        setItems={setInventory}
+        isCurrent={isCurrent}
+        hideSortButtons={hideSortButtons}
+        hideFilter={hideFilter}
+      />
+    </>
+  )
+}
 
 export function useDodgyEventHandlers(slideRef: HTMLElement | null) {
   const deck = useDeck()
@@ -32,4 +87,5 @@ export function useDodgyEventHandlers(slideRef: HTMLElement | null) {
 
   return { addEventHandler, isCurrent }
 }
-export { items }
+
+export { defaultItems as items }

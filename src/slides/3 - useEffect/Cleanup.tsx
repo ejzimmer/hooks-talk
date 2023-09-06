@@ -1,5 +1,9 @@
 import { useRef } from "react"
-import { useDodgyEventHandlers, items } from "../../demos/Inventory"
+import {
+  useDodgyEventHandlers,
+  items,
+  InventorySlide,
+} from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Fragment, Notes, Slide } from "../../helpers/Slide"
 import {
@@ -7,7 +11,6 @@ import {
   InventoryWithoutCleanupOrDependency,
 } from "../../demos/Inventory/WithoutCleanup"
 import { LinterError } from "../../helpers/LinterError"
-import { InventorySlide } from "."
 
 export function Cleanup() {
   return (

@@ -1,5 +1,9 @@
 import { useRef } from "react"
-import { items, useDodgyEventHandlers } from "../../demos/Inventory"
+import {
+  InventorySlide,
+  items,
+  useDodgyEventHandlers,
+} from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
 import {
@@ -7,7 +11,6 @@ import {
   abridgedWithoutUseEffectCode,
   withoutUseEffectCode,
 } from "../../demos/Inventory/KeyboardShortcuts"
-import { InventorySlide } from "."
 
 export function KeyboardShortcuts() {
   const withoutUseEffectRef = useRef(null)

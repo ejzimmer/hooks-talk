@@ -29,6 +29,7 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
         style={{
           backgroundColor: transparent ? "transparent" : undefined,
           overflow: "hidden",
+          maxHeight: style?.maxHeight && "unset",
         }}
         data-line-numbers={highlightLines}
         ref={ref}

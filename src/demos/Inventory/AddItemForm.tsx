@@ -37,22 +37,32 @@ export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Prop
 
 type Props = {
   onSubmit: (value?: string, count?: string) => void
-  showCount?: boolean
+  hideCount?: boolean
 }
 
-export function AddItemForm({ onSubmit, showCount: showNumber }: Props) {
+export function AddItemForm({ onSubmit, hideCount }: Props) {
   const nameRef = useRef<HTMLInputElement>(null)
   const countRef = useRef<HTMLInputElement>(null)
 
   const handleAddItem = (event: FormEvent) => {
     event.preventDefault()
-    onSubmit(nameRef.current?.value, countRef.current?.value)
+    if (!nameRef.current || !countRef.current) return
+
+    onSubmit(nameRef.current.value, countRef.current.value)
+    nameRef.current.value = ""
+    countRef.current.value = ""
   }
 
   return (
     <form onSubmit={handleAddItem}>
       <input ref={nameRef} />
-      {showNumber && <input type="number" ref={countRef} />}
+      {!hideCount && (
+        <input
+          type="number"
+          ref={countRef}
+          onKeyDown={(event) => event.stopPropagation()}
+        />
+      )}
       <button>Add</button>
     </form>
   )

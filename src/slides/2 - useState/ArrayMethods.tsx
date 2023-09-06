@@ -1,12 +1,12 @@
-import { items } from "../../../demos/Inventory/"
+import { items } from "../../demos/Inventory"
 import {
   InventoryWithBrokenSort,
   SortableInventory,
   brokenSortedItemsCode,
   sortableInventoryCode,
-} from "../../../demos/Inventory/SortableInventory"
-import { Code } from "../../../helpers/Code"
-import { Fragment, Notes, Slide } from "../../../helpers/Slide"
+} from "../../demos/Inventory/SortableInventory"
+import { Code } from "../../helpers/Code"
+import { Fragment, Notes, Slide } from "../../helpers/Slide"
 
 export function ArrayMethods() {
   return (

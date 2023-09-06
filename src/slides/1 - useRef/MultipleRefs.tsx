@@ -80,8 +80,9 @@ function RefArray({
         <code>refs</code>➡️
         <code>
           [
-          {values.map((value) => (
+          {values.map((value, index) => (
             <span
+              key={index}
               style={{
                 color: "black",
                 position: "relative",
@@ -102,7 +103,7 @@ function RefArray({
           ]
         </code>
         {pointers.map((pointer, index) => (
-          <Pointer name={pointer.name} offset={index} />
+          <Pointer key={pointer.name} name={pointer.name} offset={index} />
         ))}
       </div>
     </div>

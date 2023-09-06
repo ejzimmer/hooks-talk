@@ -132,7 +132,7 @@ export function InventoryManager({
         )
       )
     } else {
-      setInventory([...inventory, { name: itemName, type: "custom", count: 1 }])
+      setInventory([...inventory, { name: itemName, count: 1 }])
     }
     nameRef.current.value = ""
   }

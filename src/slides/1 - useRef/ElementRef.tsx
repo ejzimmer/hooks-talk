@@ -11,7 +11,7 @@ export function ElementRef() {
   return (
     <>
       <Slide>
-        <AddItemForm onSubmit={(value) => alert(`Adding ${value}`)} />
+        <AddItemForm onSubmit={(value) => alert(`Adding ${value}`)} hideCount />
         <Fragment>
           <Code fontSize=".5em" highlightLines="|2|11|6">
             {addItemFormCode}
@@ -27,7 +27,6 @@ export function ElementRef() {
 
       <Slide>
         <AddItemForm
-          showCount
           onSubmit={(value, count) => alert(`Adding ${count} ${value}s`)}
         />
         <Fragment>
