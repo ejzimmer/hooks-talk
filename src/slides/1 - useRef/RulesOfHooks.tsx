@@ -1,4 +1,4 @@
-import { Notes, Slide } from "../../helpers/Slide"
+import { Fragment, Notes, Slide } from "../../helpers/Slide"
 
 export function RulesOfHooks() {
   return (
@@ -6,8 +6,18 @@ export function RulesOfHooks() {
       <Slide>
         <h2>Rules of Hooks</h2>
         <ul>
-          <li>Only Call Hooks at the Top Level</li>
-          <li>Only Call Hooks from React Functions</li>
+          <li>
+            <Fragment className="strike">
+              Only Call Hooks at the Top Level
+            </Fragment>
+            <Fragment>Always call hooks in the same order</Fragment>
+          </li>
+          <li>
+            <Fragment className="strike">
+              Only Call Hooks from React Functions
+            </Fragment>
+            <Fragment>Hooks always exist in the scope of a component</Fragment>
+          </li>
         </ul>
         <cite className="footnote">
           <a href="https://legacy.reactjs.org/docs/hooks-rules.html">

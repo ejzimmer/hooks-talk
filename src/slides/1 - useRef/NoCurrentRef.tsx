@@ -1,6 +1,6 @@
 import { Code } from "../../helpers/Code"
-import { Slide } from "../../helpers/Slide"
-import { CountContainer, RefContainer } from "./BasicUseRefImplementation"
+import { Fragment, Slide } from "../../helpers/Slide"
+import { CountContainer } from "./BasicUseRefImplementation"
 
 export const renderCounterWithoutCurrentCode = `export function RenderCounter() {
   const count = useRef(0)
@@ -24,6 +24,31 @@ export const singleRefWithoutCurrentCode = `const React = {
   }
 }`
 
+function RefContainer({
+  isBackground,
+  current,
+}: {
+  isBackground?: boolean
+  current?: string
+}) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        display: "flex",
+        gap: ".25em",
+        alignItems: "center",
+        opacity: isBackground ? ".4" : 1,
+      }}
+    >
+      <code>ref</code>➡️
+      <div>{current || "undefined"}</div>
+    </div>
+  )
+}
+
 function NewCountContainer({ current }: { current?: string }) {
   return (
     <div
@@ -38,20 +63,7 @@ function NewCountContainer({ current }: { current?: string }) {
     >
       <code>count</code>
       <div>⬇️</div>
-      <img alt="a container" src="./box.jpeg" style={{ width: "150px" }} />
-      {current && (
-        <div
-          style={{
-            position: "absolute",
-            right: "0",
-            width: "150px",
-            color: "black",
-            bottom: "30px",
-          }}
-        >
-          {current}
-        </div>
-      )}
+      <div>{current}</div>
     </div>
   )
 }
@@ -64,89 +76,104 @@ export function NoCurrentRef() {
         <Code highlightLines="">{renderCounterWithoutCurrentCode}</Code>
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="3">{singleRefWithoutCurrentCode}</Code>
         <Code highlightLines="" className="background">
           {renderCounterWithoutCurrentCode}
         </Code>
         <RefContainer />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
-        <Code highlightLines="1,2,7">{renderCounterWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
+        <Code highlightLines="1,2,7 ">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,5,6,8,12|1-3,7,12">
-          {singleRefWithoutCurrentCode}
-        </Code>
+        <Code highlightLines="5,6,8,11|7">{singleRefWithoutCurrentCode}</Code>
         <Code highlightLines="2">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,7,12|1-3,10,12">
-          {singleRefWithoutCurrentCode}
-        </Code>
+        <Code highlightLines="7|10">{singleRefWithoutCurrentCode}</Code>
         <Code highlightLines="2">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
+        <Fragment>
+          <CountContainer />
+        </Fragment>
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,10,12">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
         <Code highlightLines="2">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
         <CountContainer />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
-        <Code highlightLines="2">{renderCounterWithoutCurrentCode}</Code>
-        <RefContainer current="0" />
-        <CountContainer />
-      </Slide>
-      <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
         <Code highlightLines="4">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
         <CountContainer />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
+        <Code highlightLines="4">{renderCounterWithoutCurrentCode}</Code>
+        <RefContainer current="0" />
+        <CountContainer />
+      </Slide>
+      <Slide data-transition="none">
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
         <Code highlightLines="4">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
         <NewCountContainer current="1" />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
         <Code highlightLines="6">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
         <NewCountContainer current="1" />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
         <Code highlightLines="" className="background">
           {renderCounterWithoutCurrentCode}
         </Code>
         <RefContainer current="0" />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
-        <Code highlightLines="1,2,7">{renderCounterWithoutCurrentCode}</Code>
-        <RefContainer current="0" />
-      </Slide>
-      <Slide data-transition="none">
-        <Code highlightLines="1-3,5,6,8,11,12">
+        <Code highlightLines="" className="background">
           {singleRefWithoutCurrentCode}
         </Code>
         <Code highlightLines="1,2,7">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,10,12">{singleRefWithoutCurrentCode}</Code>
-        <Code highlightLines="1,2,7">{renderCounterWithoutCurrentCode}</Code>
+        <Code highlightLines="5,6,8">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="2">{renderCounterWithoutCurrentCode}</Code>
+        <RefContainer current="0" />
+      </Slide>
+      <Slide data-transition="none">
+        <Code highlightLines="10">{singleRefWithoutCurrentCode}</Code>
+        <Code highlightLines="2">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
         <CountContainer />
       </Slide>
       <Slide data-transition="none">
-        <Code highlightLines="1-3,12">{singleRefWithoutCurrentCode}</Code>
-        <Code highlightLines="1,4,7">{renderCounterWithoutCurrentCode}</Code>
+        <Code highlightLines="" className="background">
+          {singleRefWithoutCurrentCode}
+        </Code>
+        <Code highlightLines="4">{renderCounterWithoutCurrentCode}</Code>
         <RefContainer current="0" />
         <NewCountContainer current="1" />
       </Slide>

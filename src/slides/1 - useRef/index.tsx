@@ -15,7 +15,7 @@ export function UseRef() {
       <InverseTitle>
         <h2>useRef</h2>
         <ul>
-          <li>maintain data between renders</li>
+          <Fragment as="li">maintain data between renders</Fragment>
         </ul>
       </InverseTitle>
       <Slide>

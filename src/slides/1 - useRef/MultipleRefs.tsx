@@ -2,7 +2,7 @@ import { addItemFormWithCountCode } from "../../demos/Inventory/AddItemForm"
 import { Code } from "../../helpers/Code"
 import { Fragment, Notes, Slide } from "../../helpers/Slide"
 
-export const multipleRefsCode = `const React = {
+export const multipleRefsCode = `const React = () => {
   ...
   let currentIndex = 0;
   const refs = [];
@@ -25,17 +25,18 @@ export const multipleRefsCode = `const React = {
 
 function ReactCode({
   highlightLines = "",
-  className = "",
+  isBackground,
 }: {
   highlightLines?: string
-  className?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
       style={{ maxHeight: "300px", overflow: "auto" }}
-      className={className}
+      className={isBackground ? "background" : ""}
+      isTwoUp
     >
       {multipleRefsCode}
     </Code>
@@ -44,13 +45,18 @@ function ReactCode({
 
 function ComponentCode({
   highlightLines = "",
-  className = "",
+  isBackground,
 }: {
   highlightLines?: string
-  className?: string
+  isBackground?: boolean
 }) {
   return (
-    <Code fontSize=".4em" highlightLines={highlightLines} className={className}>
+    <Code
+      fontSize=".4em"
+      highlightLines={highlightLines}
+      className={isBackground ? "background" : ""}
+      isTwoUp
+    >
       {addItemFormWithCountCode}
     </Code>
   )
@@ -132,6 +138,7 @@ function Pointer({ name, offset }: { name: string; offset: number }) {
 export function MultipleRefs() {
   return (
     <>
+      {/* intro */}
       <Slide data-transition="none-out">
         <Fragment index={2} className="fade custom">
           <ReactCode />
@@ -140,21 +147,27 @@ export function MultipleRefs() {
           <ComponentCode />
         </Fragment>
       </Slide>
+
+      {/* react setup */}
       <Slide data-transition="none">
         <ReactCode highlightLines="1-4,20" />
-        <ComponentCode className="background" />
+        <ComponentCode isBackground />
         <Fragment>
           <RefArray />
         </Fragment>
       </Slide>
+
+      {/* component */}
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
+        <ReactCode highlightLines="" isBackground />
         <ComponentCode highlightLines="1,17|2" />
         <RefArray />
       </Slide>
+
+      {/* in useRef */}
       <Slide data-transition="none">
         <div style={{ position: "relative" }}>
-          <ReactCode highlightLines="1,20|6,17|7,9" />
+          <ReactCode highlightLines="6,15|7,9" />
           <div
             className="fragment"
             style={{
@@ -182,32 +195,32 @@ export function MultipleRefs() {
         <RefArray />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,7,9,20|1-4,8,20" />
+        <ReactCode highlightLines="7,9|8" />
         <ComponentCode highlightLines="2" />
         <RefArray />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,8,20" />
+        <ReactCode highlightLines="8" />
         <ComponentCode highlightLines="2" />
         <RefArray values={["current: null"]} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,11,20" />
+        <ReactCode highlightLines="11" />
         <ComponentCode highlightLines="2" />
         <RefArray values={["current: null"]} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,11,20" />
+        <ReactCode highlightLines="11" />
         <ComponentCode highlightLines="2" />
         <RefArray values={["current: null"]} pointers={[{ name: "ref" }]} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,12,20" />
+        <ReactCode highlightLines="12" />
         <ComponentCode highlightLines="2" />
         <RefArray values={["current: null"]} pointers={[{ name: "ref" }]} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,12,20|1-4,14,20" />
+        <ReactCode highlightLines="12|14" />
         <ComponentCode highlightLines="2" />
         <RefArray
           currentIndex={1}
@@ -216,7 +229,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,14,20" />
+        <ReactCode highlightLines="14" />
         <ComponentCode highlightLines="2" />
         <RefArray
           currentIndex={1}
@@ -225,7 +238,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
+        <ReactCode highlightLines="" isBackground />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={1}
@@ -234,7 +247,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,6-9,15,20" />
+        <ReactCode highlightLines="6-9,15" />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={1}
@@ -243,7 +256,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,6-9,15,20" />
+        <ReactCode highlightLines="6-9,15" />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={1}
@@ -252,7 +265,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,11,20" />
+        <ReactCode highlightLines="11" />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={1}
@@ -261,7 +274,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,11,20" />
+        <ReactCode highlightLines="11" />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={1}
@@ -270,7 +283,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,12,20" />
+        <ReactCode highlightLines="12" />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={1}
@@ -279,7 +292,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,12,20|1,14,20" />
+        <ReactCode highlightLines="12|14" />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={2}
@@ -288,7 +301,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
+        <ReactCode highlightLines="" isBackground />
         <ComponentCode highlightLines="3" />
         <RefArray
           currentIndex={2}
@@ -297,104 +310,64 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
-        <ComponentCode highlightLines="5-8" />
+        <ReactCode highlightLines="" isBackground />
+        <ComponentCode highlightLines="5,8|10-16|12-13" />
         <RefArray
           currentIndex={2}
           values={["current: null", "current: null"]}
           pointers={[{ name: "nameRef" }, { name: "countRef" }]}
         />
-        <ClosureEnclosure />
-        <Fragment>
-          <ClosurePointers />
-        </Fragment>
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
-        <ComponentCode highlightLines="10-16|12-13" />
-        <RefArray
-          currentIndex={2}
-          values={["current: null", "current: null"]}
-          pointers={[{ name: "nameRef" }, { name: "countRef" }]}
-        />
-        <ClosureEnclosure />
-        <ClosurePointers />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
-        <ComponentCode highlightLines="10-16|12-13" />
-        <RefArray
-          currentIndex={2}
-          values={["current: null", "current: null"]}
-          pointers={[{ name: "nameRef" }, { name: "countRef" }]}
-        />
-        <ClosureEnclosure />
-        <ClosurePointers />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
+        <ReactCode highlightLines="" isBackground />
         <ComponentCode highlightLines="12-13" />
         <RefArray
           currentIndex={2}
           values={["current: <input />", "current: <input />"]}
           pointers={[{ name: "nameRef" }, { name: "countRef" }]}
         />
-        <ClosureEnclosure />
-        <ClosurePointers />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="17-19" />
-        <ComponentCode highlightLines="" className="background" />
+        <ReactCode highlightLines="" isBackground />
+        <ComponentCode highlightLines="" isBackground />
+        <RefArray
+          currentIndex={2}
+          values={["current: <input />", "current: <input />"]}
+          pointers={[]}
+        />
+      </Slide>
+
+      {/* onClick */}
+      <Slide data-transition="none">
+        <ReactCode highlightLines="" isBackground />
+        <RefArray
+          currentIndex={2}
+          values={["current: <input />", "current: <input />"]}
+          pointers={[]}
+        />
+        <div style={{ position: "relative" }}>
+          <ComponentCode highlightLines="5-8" />
+          <Fragment>
+            <ClosureEnclosure />
+          </Fragment>
+          <Fragment>
+            <ClosureScope />
+          </Fragment>
+        </div>
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="" isBackground />
         <RefArray
           currentIndex={2}
           values={["current: <input />", "current: <input />"]}
           pointers={[{ name: "nameRef" }, { name: "countRef" }]}
         />
-        <ClosureEnclosure />
-        <ClosurePointers />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="17-19" />
-        <ComponentCode highlightLines="" className="background" />
-        <RefArray
-          currentIndex={0}
-          values={["current: <input />", "current: <input />"]}
-          pointers={[{ name: "nameRef" }, { name: "countRef" }]}
-        />
-        <ClosureEnclosure />
-        <ClosurePointers />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="" className="background" />
         <ComponentCode highlightLines="5-8" />
-        <RefArray
-          currentIndex={0}
-          values={["current: <input />", "current: <input />"]}
-          pointers={[{ name: "nameRef" }, { name: "countRef" }]}
-        />
-        <ClosureEnclosure />
-        <ClosurePointers />
-        <Notes>if the user clicks submit</Notes>
       </Slide>
+
       <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
-        <ComponentCode highlightLines="1,17|2,3" />
-        <RefArray
-          currentIndex={0}
-          values={["current: <input />", "current: <input />"]}
-          pointers={[]}
-        />
-        <Notes>if the component renders again</Notes>
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="1,20" />
-        <ComponentCode highlightLines="2,3" />
-        <RefArray
-          currentIndex={0}
-          values={["current: <input />", "current: <input />"]}
-          pointers={[{ name: "nameRef" }, { name: "countRef" }]}
-        />
-        <Notes>if the component renders again</Notes>
+        <ReactCode highlightLines="" />
+        <ComponentCode highlightLines="" />
       </Slide>
     </>
   )
@@ -404,40 +377,28 @@ function ClosureEnclosure() {
   return (
     <div
       style={{
-        width: "610px",
         height: "90px",
-        outline: "4px dashed var(--purple)",
         position: "absolute",
-        bottom: "200px",
-        left: "100px",
+        bottom: "130px",
+        left: "50px",
+        right: "50px",
+        backgroundColor: "hsl(300 50% 50% / .1)",
       }}
     ></div>
   )
 }
 
-function ClosurePointers() {
+function ClosureScope() {
   return (
-    <>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "290px",
-          height: "170px",
-          borderLeft: "4px solid var(--purple)",
-          left: "680px",
-        }}
-      ></div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "270px",
-          height: "190px",
-          borderRight: "4px solid var(--purple)",
-          borderBottom: "4px solid var(--purple)",
-          left: "710px",
-          width: "150px",
-        }}
-      ></div>
-    </>
+    <div
+      style={{
+        position: "absolute",
+        top: "0px",
+        bottom: "0px",
+        left: "50px",
+        right: "50px",
+        backgroundColor: "hsl(300 50% 50% / .1)",
+      }}
+    ></div>
   )
 }
