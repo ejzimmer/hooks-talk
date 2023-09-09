@@ -150,6 +150,7 @@ export function UseStateImplementation() {
   return (
     <>
       <Slide data-transition="none-out">
+        need to finish this whole thing
         <Fragment index={2} className="fade custom">
           <ReactCode />
         </Fragment>
@@ -252,7 +253,6 @@ export function UseStateImplementation() {
           pointers={[{ name: "thisState" }]}
         />
       </Slide>
-
       <Slide data-transition="none">
         <ReactCode highlightLines="1,14,20" />
         <ComponentCode highlightLines="2" />

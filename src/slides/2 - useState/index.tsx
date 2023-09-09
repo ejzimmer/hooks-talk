@@ -15,14 +15,6 @@ import {
 } from "../../demos/Inventory/FilterVsSort"
 import { ArrayMethods } from "./ArrayMethods"
 
-// finish useState demo animation
-// demo of when you update the state via setX, but x doesn't change
-// demo of filter + sort
-// code of filter + sort
-// demo of how filter works but sort doesn't
-// explanation of array methods
-// summary of what we learnt in the useState section
-
 export function UseState() {
   const [, setRender] = useState(false)
   return (
@@ -50,7 +42,7 @@ export function UseState() {
         <Code highlightLines="|10-15|2|4-8|6,13">{inventoryCode}</Code>
       </Slide>
       <UseStateImplementation />
-
+      <Slide>put a demo of when you call setX it doesn't update X</Slide>
       <Slide>
         <div style={{ display: "flex" }}>
           <ItemList
@@ -68,8 +60,12 @@ export function UseState() {
         </div>
       </Slide>
       <Slide>
-        <Code>{filterItemListCode}</Code>
-        <Code>{sortItemListCode}</Code>
+        <Code fontSize=".4em" isTwoUp>
+          {filterItemListCode}
+        </Code>
+        <Code fontSize=".4em" isTwoUp>
+          {sortItemListCode}
+        </Code>
       </Slide>
       <Slide>
         <div style={{ display: "flex" }}>
@@ -84,7 +80,7 @@ export function UseState() {
         <ul>
           <li>store states between renders</li>
           <li>causes a re-render when updated</li>
-          <li>only re-renders when state is an actual different object</li>
+          <li>watch out for mutating array methods!</li>
         </ul>
       </Slide>
     </>

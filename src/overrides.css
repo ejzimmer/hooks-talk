@@ -38,3 +38,8 @@ cite.footnote {
 pre.background tr {
   opacity: 0.4;
 }
+
+code.hljs table {
+  background: inherit;
+  width: 100%;
+}

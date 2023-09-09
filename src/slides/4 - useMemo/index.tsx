@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { useDodgyEventHandlers } from "../../demos/Inventory"
+import { InventorySlide, useDodgyEventHandlers } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import {
   Fragment,
@@ -15,27 +15,42 @@ import {
   inventoryWithUseEffectCode,
   updateableInventoryCode,
 } from "../../demos/Inventory/AddToInventory"
-import {
-  InventoryWithKeyboardShortcuts,
-  inventoryWithKeyboardShortcutsCode,
-} from "../../demos/Inventory/KeyboardShortcuts"
+
+// oh no though everything is fucked - doesn't work with sort & filter, can't add, everything is bad
+// we could add more useEffects and make it terrible but
+// app state (use items) vs state that can be calculated (filter & sort) => don't store calculatable values
+// https://react.dev/learn/choosing-the-state-structure#avoid-redundant-state
+// If you can calculate some information from the component’s props or its existing state variables during rendering, you should not put that information into that component’s state.
+// working code
+// working demo
+// but what if my calculations are expensive?
+// useMemo
+// code with useMemo
+// step through code with useMemo
+// summary - no redundant state, test performance, useMemo
+// add buttons
+// extract repeated code
+// callback causing re-render problem
+// fix with useMemo but isn't it a bit icky
+// useCallback shiny slide
+// useCallback = useMemo for functions
+// transform code from useMemo to useCallback
+// now everything works great yay - demo
+// summary
+// further reading
+// thanks
 
 export function UseMemo() {
   return (
     <>
+      <InventorySlide />
       <AddToInventorySlide inventoryComponent={UpdateableInventory} />
       <Slide>
         <Code fontSize=".4em" highlightLines="|8-11|4|12">
           {addToInventoryNotWorkingCode}
         </Code>
       </Slide>
-      <AddToInventorySlide
-        inventoryComponent={InventoryWithKeyboardShortcuts}
-      />
       <Slide>
-        <Code fontSize=".3em" highlightLines="2|5,14,19,28">
-          {inventoryWithKeyboardShortcutsCode}
-        </Code>
         <Notes>
           it doesn't work because right at the start of the component we set the
           state from the props and then just use the state

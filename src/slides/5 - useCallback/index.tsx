@@ -27,7 +27,9 @@ export function UseCallback() {
           ruleName="react-hooks/exhaustive-deps"
           ruleLink="https://github.com/facebook/react/issues/14920"
           code={
-            <Code transparent>const consumeItem: (item: Item) =&gt; void</Code>
+            <Code isTransparent>
+              const consumeItem: (item: Item) =&gt; void
+            </Code>
           }
         >
           The 'consumeItem' function makes the dependencies of useEffect Hook

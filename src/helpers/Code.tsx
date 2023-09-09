@@ -4,32 +4,41 @@ type Props = {
   fontSize?: string
   children: string
   highlightLines?: string
-  transparent?: boolean
+  isTransparent?: boolean
+  isTwoUp?: boolean
   className?: string
   style?: any
 }
 
 export const Code = forwardRef<HTMLElement, Props>(function Code(
-  { highlightLines, fontSize, transparent, className, style, children },
+  {
+    highlightLines,
+    fontSize,
+    isTransparent,
+    isTwoUp,
+    className,
+    style,
+    children,
+  },
   ref
 ) {
   return (
     <pre
       style={{
-        fontSize: transparent ? "inherit" : fontSize,
-        margin: transparent ? 0 : undefined,
-        backgroundColor: transparent ? "transparent" : undefined,
-        boxShadow: transparent ? "none" : undefined,
-        ...style,
+        fontSize: isTransparent ? "inherit" : fontSize,
+        margin: isTransparent ? 0 : undefined,
+        backgroundColor: isTransparent ? "transparent" : undefined,
+        boxShadow: isTransparent ? "none" : undefined,
+        overflow: "auto",
+        maxHeight: isTwoUp ? "300px" : "100%",
       }}
       className={className}
     >
       <code
         className="tsx"
         style={{
-          backgroundColor: transparent ? "transparent" : undefined,
-          overflow: "hidden",
-          maxHeight: style?.maxHeight && "unset",
+          backgroundColor: isTransparent ? "transparent" : undefined,
+          overflow: isTwoUp ? "visible" : "auto",
         }}
         data-line-numbers={highlightLines}
         ref={ref}

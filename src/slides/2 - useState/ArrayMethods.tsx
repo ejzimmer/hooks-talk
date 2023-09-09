@@ -1,8 +1,6 @@
 import { items } from "../../demos/Inventory"
 import {
-  InventoryWithBrokenSort,
   SortableInventory,
-  brokenSortedItemsCode,
   sortableInventoryCode,
 } from "../../demos/Inventory/SortableInventory"
 import { Code } from "../../helpers/Code"
@@ -11,19 +9,6 @@ import { Fragment, Notes, Slide } from "../../helpers/Slide"
 export function ArrayMethods() {
   return (
     <>
-      <Slide>
-        <h2>Only render on change</h2>
-        <Code fontSize="0.45em" highlightLines="|10-15|4-6">
-          {brokenSortedItemsCode}
-        </Code>
-      </Slide>
-      <Slide>
-        <h2>Only render on change</h2>
-        <InventoryWithBrokenSort items={items} />
-        <Notes>more insidious because it looks like it's working</Notes>
-      </Slide>
-      <Slide>horrified face</Slide>
-
       <ArraySortDocs />
       <MutatingMethods />
       <ArrayCopyTrick />

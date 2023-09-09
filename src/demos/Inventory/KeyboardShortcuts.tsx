@@ -1,85 +1,24 @@
-import { useEffect, useState } from "react"
-import { Item, Props, sortFunction } from "./utils"
+import { useRef, useState } from "react"
+import { Item, Props, items, sortFunction } from "./utils"
+import { useDodgyEventHandlers } from "."
+import { Slide } from "../../helpers/Slide"
 
-export function InventoryWithKeyboardShortcuts({
-  items,
-  isCurrent,
-}: Omit<Props, "addEventHandler">) {
-  const [sortedItems, setSortedItems] = useState(items)
-
-  const handleClick = (sortBy: keyof Item) => {
-    setSortedItems([...sortedItems].sort(sortFunction(sortBy)))
-  }
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (!event.key.match(/^[0-9]$/)) return
-      const indexToUpdate = Number.parseInt(event.key) - 1
-      setSortedItems(
-        sortedItems.map((item, index) =>
-          index === indexToUpdate ? { ...item, count: --item.count } : item
-        )
-      )
-    }
-
-    isCurrent && window.addEventListener("keydown", onKeyDown)
-
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [sortedItems, isCurrent])
+export function WithoutUseEffectSlide() {
+  const slideRef = useRef(null)
+  const { isCurrent, addEventHandler } = useDodgyEventHandlers(slideRef.current)
 
   return (
-    <>
-      <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("count")}>Sort by count</button>
-      <ol>
-        {sortedItems.map((item) => (
-          <li key={item.name}>
-            {item.name} {item.count}
-          </li>
-        ))}
-      </ol>
-    </>
+    <Slide ref={slideRef}>
+      <WithoutUseEffect
+        items={items}
+        addEventHandler={addEventHandler}
+        isCurrent={isCurrent}
+      />
+    </Slide>
   )
 }
-export const inventoryWithKeyboardShortcutsCode = `export function Inventory({ items }: Props) {
-  const [sortedItems, setSortedItems] = useState(items)
 
-  const handleClick = (sortBy: keyof Item) => {
-    setSortedItems(sortedItems.toSorted(sortFunction(sortBy)))
-  }
-
-  useEffect(() => {
-    window.addEventListener("keydown", (event) => {
-      if (!event.key.match(/^[0-9]$/)) return
-
-      const indexToUpdate = Number.parseInt(event.key)
-      setSortedItems(
-        sortedItems.map((item, index) =>
-          index === indexToUpdate ? { ...item, count: --item.count } : item
-        )
-      )
-    })
-  }, [sortedItems])
-
-  return (
-    <>
-      <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("timesUsed")}>
-        Sort by times used
-      </button>
-      <ol>
-        {sortedItems.map((item) => (
-          <li key={item.name}>
-            {item.name} {item.count}
-          </li>
-        ))}
-      </ol>
-    </>
-  )
-}
-`
-
-export function WithoutUseEffect({ items, addEventHandler, isCurrent }: Props) {
+function WithoutUseEffect({ items, addEventHandler, isCurrent }: Props) {
   const [sortedItems, setSortedItems] = useState(items)
 
   const handleClick = (sortBy: keyof Item) => {
@@ -119,49 +58,16 @@ export function WithoutUseEffect({ items, addEventHandler, isCurrent }: Props) {
 }
 
 export const withoutUseEffectCode = `export function Inventory({ items }: Props) {
-  const [sortedItems, setSortedItems] = useState(items)
+  const [itemsToShow, setItemsToShow] = useState(items)
 
-  const handleClick = (sortBy: keyof Item) => {
-    setSortedItems(sortedItems.toSorted(sortFunction(sortBy)))
-  }
+  ...sort & filter code...
 
   window.addEventListener("keydown", (event) => {
     if (!event.key.match(/^[0-9]$/)) return
 
     const indexToUpdate = Number.parseInt(event.key) - 1
-    setSortedItems(
-      sortedItems.map((item, index) =>
-        index === indexToUpdate ? 
-          { ...item, count: --item.count } : 
-          item
-      )
-    )
-  })
-
-  return (
-    <>
-      <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("count")}>Sort by count</button>
-      <ol>
-        {sortedItems.map((item) => (
-          <li key={item.name}>
-            {item.name} {item.count}
-          </li>
-        ))}
-      </ol>
-    </>
-  )
-}
-`
-
-export const abridgedWithoutUseEffectCode = `export function Inventory({ items }: Props) {
-  const [sortedItems, setSortedItems] = useState(items)
-  ... 
-
-  window.addEventListener("keydown", (event) => {
-    ...
-    setSortedItems(
-      sortedItems.map((item, index) =>
+    setItemsToShow(
+      itemsToShow.map((item, index) =>
         index === indexToUpdate ? 
           { ...item, count: --item.count } : 
           item
