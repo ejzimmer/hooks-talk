@@ -36,7 +36,7 @@ export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Prop
 }`
 
 type Props = {
-  onSubmit: (value?: string, count?: string) => void
+  onSubmit: (value: string, count: string) => void
   hideCount?: boolean
 }
 

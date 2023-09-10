@@ -24,11 +24,11 @@ export function sortFunction(by: keyof Item) {
 
 export function addItemToInventory(
   inventory: Item[],
-  name?: string,
-  numberOf = "1"
+  name: string,
+  numberOf: string
 ) {
   if (!name) return inventory
-  const count = Number.parseInt(numberOf)
+  const count = Number.parseInt(numberOf || "1")
 
   const existingItem = inventory.find((i) => i.name === name)
   if (existingItem) {

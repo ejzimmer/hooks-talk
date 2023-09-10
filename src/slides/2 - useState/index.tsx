@@ -19,7 +19,7 @@ export function UseState() {
   const [, setRender] = useState(false)
   return (
     <>
-      <InventorySlide hideSortButtons={true} items={[]} />
+      <InventorySlide hideSortButtons hideFilter items={[]} />
       <Slide>
         <Code highlightLines="|8-14|2|4-7">{addItemUsingRefCode}</Code>
       </Slide>
@@ -39,7 +39,7 @@ export function UseState() {
         </ul>
       </InverseTitle>
       <Slide>
-        <Code highlightLines="|10-15|2|4-8|6,13">{inventoryCode}</Code>
+        <Code highlightLines="|2|4-8|5,7|13">{inventoryCode}</Code>
       </Slide>
       <UseStateImplementation />
       <Slide>put a demo of when you call setX it doesn't update X</Slide>
@@ -107,7 +107,7 @@ const addItemUsingRefCode = `function Inventory() {
 function AddItemsUsingRef() {
   const inventory = useRef<Item[]>([])
 
-  const addItem = (name?: string, count = "1") => {
+  const addItem = (name: string, count: string) => {
     if (!inventory.current) return
     inventory.current = addItemToInventory(inventory.current, name, count)
   }
@@ -120,6 +120,7 @@ function AddItemsUsingRef() {
         setItems={() => undefined}
         isCurrent={false}
         hideSortButtons
+        hideFilter
       />
     </>
   )

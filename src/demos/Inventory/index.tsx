@@ -7,9 +7,11 @@ import { Slide } from "../../helpers/Slide"
 
 export function InventorySlide({
   hideSortButtons,
+  hideFilter,
   items,
 }: {
   hideSortButtons?: boolean
+  hideFilter?: boolean
   items?: Item[]
 }) {
   const inventoryRef = useRef(null)
@@ -19,6 +21,7 @@ export function InventorySlide({
       <Inventory
         isCurrent={isCurrent}
         hideSortButtons={hideSortButtons}
+        hideFilter={hideFilter}
         items={items}
       />
     </Slide>
@@ -38,7 +41,7 @@ export function Inventory({
 }) {
   const [inventory, setInventory] = useState(items)
 
-  const addItem = (name?: string, count?: string) => {
+  const addItem = (name: string, count: string) => {
     const updatedInventory = addItemToInventory(inventory, name, count)
     setInventory(updatedInventory)
   }
