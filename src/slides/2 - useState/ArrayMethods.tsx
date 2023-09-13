@@ -1,10 +1,10 @@
-import { items } from "../../demos/Inventory"
+import { items } from "../../demos/Inventory";
 import {
   SortableInventory,
   sortableInventoryCode,
-} from "../../demos/Inventory/SortableInventory"
-import { Code } from "../../helpers/Code"
-import { Fragment, Notes, Slide } from "../../helpers/Slide"
+} from "../../demos/Inventory/SortableInventory";
+import { Code } from "../../helpers/Code";
+import { Fragment, Notes, Slide } from "../../helpers/Slide";
 
 export function ArrayMethods() {
   return (
@@ -19,13 +19,42 @@ export function ArrayMethods() {
         <SortableInventory items={items} />
       </Slide>
     </>
-  )
+  );
 }
 
 function ArraySortDocs() {
   return (
     <Slide>
-      <blockquote>
+      <blockquote style={{ fontSize: ".8em", marginBottom: "3em" }}>
+        The <code>filter()</code> method of{" "}
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"
+        >
+          <code>Array</code>
+        </a>{" "}
+        instances creates a{" "}
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Glossary/Shallow_copy"
+          target="_blank"
+          rel="noreferrer"
+        >
+          shallow copy
+        </a>{" "}
+        of a portion of a given array, filtered down to just the elements from
+        the given array that pass the test implemented by the provided function.
+        <cite className="footnote">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+          >
+            Array.protype.filter on MDN
+          </a>
+        </cite>
+      </blockquote>
+      <blockquote style={{ fontSize: ".8em" }}>
         The <code>sort()</code> method of{" "}
         <a
           target="_blank"
@@ -57,7 +86,7 @@ function ArraySortDocs() {
       </blockquote>
       <Notes>these are called Mutating methods</Notes>
     </Slide>
-  )
+  );
 }
 
 function MutatingMethods() {
@@ -75,7 +104,7 @@ function MutatingMethods() {
         <li>unshift(v1, v2)</li>
       </ul>
     </Slide>
-  )
+  );
 }
 
 function ArrayCopyTrick() {
@@ -95,7 +124,7 @@ function ArrayCopyTrick() {
         </Fragment>
       </ul>
     </Slide>
-  )
+  );
 }
 
 function NewArrayMethods() {
@@ -124,5 +153,5 @@ function NewArrayMethods() {
         </a>
       </cite>
     </Slide>
-  )
+  );
 }

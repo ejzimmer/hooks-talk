@@ -62,10 +62,10 @@ export function UseState() {
         </div>
       </Slide>
       <Slide>
-        <Code fontSize=".4em" isTwoUp>
+        <Code fontSize=".4em" isTwoUp highlightLines="|11|4-7,11">
           {filterItemListCode}
         </Code>
-        <Code fontSize=".4em" isTwoUp>
+        <Code fontSize=".4em" isTwoUp highlightLines="|10,11|4-6,10,11">
           {sortItemListCode}
         </Code>
       </Slide>

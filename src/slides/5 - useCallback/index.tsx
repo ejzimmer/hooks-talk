@@ -1,13 +1,12 @@
-import { Code } from "../../helpers/Code"
-import { Slide, InverseTitle, Fragment, ShinyTitle } from "../../helpers/Slide"
-import { AddToInventorySlide } from "../4 - useMemo"
-import { LinterError } from "../../helpers/LinterError"
-import { UpdateableInventory } from "../../demos/Inventory/AddToInventory"
+import { Code } from "../../helpers/Code";
+import { Slide, InverseTitle, Fragment, ShinyTitle } from "../../helpers/Slide";
+import { LinterError } from "../../helpers/LinterError";
+import { InventorySlide } from "../../demos/Inventory";
 
 export function UseCallback() {
   return (
     <>
-      <AddToInventorySlide inventoryComponent={UpdateableInventory} />
+      <InventorySlide />
       <Slide>
         <Code highlightLines="|4">{onClickCode}</Code>
       </Slide>
@@ -68,7 +67,7 @@ export function UseCallback() {
         </Fragment>
       </Slide>
     </>
-  )
+  );
 }
 
 const onClickCode = `<ol>
@@ -79,7 +78,7 @@ const onClickCode = `<ol>
     </button>
   </li>
 ))}
-</ol>`
+</ol>`;
 
 const useItemCode = `useEffect(() => {
   const onKeyDown = (event: KeyboardEvent) => {
@@ -96,7 +95,7 @@ const useItemCode = `useEffect(() => {
 
   return () => window.removeEventListener("keydown", onKeyDown)
 }, [sortedItems, isCurrent])
-`
+`;
 
 export const extractConsumeItemCode = `export function Inventory({ items, setItems }: Props) {
   const [sortBy, setSortBy] = useState<keyof Item>("name")
@@ -153,7 +152,7 @@ export const extractConsumeItemCode = `export function Inventory({ items, setIte
     </>
   )
 }
-`
+`;
 
 export const memoisedConsumeItemCode = `const consumeItem = useMemo(
   () => (item: Item) => {
@@ -164,7 +163,7 @@ export const memoisedConsumeItemCode = `const consumeItem = useMemo(
     )
   }, 
   [items, setItems]
-)`
+)`;
 
 export const callbackisedConsumeItemCode = `const consumeItem = useCallback(
   (item: Item) => {
@@ -175,4 +174,4 @@ export const callbackisedConsumeItemCode = `const consumeItem = useCallback(
     )
   }, 
   [items, setItems]
-  )`
+  )`;

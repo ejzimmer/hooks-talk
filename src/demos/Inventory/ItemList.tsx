@@ -99,3 +99,93 @@ export function ListItem({
     </li>
   );
 }
+
+export function ItemListWithTooMuchState({ items, isCurrent }: Props) {
+  const [itemsToShow, setItemsToShow] = useState<Item[]>(items);
+
+  const handleSort = (sortBy: keyof Item) => {
+    setItemsToShow([...itemsToShow].sort(sortFunction(sortBy)));
+  };
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setItemsToShow(
+      items.filter((item) => item.name.includes(event.target.value))
+    );
+  };
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return;
+      const indexToUpdate = Number.parseInt(event.key) - 1;
+      const itemToUpdate = itemsToShow[indexToUpdate];
+      setItemsToShow(
+        items.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
+      );
+    };
+
+    isCurrent && window.addEventListener("keydown", onKeyDown);
+
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [itemsToShow, items, isCurrent]);
+
+  return (
+    <>
+      <input onChange={handleFilter} />
+      <button onClick={() => handleSort("name")}>Sort by name</button>
+      <button onClick={() => handleSort("count")}>Sort by count</button>
+      <ol>
+        {itemsToShow.map((item) => (
+          <ListItem key={item.name} item={item} />
+        ))}
+      </ol>
+    </>
+  );
+}
+
+export function ItemListWithTooMuchEffect({ items, isCurrent }: Props) {
+  const [itemsToShow, setItemsToShow] = useState<Item[]>(items);
+  const [sortBy, setSortBy] = useState<keyof Item>();
+  const [filterBy, setFilterBy] = useState<string>();
+
+  useEffect(() => {
+    const sortedItems = sortBy ? items.sort(sortFunction(sortBy)) : items;
+    const filteredItems = filterBy
+      ? sortedItems.filter((item) => item.name.includes(filterBy))
+      : sortedItems;
+    setItemsToShow(filteredItems);
+  }, [items, sortBy, filterBy]);
+
+  const handleSort = (sortBy: keyof Item) => {
+    setSortBy(sortBy);
+  };
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterBy(event.target.value);
+  };
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!event.key.match(/^[0-9]$/)) return;
+      const indexToUpdate = Number.parseInt(event.key) - 1;
+      const itemToUpdate = itemsToShow[indexToUpdate];
+      setItemsToShow(
+        items.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
+      );
+    };
+
+    isCurrent && window.addEventListener("keydown", onKeyDown);
+
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [itemsToShow, items, isCurrent]);
+
+  return (
+    <>
+      <input onChange={handleFilter} />
+      <button onClick={() => handleSort("name")}>Sort by name</button>
+      <button onClick={() => handleSort("count")}>Sort by count</button>
+      <ol>
+        {itemsToShow.map((item) => (
+          <ListItem key={item.name} item={item} />
+        ))}
+      </ol>
+    </>
+  );
+}

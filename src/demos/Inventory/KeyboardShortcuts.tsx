@@ -1,11 +1,13 @@
-import { useRef, useState } from "react"
-import { Item, Props, items, sortFunction } from "./utils"
-import { useDodgyEventHandlers } from "."
-import { Slide } from "../../helpers/Slide"
+import { useRef, useState } from "react";
+import { Item, Props, items, sortFunction } from "./utils";
+import { useDodgyEventHandlers } from ".";
+import { Slide } from "../../helpers/Slide";
 
 export function WithoutUseEffectSlide() {
-  const slideRef = useRef(null)
-  const { isCurrent, addEventHandler } = useDodgyEventHandlers(slideRef.current)
+  const slideRef = useRef(null);
+  const { isCurrent, addEventHandler } = useDodgyEventHandlers(
+    slideRef.current
+  );
 
   return (
     <Slide ref={slideRef}>
@@ -15,31 +17,31 @@ export function WithoutUseEffectSlide() {
         isCurrent={isCurrent}
       />
     </Slide>
-  )
+  );
 }
 
 function WithoutUseEffect({ items, addEventHandler, isCurrent }: Props) {
-  const [sortedItems, setSortedItems] = useState(items)
+  const [sortedItems, setSortedItems] = useState(items);
 
   const handleClick = (sortBy: keyof Item) => {
-    setSortedItems([...sortedItems].sort(sortFunction(sortBy)))
-  }
+    setSortedItems([...sortedItems].sort(sortFunction(sortBy)));
+  };
 
   const onKeyDown = (event: KeyboardEvent) => {
-    console.log("keydown handler called")
-    if (!event.key.match(/^[0-9]$/)) return
+    console.log("keydown handler called");
+    if (!event.key.match(/^[0-9]$/)) return;
 
-    const indexToUpdate = Number.parseInt(event.key) - 1
+    const indexToUpdate = Number.parseInt(event.key) - 1;
     setSortedItems(
       sortedItems.map((item, index) =>
         index === indexToUpdate ? { ...item, count: --item.count } : item
       )
-    )
-  }
+    );
+  };
 
   if (isCurrent) {
-    addEventHandler && addEventHandler(onKeyDown)
-    window.addEventListener("keydown", onKeyDown)
+    addEventHandler && addEventHandler(onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
   }
 
   return (
@@ -54,7 +56,7 @@ function WithoutUseEffect({ items, addEventHandler, isCurrent }: Props) {
         ))}
       </ol>
     </>
-  )
+  );
 }
 
 export const withoutUseEffectCode = `export function Inventory({ items }: Props) {
@@ -63,7 +65,7 @@ export const withoutUseEffectCode = `export function Inventory({ items }: Props)
   ...sort & filter code...
 
   window.addEventListener("keydown", (event) => {
-    if (!event.key.match(/^[0-9]$/)) return
+    if (!event.key.match(/^[1-9]$/)) return
 
     const indexToUpdate = Number.parseInt(event.key) - 1
     setItemsToShow(
@@ -77,4 +79,4 @@ export const withoutUseEffectCode = `export function Inventory({ items }: Props)
 
   return (...)
 }
-`
+`;

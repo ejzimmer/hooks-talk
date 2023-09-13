@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from "react"
+import { FormEvent, useRef } from "react";
 
 export const addItemFormCode = `function AddItemForm({ onSubmit }: Props) {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -15,7 +15,7 @@ export const addItemFormCode = `function AddItemForm({ onSubmit }: Props) {
     </form>
   );
 }
-`
+`;
 
 export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Props) {
   const nameRef = useRef<HTMLInputElement>(null)
@@ -33,25 +33,25 @@ export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Prop
       <button>Add</button>
     </form>
   )
-}`
+}`;
 
 type Props = {
-  onSubmit: (value: string, count: string) => void
-  hideCount?: boolean
-}
+  onSubmit: (value: string, count: string) => void;
+  hideCount?: boolean;
+};
 
 export function AddItemForm({ onSubmit, hideCount }: Props) {
-  const nameRef = useRef<HTMLInputElement>(null)
-  const countRef = useRef<HTMLInputElement>(null)
+  const nameRef = useRef<HTMLInputElement>(null);
+  const countRef = useRef<HTMLInputElement>(null);
 
   const handleAddItem = (event: FormEvent) => {
-    event.preventDefault()
-    if (!nameRef.current || !countRef.current) return
+    event.preventDefault();
+    if (!nameRef.current || !countRef.current) return;
 
-    onSubmit(nameRef.current.value, countRef.current.value)
-    nameRef.current.value = ""
-    countRef.current.value = ""
-  }
+    onSubmit(nameRef.current.value, countRef.current.value);
+    nameRef.current.value = "";
+    countRef.current.value = "";
+  };
 
   return (
     <form onSubmit={handleAddItem}>
@@ -65,5 +65,5 @@ export function AddItemForm({ onSubmit, hideCount }: Props) {
       )}
       <button>Add</button>
     </form>
-  )
+  );
 }

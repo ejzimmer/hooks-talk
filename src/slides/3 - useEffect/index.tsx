@@ -1,21 +1,16 @@
-import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
-import { InventorySlide } from "../../demos/Inventory"
+import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide";
+import { InventorySlide } from "../../demos/Inventory";
 import {
   WithoutUseEffectSlide,
   withoutUseEffectCode,
-} from "../../demos/Inventory/KeyboardShortcuts"
-import { Code } from "../../helpers/Code"
-import { LinterError } from "../../helpers/LinterError"
+} from "../../demos/Inventory/KeyboardShortcuts";
+import { Code } from "../../helpers/Code";
+import { LinterError } from "../../helpers/LinterError";
 import {
   UseEffectImplementation,
   keyboardShortcutCode,
-} from "./UseEffectImplementation"
+} from "./UseEffectImplementation";
 
-// demo of keyboard shortcuts working
-// code without useEffect and how broken it is
-// code for working shortcuts (with clean up & everything)
-// 3 things we need: callback, dependency array controls when callback is called, return value does cleanup
-// step through code
 // uses for useEffect
 // no dependency array vs missing dependencies - linter
 // summary - for things outside react's control. callback called after render when dependencies change. clean up with returned function
@@ -25,9 +20,12 @@ export function UseEffect() {
     <>
       <InventorySlide />
       <Slide>
-        <Code>{withoutUseEffectCode}</Code>
+        <Code highlightLines="|6-17|6|7|9|10-16">{withoutUseEffectCode}</Code>
       </Slide>
       <WithoutUseEffectSlide />
+      <Slide>
+        <Code highlightLines="|6-17|10-16|">{withoutUseEffectCode}</Code>
+      </Slide>
       <ShinyTitle title="useEffect" />
       <InverseTitle>
         <h2>useEffect</h2>
@@ -60,39 +58,24 @@ export function UseEffect() {
       </Slide>
       <UseEffectImplementation />
       <Slide>
+        <h2>Dependency arrays</h2>
+        <ul>
+          <Fragment as="li">Effects run at least once</Fragment>
+          <Fragment as="li">No dependency array - run on every render</Fragment>
+          <Fragment as="li">Empty dependency array - run once</Fragment>
+        </ul>
+      </Slide>
+      <Slide>
+        <h2>Use useEffect for</h2>
         <ul>
           <li>native event handlers</li>
           <Fragment as="li">
             setTimeout/setInterval/requestAnimationFrame
           </Fragment>
-          <Fragment as="li">making API calls</Fragment>
+          <Fragment as="li">making HTTP calls</Fragment>
           <Fragment as="li">interacting with 3rd party libraries</Fragment>
         </ul>
       </Slide>
-      <Slide>
-        <h2>dependency array gotchas</h2>
-        no dependency array = run on every render. do you really need an effect?
-        empty dependency array = run only once missing dependencies could break
-        things so use linter
-      </Slide>
-      <Slide>
-        <LinterError
-          ruleName="react-hooks/exhaustive-deps"
-          ruleLink="https://github.com/facebook/react/issues/14920"
-          code={
-            <>
-              (parameter) isCurrent: boolean{" "}
-              <span style={{ color: "#f92672" }}>|</span>{" "}
-              <span style={{ color: "#ab6ec3" }}>undefined</span>
-            </>
-          }
-        >
-          React Hook useEffect has a missing dependency: 'sortedItems'. Either
-          include it or remove the dependency array. You can also do a
-          functional update 'setSortedItems(s =&gt; ...)' if you only need
-          'sortedItems' in the 'setSortedItems' call.
-        </LinterError>
-      </Slide>
     </>
-  )
+  );
 }
