@@ -1,9 +1,4 @@
-import { useRef } from "react";
-import {
-  InventorySlide,
-  UnaddableInventorySlide,
-  useDodgyEventHandlers,
-} from "../../demos/Inventory";
+import { InventorySlide, UnaddableInventorySlide } from "../../demos/Inventory";
 import { Code } from "../../helpers/Code";
 import {
   Fragment,
@@ -12,9 +7,8 @@ import {
   ShinyTitle,
   Slide,
 } from "../../helpers/Slide";
+import { UseMemoImplementation } from "./UseMemoImplementation";
 
-// useMemo
-// code with useMemo
 // step through code with useMemo
 // summary - no redundant state, test performance, useMemo
 // add buttons
@@ -124,15 +118,13 @@ export function UseMemo() {
           <Fragment as="li">ie only recalculate if it changes</Fragment>
         </ul>
       </InverseTitle>
-      <Slide data-transition="slide-in fade-out">
-        <Code>{unmemoisedCode}</Code>
+      <Slide>
+        <Code highlightLines="">{unmemoisedCode}</Code>
         <Fragment>
-          <Code>{memoisedCode}</Code>
+          <Code highlightLines="|1,11|2-9|10">{memoisedCode}</Code>
         </Fragment>
       </Slide>
-      <Slide data-transition="fade-in slide-out">
-        <Code highlightLines="2|3">{memoisedCode}</Code>
-      </Slide>
+      <UseMemoImplementation />
       <Slide>
         <h2>useMemo</h2>
         <ul>
@@ -144,11 +136,25 @@ export function UseMemo() {
   );
 }
 
-const unmemoisedCode = `const sortedItems = [...items].sort(sortFunction(sortBy))`;
-const memoisedCode = `const sortedItems = useMemo(
-  () => [...items].sort(sortFunction(sortBy)), 
-  [items, sortBy]
-)`;
+const unmemoisedCode = `const filteredItems = filter
+  ? items.filter((item) => item.name.includes(filter))
+  : [...items];
+const itemsToShow = sortBy 
+  ? filteredItems.sort(sortFunction(sortBy)) 
+  : filteredItems;
+`;
+const memoisedCode = `const itemsToShow = useMemo(
+  () => {
+    const filteredItems = filter
+      ? items.filter((item) => item.name.includes(filter))
+      : [...items];
+    return sortBy 
+      ? filteredItems.sort(sortFunction(sortBy)) 
+      : filteredItems;
+  }, 
+  [filter, items, sortBy]
+);
+`;
 
 const unaddableInventoryCode = `export function ItemList({ items }: Props) {
   const [itemsToShow, setItemsToShow] = useState<Item[]>(items);
