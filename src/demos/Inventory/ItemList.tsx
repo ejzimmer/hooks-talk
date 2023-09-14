@@ -92,6 +92,8 @@ export function ListItem({
           lineHeight: "inherit",
           fontFamily: "inherit",
           fontSize: "inherit",
+          color: "inherit",
+          cursor: "pointer",
         }}
       >
         {item.name} {item.count}

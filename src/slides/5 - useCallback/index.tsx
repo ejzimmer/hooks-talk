@@ -16,7 +16,7 @@ export function UseCallback() {
         </Code>
       </Slide>
       <Slide>
-        <Code fontSize=".4em" highlightLines="13-17|23-24|39">
+        <Code fontSize=".4em" highlightLines="7-9|40|17|26">
           {extractConsumeItemCode}
         </Code>
       </Slide>
@@ -38,7 +38,7 @@ export function UseCallback() {
         </LinterError>
       </Slide>
       <Slide>
-        <Code fontSize=".4em" highlightLines="13-17|35">
+        <Code fontSize=".4em" highlightLines="7-10">
           {extractConsumeItemCode}
         </Code>
       </Slide>
@@ -97,60 +97,52 @@ const useItemCode = `useEffect(() => {
 }, [sortedItems, isCurrent])
 `;
 
-export const extractConsumeItemCode = `export function Inventory({ items, setItems }: Props) {
-  const [sortBy, setSortBy] = useState<keyof Item>("name")
+export const extractConsumeItemCode = `function ItemList({ items, setItems }: Props) {
+  const [sortBy, setSortBy] = useState<keyof Item | undefined>();
+  const [filter, setFilter] = useState("");
 
-  const sortedItems = useMemo(
-    () => items.toSorted(sortFunction(sortBy)),
-    [items, sortBy]
-  )
-
-  const handleClick = (sortBy: keyof Item) => {
-    setSortBy(sortBy)
-  }
+  const itemsToShow = useMemo(...);
 
   const consumeItem = (item: Item) => {
-    setItems(
-      items.map((i) => (i === item ? { ...i, count: --i.count } : i))
-    )
-  }
+    setItems(items.map((i) => (i === item ? { ...i, count: --i.count } : i)));
+  };
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (!event.key.match(/^[0-9]$/)) return
-      const indexToUpdate = Number.parseInt(event.key) - 1
-      const itemToUpdate = sortedItems[indexToUpdate]
-      consumeItem(itemToUpdate)
-    }
+  useEffect(
+    () => {
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (!event.key.match(/^[0-9]$/)) return;
+        const indexToUpdate = Number.parseInt(event.key) - 1;
+        const itemToUpdate = itemsToShow[indexToUpdate];
+        consumeItem(itemToUpdate);
+      };
 
-    isCurrent && window.addEventListener("keydown", onKeyDown)
+      window.addEventListener("keydown", onKeyDown);
 
-    return () => window.removeEventListener("keydown", onKeyDown)
+      return () => window.removeEventListener("keydown", onKeyDown);
     }, 
     [
-      items, 
-      setItems, 
-      sortedItems, 
+      itemsToShow, 
       consumeItem, 
       isCurrent
     ]
-  )
+  );
 
   return (
     <>
-      <button onClick={() => handleClick("name")}>Sort by name</button>
-      <button onClick={() => handleClick("count")}>Sort by count</button>
+      <input onChange={(event) => setFilter(event.target.value)} />
+      <button onClick={() => setSortBy("name")}>Sort by name</button>
+      <button onClick={() => setSortBy("count")}>Sort by count</button>
       <ol>
-        {sortedItems.map((item) => (
-          <li key={item.name}>
-            <button onClick={() => consumeItem(item)}>
-              {item.name} {item.count}
-            </button>
-          </li>
+        {itemsToShow.map((item) => (
+          <ListItem
+            key={item.name}
+            onClick={() => consumeItem(item)}
+            item={item}
+          />
         ))}
       </ol>
     </>
-  )
+  );
 }
 `;
 
@@ -174,4 +166,4 @@ export const callbackisedConsumeItemCode = `const consumeItem = useCallback(
     )
   }, 
   [items, setItems]
-  )`;
+)`;
