@@ -1,23 +1,21 @@
-import { forwardRef } from "react"
+import { forwardRef } from "react";
 
 type Props = {
-  fontSize?: string
-  children: string
-  highlightLines?: string
-  isTransparent?: boolean
-  isTwoUp?: boolean
-  className?: string
-  style?: any
-}
+  fontSize?: string;
+  children: string;
+  highlightLines?: string;
+  isTransparent?: boolean;
+  isTwoUp?: boolean;
+  isBackground?: boolean;
+};
 
 export const Code = forwardRef<HTMLElement, Props>(function Code(
   {
-    highlightLines,
+    highlightLines = "",
     fontSize,
     isTransparent,
     isTwoUp,
-    className,
-    style,
+    isBackground,
     children,
   },
   ref
@@ -32,7 +30,7 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
         overflow: "auto",
         maxHeight: isTwoUp ? "300px" : "100%",
       }}
-      className={className}
+      className={isBackground ? "background" : ""}
     >
       <code
         className="tsx"
@@ -46,5 +44,5 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
         {children}
       </code>
     </pre>
-  )
-})
+  );
+});
