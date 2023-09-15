@@ -1,6 +1,6 @@
-import { addItemFormWithCountCode } from "../../demos/Inventory/AddItemForm"
-import { Code } from "../../helpers/Code"
-import { Fragment, Notes, Slide } from "../../helpers/Slide"
+import { addItemFormWithCountCode } from "../../demos/Inventory/AddItemForm";
+import { Code } from "../../helpers/Code";
+import { Fragment, Slide } from "../../helpers/Slide";
 
 export const multipleRefsCode = `const React = () => {
   ...
@@ -21,45 +21,44 @@ export const multipleRefsCode = `const React = () => {
   function after() {
     currentIndex = 0;
   }
-}`
+}`;
 
 function ReactCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string
-  isBackground?: boolean
+  highlightLines?: string;
+  isBackground?: boolean;
 }) {
   return (
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
-      style={{ maxHeight: "300px", overflow: "auto" }}
-      className={isBackground ? "background" : ""}
+      isBackground={isBackground}
       isTwoUp
     >
       {multipleRefsCode}
     </Code>
-  )
+  );
 }
 
 function ComponentCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string
-  isBackground?: boolean
+  highlightLines?: string;
+  isBackground?: boolean;
 }) {
   return (
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
-      className={isBackground ? "background" : ""}
+      isBackground={isBackground}
       isTwoUp
     >
       {addItemFormWithCountCode}
     </Code>
-  )
+  );
 }
 
 function RefArray({
@@ -67,9 +66,9 @@ function RefArray({
   values = [],
   pointers = [],
 }: {
-  currentIndex?: number
-  values?: string[]
-  pointers?: { name: string }[]
+  currentIndex?: number;
+  values?: string[];
+  pointers?: { name: string }[];
 }) {
   return (
     <div
@@ -113,7 +112,7 @@ function RefArray({
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function Pointer({ name, offset }: { name: string; offset: number }) {
@@ -132,7 +131,7 @@ function Pointer({ name, offset }: { name: string; offset: number }) {
       <div>⬆️</div>
       <code>{name}</code>
     </div>
-  )
+  );
 }
 
 export function MultipleRefs() {
@@ -370,7 +369,7 @@ export function MultipleRefs() {
         <ComponentCode highlightLines="" />
       </Slide>
     </>
-  )
+  );
 }
 
 function ClosureEnclosure() {
@@ -385,7 +384,7 @@ function ClosureEnclosure() {
         backgroundColor: "hsl(300 50% 50% / .1)",
       }}
     ></div>
-  )
+  );
 }
 
 function ClosureScope() {
@@ -400,5 +399,5 @@ function ClosureScope() {
         backgroundColor: "hsl(300 50% 50% / .1)",
       }}
     ></div>
-  )
+  );
 }

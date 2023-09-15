@@ -77,7 +77,7 @@ function ReactCode({
       fontSize=".4em"
       highlightLines={highlightLines}
       isTwoUp
-      className={isBackground ? "background" : ""}
+      isBackground={isBackground}
     >
       {useStateImplementationCode}
     </Code>
@@ -96,7 +96,7 @@ function ComponentCode({
       fontSize=".4em"
       highlightLines={highlightLines}
       isTwoUp
-      className={isBackground ? "background" : ""}
+      isBackground={isBackground}
     >
       {inventoryCode}
     </Code>

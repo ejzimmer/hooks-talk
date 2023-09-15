@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-type Props = {
+export type Props = {
   fontSize?: string;
   children: string;
   highlightLines?: string;

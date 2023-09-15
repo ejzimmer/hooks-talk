@@ -1,5 +1,5 @@
-import { Code } from "../../helpers/Code";
-import { Slide } from "../../helpers/Slide";
+import { Code, Props as CodeProps } from "../../helpers/Code";
+import { Fragment, Slide } from "../../helpers/Slide";
 import { CountContainer } from "./BasicUseRefImplementation";
 
 export const renderCounterWithoutCurrentCode = `function RenderCounter() {
@@ -70,11 +70,11 @@ function NewCountContainer({ current }: { current?: string }) {
   );
 }
 
-function SingleRefCode(props: Omit<ComponentCodeSlideProps, "children">) {
+function SingleRefCode(props: Omit<CodeProps, "children">) {
   return <Code {...props}>{singleRefWithoutCurrentCode}</Code>;
 }
 
-function ComponentCode(props: Omit<ComponentCodeSlideProps, "children">) {
+function ComponentCode(props: Omit<CodeProps, "children">) {
   return <Code {...props}>{renderCounterWithoutCurrentCode}</Code>;
 }
 

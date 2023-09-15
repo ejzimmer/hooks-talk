@@ -65,7 +65,7 @@ function ReactCode({
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
-      className={isBackground ? "background" : ""}
+      isBackground={isBackground}
       isTwoUp
     >
       {useMemoImplementationCode}
@@ -84,7 +84,7 @@ function ComponentCode({
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
-      className={isBackground ? "background" : ""}
+      isBackground={isBackground}
       isTwoUp
     >
       {memoisedCode}
