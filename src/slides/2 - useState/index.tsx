@@ -77,14 +77,14 @@ export function UseState() {
       </Slide>
       <ArrayMethods />
 
-      <Slide>
+      <InverseTitle>
         <h2>useState</h2>
         <ul>
           <li>store states between renders</li>
           <li>causes a re-render when updated</li>
           <li>watch out for mutating array methods!</li>
         </ul>
-      </Slide>
+      </InverseTitle>
     </>
   );
 }

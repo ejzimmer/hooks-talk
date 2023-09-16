@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import { abridgedRenderCounterCode } from "../../demos/RenderCounter";
 import { Code, Props as CodeProps } from "../../helpers/Code";
 import { Slide, Fragment } from "../../helpers/Slide";
@@ -117,6 +116,19 @@ function ArrowHeadDef() {
           <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
         </marker>
         <marker
+          id="purple"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="var(--purple)"
+          orient="90"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+        <marker
           id="green-up"
           viewBox="0 0 10 10"
           refX="5"
@@ -137,6 +149,19 @@ function ArrowHeadDef() {
           markerHeight="10"
           strokeWidth="0"
           fill="var(--purple)"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+        <marker
+          id="white-down"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="white"
+          orient="180"
         >
           <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
         </marker>

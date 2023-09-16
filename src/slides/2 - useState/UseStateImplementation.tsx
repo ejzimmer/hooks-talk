@@ -4,6 +4,7 @@ import { Code } from "../../helpers/Code";
 import { Fragment, Slide } from "../../helpers/Slide";
 import { ItemList } from "../../demos/Inventory/ItemList";
 import { Item } from "../../demos/Inventory/utils";
+import { Box } from "../../helpers/StepByStep";
 
 const useStateImplementationCode = `const MyReact = () => {
   let currentIndex = 0
@@ -28,7 +29,7 @@ const useStateImplementationCode = `const MyReact = () => {
   return {
     //...useEffect...,
     useState(initialValue: any) {
-      if (typeof oldState[currentIndex] === "undefined") {
+      if (typeof startState[currentIndex] === "undefined") {
         startState[currentIndex] = initialValue
         endState[currentIndex] = initialValue
       }
@@ -100,6 +101,132 @@ function ComponentCode({
     >
       {inventoryCode}
     </Code>
+  );
+}
+
+function Vars({
+  currentIndex,
+  startState,
+  endState,
+  initialValue,
+}: {
+  currentIndex: number;
+  startState?: string;
+  endState?: string;
+  initialValue?: string[];
+}) {
+  return (
+    <div
+      style={{
+        width: "420px",
+        height: "230px",
+        background: "hsl(0 0% 100% / .1)",
+        position: "fixed",
+        top: 0,
+        right: 0,
+        fontFamily: "Courier",
+        padding: ".5em",
+      }}
+    >
+      <div style={{ display: "flex" }}>
+        currentIndex
+        <svg
+          viewBox="0 0 30 10"
+          width="30px"
+          stroke="white"
+          style={{ markerEnd: "url(#white)" }}
+        >
+          <line x1="0" y1="5" x2="30" y2="5" strokeWidth="3" />
+        </svg>
+        {currentIndex}
+      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        startState
+        <svg
+          viewBox="0 0 20 10"
+          stroke="currentColor"
+          width="20px"
+          height="15px"
+          style={{ markerEnd: "url(#white)" }}
+        >
+          <line x1="0" y1="5" x2="20" y2="5" strokeWidth="3" />
+        </svg>
+        [
+        {startState === "initialValue" && (
+          <svg
+            viewBox="0 0 80 140"
+            stroke="currentColor"
+            fill="none"
+            width="80px"
+            height="140px"
+            style={{
+              markerEnd: "url(#white-down)",
+              position: "absolute",
+              top: "90px",
+              right: "80px",
+            }}
+          >
+            <path d="M 15 15 Q60,15 65,110 65,110" strokeWidth="3" />
+          </svg>
+        )}
+        ]
+      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        endState
+        <svg
+          viewBox="0 0 20 10"
+          stroke="white"
+          width="20px"
+          height="15px"
+          style={{ markerEnd: "url(#white)" }}
+        >
+          <line x1="0" y1="5" x2="20" y2="5" strokeWidth="3" />
+        </svg>
+        [
+        {endState === "initialValue" && (
+          <svg
+            viewBox="0 0 80 140"
+            stroke="currentColor"
+            fill="none"
+            width="80px"
+            height="140px"
+            style={{
+              markerEnd: "url(#white-down)",
+              position: "absolute",
+              top: "90px",
+              right: "80px",
+              outline: "1px dashed",
+            }}
+          >
+            <path d="M 15 15 Q60,15 65,110 65,110" strokeWidth="3" />
+          </svg>
+        )}
+        ]
+      </div>
+      {initialValue && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            color: "var(--purple)",
+          }}
+        >
+          initialValue
+          <svg
+            viewBox="0 0 20 10"
+            stroke="currentColor"
+            width="20px"
+            height="15px"
+            style={{ markerEnd: "url(#purple)" }}
+          >
+            <line x1="0" y1="5" x2="20" y2="5" strokeWidth="3" />
+          </svg>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            []
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -184,22 +311,27 @@ export function UseStateImplementation() {
       <Slide data-transition="none">
         <ReactCode highlightLines="2-4" />
         <ComponentCode isBackground />
-        <StateArray />
+        <Vars currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="1,2,16" />
-        <StateArray />
+        <Vars currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="24,27|25,26" />
+        <ReactCode highlightLines="23,24,27|25,26" />
         <ComponentCode highlightLines="2" />
-        <StateArray />
+        <Vars currentIndex={0} initialValue={[]} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="24,27|25,26" />
+        <ReactCode highlightLines="25,26" />
         <ComponentCode highlightLines="2" />
-        <StateArray oldValue="[]" pointers={["⬇️", "⬆️"]} />
+        <Vars
+          currentIndex={0}
+          initialValue={[]}
+          startState="initialValue"
+          endState="initialValue"
+        />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="29|30-33" />
