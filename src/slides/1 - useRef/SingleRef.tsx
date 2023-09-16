@@ -1,7 +1,8 @@
+import { PropsWithChildren } from "react";
 import { abridgedRenderCounterCode } from "../../demos/RenderCounter";
 import { Code, Props as CodeProps } from "../../helpers/Code";
 import { Slide, Fragment } from "../../helpers/Slide";
-import { RefContainer, CountContainer } from "./BasicUseRefImplementation";
+import { Box } from "../../helpers/StepByStep";
 
 export const singleRefCode = `const React = () => {
   ...
@@ -26,9 +27,128 @@ function SingleRefCode(props: Omit<CodeProps, "children">) {
 function ComponentCode(props: Omit<CodeProps, "children">) {
   return <Code {...props}>{abridgedRenderCounterCode}</Code>;
 }
+
+function Vars({ current, count }: { current?: string; count?: boolean }) {
+  return (
+    <div
+      style={{
+        width: "320px",
+        height: "110px",
+        background: "hsl(0 0% 100% / .1)",
+        position: "fixed",
+        top: 0,
+        right: 0,
+        fontFamily: "Courier",
+        padding: ".5em",
+        display: "flex",
+        justifyContent: "space-between",
+      }}
+    >
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr" }}>
+        <div>
+          <div style={{ display: "flex" }}>
+            ref
+            <svg
+              viewBox="0 0 100 10"
+              width="90px"
+              stroke="white"
+              style={{ markerEnd: "url(#white)" }}
+            >
+              <line x1="0" y1="5" x2="100" y2="5" strokeWidth="3" />
+            </svg>
+          </div>
+          {count && (
+            <div
+              style={{
+                color: "var(--primary-colour)",
+                display: "flex",
+                gridColumn: "1",
+              }}
+            >
+              count
+              <svg viewBox="0 0 40 10">
+                <line
+                  x1="0"
+                  y1="5"
+                  x2="40"
+                  y2="5"
+                  strokeWidth="3"
+                  stroke="currentColor"
+                  marker-end="url(#green)"
+                />
+              </svg>
+            </div>
+          )}
+        </div>
+        <Box>{current ? `current: ${current}` : ""}</Box>
+      </div>
+    </div>
+  );
+}
+
+function ArrowHeadDef() {
+  return (
+    <svg viewBox="0 0 10 10">
+      <defs>
+        <marker
+          id="white"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="white"
+          orient="90"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+        <marker
+          id="green"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="var(--primary-colour)"
+          orient="90"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+        <marker
+          id="green-up"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="var(--primary-colour)"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+        <marker
+          id="purple-up"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="var(--purple)"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+      </defs>
+    </svg>
+  );
+}
+
 export function SingleRefImplementation() {
   return (
     <>
+      <ArrowHeadDef />
       {/* intro */}
       <Slide data-transition="none-out">
         <Fragment index={2} className="fade custom">
@@ -44,7 +164,7 @@ export function SingleRefImplementation() {
         <SingleRefCode highlightLines="3" />
         <Code isBackground>{abridgedRenderCounterCode}</Code>
         <Fragment>
-          <RefContainer />
+          <Vars />
         </Fragment>
       </Slide>
 
@@ -52,7 +172,7 @@ export function SingleRefImplementation() {
       <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <ComponentCode highlightLines="1,7|2" />
-        <RefContainer />
+        <Vars />
       </Slide>
 
       {/* inside useRef */}
@@ -83,70 +203,66 @@ export function SingleRefImplementation() {
           />
         </div>
         <ComponentCode highlightLines="2" />
-        <RefContainer />
+        <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="7,9|8" />
         <ComponentCode highlightLines="2" />
-        <RefContainer />
+        <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="7|11" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="current: 0" />
+        <Vars current="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="11" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="current: 0" />
-        <CountContainer />
+        <Vars current="0" count />
       </Slide>
+
+      {/* back in the component */}
       <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <ComponentCode highlightLines="2|4" />
-        <RefContainer current="current: 0" />
-        <CountContainer />
+        <Vars current="0" count />
       </Slide>
       <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <ComponentCode highlightLines="4|6" />
-        <RefContainer current="current: 1" />
-        <CountContainer />
+        <Vars current="1" count />
       </Slide>
       <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <Code isBackground>{abridgedRenderCounterCode}</Code>
-        <RefContainer current="current: 1" />
+        <Vars current="1" />
       </Slide>
 
       {/* second render */}
       <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <ComponentCode highlightLines="1,7|2" />
-        <RefContainer current="current: 1" />
+        <Vars current="1" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="6,12|7,9|11" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="current: 1" />
+        <Vars current="1" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="11" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="current: 1" />
-        <CountContainer />
+        <Vars current="1" count />
       </Slide>
       <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <ComponentCode highlightLines="4" />
-        <RefContainer current="current: 1" />
-        <CountContainer />
+        <Vars current="1" count />
       </Slide>
-      <Slide data-transition="none-in">
+      <Slide data-transition="none">
         <Code isBackground>{singleRefCode}</Code>
         <ComponentCode highlightLines="4|6" />
-        <RefContainer current="current: 2" />
-        <CountContainer />
+        <Vars current="2" count />
       </Slide>
     </>
   );

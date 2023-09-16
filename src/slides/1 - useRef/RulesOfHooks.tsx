@@ -1,4 +1,4 @@
-import { Fragment, Notes, Slide } from "../../helpers/Slide"
+import { Fragment, Notes, Slide } from "../../helpers/Slide";
 
 export function RulesOfHooks() {
   return (
@@ -21,7 +21,7 @@ export function RulesOfHooks() {
         </ul>
         <cite className="footnote">
           <a href="https://legacy.reactjs.org/docs/hooks-rules.html">
-            Rules of Hooks in React docs
+            React docs
           </a>
         </cite>
         <Notes>
@@ -122,5 +122,5 @@ export function RulesOfHooks() {
         </div>{" "}
       </Slide>
     </>
-  )
+  );
 }

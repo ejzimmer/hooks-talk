@@ -1,6 +1,5 @@
 import { Code, Props as CodeProps } from "../../helpers/Code";
-import { Fragment, Slide } from "../../helpers/Slide";
-import { CountContainer } from "./BasicUseRefImplementation";
+import { Slide } from "../../helpers/Slide";
 
 export const renderCounterWithoutCurrentCode = `function RenderCounter() {
   const count = useRef(0)
@@ -26,46 +25,81 @@ export const singleRefWithoutCurrentCode = `const React = {
   }
 }`;
 
-function RefContainer({
-  isBackground,
-  current,
-}: {
-  isBackground?: boolean;
-  current?: string;
-}) {
+function Vars({ value, count }: { value?: string; count?: string }) {
   return (
     <div
       style={{
-        position: "absolute",
+        width: "320px",
+        height: "110px",
+        background: "hsl(0 0% 100% / .1)",
+        position: "fixed",
         top: 0,
         right: 0,
+        fontFamily: "Courier",
+        padding: ".5em",
         display: "flex",
-        gap: ".25em",
-        alignItems: "center",
-        opacity: isBackground ? ".4" : 1,
+        justifyContent: "space-between",
       }}
     >
-      <code>ref</code>➡️
-      <div>{current || "undefined"}</div>
-    </div>
-  );
-}
-
-function NewCountContainer({ current }: { current?: string }) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: "200px",
-        right: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <code>count</code>
-      <div>⬇️</div>
-      <div>{current}</div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr min-content",
+          alignContent: "start",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          ref
+          {value && (
+            <svg
+              viewBox="0 0 100 10"
+              width="90px"
+              height="20px"
+              stroke="white"
+              style={{ markerEnd: "url(#white)" }}
+            >
+              <line x1="0" y1="5" x2="100" y2="5" strokeWidth="3" />
+            </svg>
+          )}
+        </div>
+        <div style={{ marginTop: "2px" }}>{value}</div>
+        {count && (
+          <div
+            style={{
+              color: "var(--primary-colour)",
+              display: "flex",
+              gridColumn: "span 2",
+              marginTop: "-10px",
+            }}
+          >
+            count{" "}
+            {count === "0" ? (
+              <svg viewBox="0 0 65 60" width="60px">
+                <path
+                  d="m 0 30 C 20 30, 57 50, 57 0"
+                  strokeWidth="3"
+                  stroke="currentColor"
+                  fill="none"
+                  marker-end="url(#green-up)"
+                />
+              </svg>
+            ) : (
+              <>
+                <svg viewBox="0 0 40 10">
+                  <path
+                    d="m 0 5 l 40 0"
+                    strokeWidth="3"
+                    stroke="currentColor"
+                    fill="none"
+                    marker-end="url(#green)"
+                  />
+                </svg>
+                {count}
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -88,82 +122,79 @@ export function NoCurrentRef() {
       <Slide data-transition="none">
         <SingleRefCode highlightLines="3" />
         <ComponentCode isBackground />
-        <RefContainer />
+        <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="1,2,7 " />
-        <RefContainer />
+        <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="6,7,9,12|8" />
         <ComponentCode highlightLines="2" />
-        <RefContainer />
+        <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="8|11" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="0" />
-        <Fragment>
-          <CountContainer />
-        </Fragment>
+        <Vars value="0" />
+      </Slide>
+
+      <Slide data-transition="none">
+        <SingleRefCode highlightLines="8|11" />
+        <ComponentCode highlightLines="2" />
+        <Vars value="0" count="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="0" />
-        <CountContainer />
+        <Vars value="0" count="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="4" />
-        <RefContainer current="0" />
-        <CountContainer />
+        <Vars value="0" count="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="4" />
-        <RefContainer current="0" />
-        <CountContainer />
+        <Vars value="0" count="0" />
       </Slide>
+
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="4" />
-        <RefContainer current="0" />
-        <NewCountContainer current="1" />
+        <Vars value="0" count="1" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="6" />
-        <RefContainer current="0" />
-        <NewCountContainer current="1" />
+        <Vars value="0" count="1" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode isBackground />
-        <RefContainer current="0" />
+        <Vars value="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="1,2,7" />
-        <RefContainer current="0" />
+        <Vars value="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="5,6,8" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="0" />
+        <Vars value="0" />{" "}
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="10" />
         <ComponentCode highlightLines="2" />
-        <RefContainer current="0" />
-        <CountContainer />
+        <Vars value="0" count="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="4" />
-        <RefContainer current="0" />
-        <NewCountContainer current="1" />
+        <Vars value="0" count="1" />
       </Slide>
     </>
   );
