@@ -25,7 +25,7 @@ export function sortFunction(by: keyof Item) {
 export function addItemToInventory(
   inventory: Item[],
   name: string,
-  numberOf: string
+  numberOf = "1"
 ) {
   if (!name) return inventory
   const count = Number.parseInt(numberOf || "1")

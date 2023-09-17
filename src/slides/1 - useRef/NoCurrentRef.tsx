@@ -1,5 +1,5 @@
-import { Code, Props as CodeProps } from "../../helpers/Code";
-import { Slide } from "../../helpers/Slide";
+import { Code, Props as CodeProps } from "../../helpers/Code"
+import { Slide } from "../../helpers/Slide"
 
 export const renderCounterWithoutCurrentCode = `function RenderCounter() {
   const count = useRef(0)
@@ -8,7 +8,7 @@ export const renderCounterWithoutCurrentCode = `function RenderCounter() {
 
   return (...);
 }
-`;
+`
 
 export const singleRefWithoutCurrentCode = `const React = {
   ...
@@ -23,7 +23,7 @@ export const singleRefWithoutCurrentCode = `const React = {
       return ref
     }
   }
-}`;
+}`
 
 function Vars({ value, count }: { value?: string; count?: string }) {
   return (
@@ -101,15 +101,15 @@ function Vars({ value, count }: { value?: string; count?: string }) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 function SingleRefCode(props: Omit<CodeProps, "children">) {
-  return <Code {...props}>{singleRefWithoutCurrentCode}</Code>;
+  return <Code {...props}>{singleRefWithoutCurrentCode}</Code>
 }
 
 function ComponentCode(props: Omit<CodeProps, "children">) {
-  return <Code {...props}>{renderCounterWithoutCurrentCode}</Code>;
+  return <Code {...props}>{renderCounterWithoutCurrentCode}</Code>
 }
 
 export function NoCurrentRef() {
@@ -141,18 +141,13 @@ export function NoCurrentRef() {
       </Slide>
 
       <Slide data-transition="none">
-        <SingleRefCode highlightLines="8|11" />
+        <SingleRefCode highlightLines="11" />
         <ComponentCode highlightLines="2" />
         <Vars value="0" count="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode isBackground />
         <ComponentCode highlightLines="2" />
-        <Vars value="0" count="0" />
-      </Slide>
-      <Slide data-transition="none">
-        <SingleRefCode isBackground />
-        <ComponentCode highlightLines="4" />
         <Vars value="0" count="0" />
       </Slide>
       <Slide data-transition="none">
@@ -182,12 +177,12 @@ export function NoCurrentRef() {
         <Vars value="0" />
       </Slide>
       <Slide data-transition="none">
-        <SingleRefCode highlightLines="5,6,8" />
+        <SingleRefCode highlightLines="6,7,9" />
         <ComponentCode highlightLines="2" />
         <Vars value="0" />{" "}
       </Slide>
       <Slide data-transition="none">
-        <SingleRefCode highlightLines="10" />
+        <SingleRefCode highlightLines="11" />
         <ComponentCode highlightLines="2" />
         <Vars value="0" count="0" />
       </Slide>
@@ -197,5 +192,5 @@ export function NoCurrentRef() {
         <Vars value="0" count="1" />
       </Slide>
     </>
-  );
+  )
 }

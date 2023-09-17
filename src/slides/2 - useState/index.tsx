@@ -1,25 +1,22 @@
-import { useRef, useState } from "react";
-import { InventorySlide } from "../../demos/Inventory";
-import { Code } from "../../helpers/Code";
-import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide";
-import {
-  UseStateImplementation,
-  inventoryCode,
-} from "./UseStateImplementation";
-import { Item, addItemToInventory, items } from "../../demos/Inventory/utils";
-import { AddItemForm } from "../../demos/Inventory/AddItemForm";
-import { ItemList } from "../../demos/Inventory/ItemList";
-import { FunctionalComponentProblems } from "../0 - intro/FunctionalComponentsProblems";
+import { useRef, useState } from "react"
+import { InventorySlide } from "../../demos/Inventory"
+import { Code } from "../../helpers/Code"
+import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
+import { UseStateImplementation, inventoryCode } from "./UseStateImplementation"
+import { Item, addItemToInventory, items } from "../../demos/Inventory/utils"
+import { AddItemForm } from "../../demos/Inventory/AddItemForm"
+import { ItemList } from "../../demos/Inventory/ItemList"
+import { FunctionalComponentProblems } from "../0 - intro/FunctionalComponentsProblems"
 import {
   FilterItemList,
   SortItemList,
   filterItemListCode,
   sortItemListCode,
-} from "../../demos/Inventory/FilterVsSort";
-import { ArrayMethods } from "./ArrayMethods";
+} from "../../demos/Inventory/FilterVsSort"
+import { ArrayMethods } from "./ArrayMethods"
 
 export function UseState() {
-  const [, setRender] = useState(false);
+  const [, setRender] = useState(false)
   return (
     <>
       <InventorySlide hideSortButtons hideFilter items={[]} />
@@ -86,7 +83,7 @@ export function UseState() {
         </ul>
       </InverseTitle>
     </>
-  );
+  )
 }
 
 const addItemUsingRefCode = `function Inventory() {
@@ -104,15 +101,15 @@ const addItemUsingRefCode = `function Inventory() {
     </>
   )
 }
-`;
+`
 
 function AddItemsUsingRef() {
-  const inventory = useRef<Item[]>([]);
+  const inventory = useRef<Item[]>([])
 
-  const addItem = (name: string, count: string) => {
-    if (!inventory.current) return;
-    inventory.current = addItemToInventory(inventory.current, name, count);
-  };
+  const addItem = (name: string, count?: string) => {
+    if (!inventory.current) return
+    inventory.current = addItemToInventory(inventory.current, name, count)
+  }
 
   return (
     <>
@@ -125,5 +122,5 @@ function AddItemsUsingRef() {
         hideFilter
       />
     </>
-  );
+  )
 }

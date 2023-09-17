@@ -1,7 +1,7 @@
-import { abridgedRenderCounterCode } from "../../demos/RenderCounter";
-import { Code, Props as CodeProps } from "../../helpers/Code";
-import { Slide, Fragment } from "../../helpers/Slide";
-import { Box } from "../../helpers/StepByStep";
+import { abridgedRenderCounterCode } from "../../demos/RenderCounter"
+import { Code, Props as CodeProps } from "../../helpers/Code"
+import { Slide, Fragment } from "../../helpers/Slide"
+import { Box } from "../../helpers/StepByStep"
 
 export const singleRefCode = `const React = () => {
   ...
@@ -17,14 +17,14 @@ export const singleRefCode = `const React = () => {
     }
   }
 }
-`;
+`
 
 function SingleRefCode(props: Omit<CodeProps, "children">) {
-  return <Code {...props}>{singleRefCode}</Code>;
+  return <Code {...props}>{singleRefCode}</Code>
 }
 
 function ComponentCode(props: Omit<CodeProps, "children">) {
-  return <Code {...props}>{abridgedRenderCounterCode}</Code>;
+  return <Code {...props}>{abridgedRenderCounterCode}</Code>
 }
 
 function Vars({ current, count }: { current?: string; count?: boolean }) {
@@ -82,7 +82,7 @@ function Vars({ current, count }: { current?: string; count?: boolean }) {
         <Box>{current ? `current: ${current}` : ""}</Box>
       </div>
     </div>
-  );
+  )
 }
 
 function ArrowHeadDef() {
@@ -167,7 +167,7 @@ function ArrowHeadDef() {
         </marker>
       </defs>
     </svg>
-  );
+  )
 }
 
 export function SingleRefImplementation() {
@@ -236,7 +236,7 @@ export function SingleRefImplementation() {
         <Vars />
       </Slide>
       <Slide data-transition="none">
-        <SingleRefCode highlightLines="7|11" />
+        <SingleRefCode highlightLines="8|11" />
         <ComponentCode highlightLines="2" />
         <Vars current="0" />
       </Slide>
@@ -290,5 +290,5 @@ export function SingleRefImplementation() {
         <Vars current="2" count />
       </Slide>
     </>
-  );
+  )
 }

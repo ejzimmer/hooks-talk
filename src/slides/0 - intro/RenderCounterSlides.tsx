@@ -84,6 +84,11 @@ const parentComponentCode = `class Parent extends Component {
 
 const renderCounterCode = `export function RenderCounter() {
   ...
-  return <div>{numberOfRenders}</div> 
+  return (
+    <div>
+      This component has rendered 
+      {numberOfRenders} times
+    </div>
+  ) 
 }
 `

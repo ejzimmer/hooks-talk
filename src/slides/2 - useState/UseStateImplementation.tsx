@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { InventorySlide } from "../../demos/Inventory";
-import { Code } from "../../helpers/Code";
-import { Fragment, Slide } from "../../helpers/Slide";
-import { ItemList } from "../../demos/Inventory/ItemList";
-import { Item } from "../../demos/Inventory/utils";
-import { Box } from "../../helpers/StepByStep";
+import { useState } from "react"
+import { InventorySlide } from "../../demos/Inventory"
+import { Code } from "../../helpers/Code"
+import { Fragment, Slide } from "../../helpers/Slide"
+import { ItemList } from "../../demos/Inventory/ItemList"
+import { Item } from "../../demos/Inventory/utils"
+import { Box } from "../../helpers/StepByStep"
 
 const useStateImplementationCode = `const MyReact = () => {
   let currentIndex = 0
@@ -46,7 +46,7 @@ const useStateImplementationCode = `const MyReact = () => {
   }
 }
 
-`;
+`
 
 export const inventoryCode = `function Inventory() {
   const [inventory, setInventory] = useState([])
@@ -64,14 +64,14 @@ export const inventoryCode = `function Inventory() {
     </>
   )
 }
-`;
+`
 
 function ReactCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -82,15 +82,15 @@ function ReactCode({
     >
       {useStateImplementationCode}
     </Code>
-  );
+  )
 }
 
 function ComponentCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -101,7 +101,7 @@ function ComponentCode({
     >
       {inventoryCode}
     </Code>
-  );
+  )
 }
 
 function Vars({
@@ -109,16 +109,20 @@ function Vars({
   startState,
   endState,
   initialValue,
+  value,
+  setter,
 }: {
-  currentIndex: number;
-  startState?: string;
-  endState?: string;
-  initialValue?: string[];
+  currentIndex: number
+  startState?: string
+  endState?: string
+  initialValue?: string[]
+  value?: string
+  setter?: string
 }) {
   return (
     <div
       style={{
-        width: "420px",
+        width: "380px",
         height: "230px",
         background: "hsl(0 0% 100% / .1)",
         position: "fixed",
@@ -128,19 +132,24 @@ function Vars({
         padding: ".5em",
       }}
     >
-      <div style={{ display: "flex" }}>
-        currentIndex
+      <div
+        style={{ display: "flex", alignItems: "baseline", lineHeight: ".8" }}
+      >
+        <span>currentIndex</span>
         <svg
           viewBox="0 0 30 10"
           width="30px"
-          stroke="white"
+          height="15px"
+          stroke="currentColor"
           style={{ markerEnd: "url(#white)" }}
         >
           <line x1="0" y1="5" x2="30" y2="5" strokeWidth="3" />
         </svg>
         {currentIndex}
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div
+        style={{ display: "flex", alignItems: "baseline", lineHeight: ".8" }}
+      >
         startState
         <svg
           viewBox="0 0 20 10"
@@ -154,24 +163,31 @@ function Vars({
         [
         {startState === "initialValue" && (
           <svg
-            viewBox="0 0 80 140"
+            viewBox="0 0 80 100"
             stroke="currentColor"
             fill="none"
             width="80px"
-            height="140px"
+            height="100px"
             style={{
               markerEnd: "url(#white-down)",
               position: "absolute",
-              top: "90px",
-              right: "80px",
+              top: "55px",
+              right: "40px",
             }}
           >
-            <path d="M 15 15 Q60,15 65,110 65,110" strokeWidth="3" />
+            <path d="M 15 10 Q60,15 65,75 65,75" strokeWidth="3" />
           </svg>
         )}
         ]
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          lineHeight: ".8",
+          width: "max-content",
+        }}
+      >
         endState
         <svg
           viewBox="0 0 20 10"
@@ -185,30 +201,44 @@ function Vars({
         [
         {endState === "initialValue" && (
           <svg
-            viewBox="0 0 80 140"
+            viewBox="0 0 125 80"
             stroke="currentColor"
             fill="none"
-            width="80px"
-            height="140px"
+            width="125px"
+            height="80px"
             style={{
               markerEnd: "url(#white-down)",
               position: "absolute",
-              top: "90px",
-              right: "80px",
-              outline: "1px dashed",
+              top: "85px",
+              right: "40px",
             }}
           >
-            <path d="M 15 15 Q60,15 65,110 65,110" strokeWidth="3" />
+            <path d="M 15 15 C60 15, 110 15, 110 45" strokeWidth="3" />
           </svg>
         )}
         ]
+        {setter && (
+          <div
+            style={{
+              position: "relative",
+              fontSize: ".5em",
+              filter: "contrast(200%)",
+              top: "-10px",
+              right: "20px",
+            }}
+          >
+            🗝️
+          </div>
+        )}
       </div>
       {initialValue && (
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "baseline",
             color: "var(--purple)",
+            lineHeight: ".8",
+            marginTop: ".3em",
           }}
         >
           initialValue
@@ -226,8 +256,46 @@ function Vars({
           </div>
         </div>
       )}
+      {value && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            color: "var(--purple)",
+            lineHeight: ".8",
+          }}
+        >
+          value
+          <svg
+            viewBox="0 0 230 40"
+            stroke="currentColor"
+            fill="none"
+            width="230px"
+            height="40px"
+            style={{
+              markerEnd: "url(#purple-up)",
+              position: "absolute",
+              top: "150px",
+              right: "40px",
+            }}
+          >
+            <path d="M0 30 C200 30, 217 50, 217 10" strokeWidth="3" />
+          </svg>
+        </div>
+      )}
+      {setter && (
+        <div
+          style={{
+            display: "flex",
+            color: "var(--purple)",
+            lineHeight: ".8",
+          }}
+        >
+          setter <span style={{ filter: "contrast(150%)" }}>🗝️</span>
+        </div>
+      )}
     </div>
-  );
+  )
 }
 
 function StateArray({
@@ -240,14 +308,14 @@ function StateArray({
   addItem,
   needsChange,
 }: {
-  currentIndex?: number;
-  oldValue?: string;
-  newValue?: string;
-  pointers?: ("⬇️" | "⬆️" | "")[];
-  value?: "value" | "inventory";
-  setter?: "setter" | "setInventory";
-  addItem?: "addItem";
-  needsChange?: "false" | "true";
+  currentIndex?: number
+  oldValue?: string
+  newValue?: string
+  pointers?: ("⬇️" | "⬆️" | "")[]
+  value?: "value" | "inventory"
+  setter?: "setter" | "setInventory"
+  addItem?: "addItem"
+  needsChange?: "false" | "true"
 }) {
   return (
     <div
@@ -294,7 +362,7 @@ function StateArray({
       {addItem && <code>{addItem} 🔑</code>}
       {needsChange && <code>needsChange: {needsChange}</code>}
     </div>
-  );
+  )
 }
 
 export function UseStateImplementation() {
@@ -336,27 +404,35 @@ export function UseStateImplementation() {
       <Slide data-transition="none">
         <ReactCode highlightLines="29|30-33" />
         <ComponentCode highlightLines="2" />
-        <StateArray oldValue="[]" pointers={["⬇️", "⬆️"]} value="value" />
+        <Vars
+          currentIndex={0}
+          initialValue={[]}
+          startState="initialValue"
+          endState="initialValue"
+          value="initialValue"
+        />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="30-33|35" />
         <ComponentCode highlightLines="2" />
-        <StateArray
-          oldValue="[]"
-          pointers={["⬇️", "⬆️"]}
-          value="value"
-          setter="setter"
+        <Vars
+          currentIndex={0}
+          initialValue={[]}
+          startState="initialValue"
+          endState="initialValue"
+          value="initialValue"
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="35" />
         <ComponentCode highlightLines="2" />
-        <StateArray
-          oldValue="[]"
-          pointers={["⬇️", "⬆️"]}
-          value="value"
-          setter="setter"
+        <Vars
           currentIndex={1}
+          initialValue={[]}
+          startState="initialValue"
+          endState="initialValue"
+          value="initialValue"
+          setter="initialValue"
         />
       </Slide>
       <Slide data-transition="none">
@@ -557,17 +633,17 @@ export function UseStateImplementation() {
         />
       </Slide>
     </>
-  );
+  )
 }
 
 function UnlikelyComponent() {
-  const [items, setItems] = useState<Item[]>([{ name: "flint", count: 1 }]);
+  const [items, setItems] = useState<Item[]>([{ name: "flint", count: 1 }])
 
   const addItems = () => {
-    setItems([...items, { name: "appple", count: 1 }]);
-    setItems([...items, { name: "pinecone", count: 1 }]);
-    setItems([...items, { name: "chu jelly", count: 1 }]);
-  };
+    setItems([...items, { name: "appple", count: 1 }])
+    setItems([...items, { name: "pinecone", count: 1 }])
+    setItems([...items, { name: "chu jelly", count: 1 }])
+  }
 
   return (
     <>
@@ -580,7 +656,7 @@ function UnlikelyComponent() {
         isCurrent={false}
       />
     </>
-  );
+  )
 }
 
 const unlikelyComponentCode = `function UnlikelyComponent() {
@@ -599,4 +675,4 @@ const unlikelyComponentCode = `function UnlikelyComponent() {
     </>
   );
 }
-`;
+`

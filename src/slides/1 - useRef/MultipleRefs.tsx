@@ -1,7 +1,7 @@
-import { addItemFormWithCountCode } from "../../demos/Inventory/AddItemForm";
-import { Code } from "../../helpers/Code";
-import { Fragment, Slide } from "../../helpers/Slide";
-import { Box } from "../../helpers/StepByStep";
+import { addItemFormWithCountCode } from "../../demos/Inventory/AddItemForm"
+import { Code } from "../../helpers/Code"
+import { Fragment, Slide } from "../../helpers/Slide"
+import { Box } from "../../helpers/StepByStep"
 
 export const multipleRefsCode = `const React = () => {
   ...
@@ -24,14 +24,14 @@ export const multipleRefsCode = `const React = () => {
   function after() {
     currentIndex = 0;
   }
-}`;
+}`
 
 function ReactCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -42,15 +42,15 @@ function ReactCode({
     >
       {multipleRefsCode}
     </Code>
-  );
+  )
 }
 
 function ComponentCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -61,7 +61,7 @@ function ComponentCode({
     >
       {addItemFormWithCountCode}
     </Code>
-  );
+  )
 }
 
 function Vars({
@@ -71,11 +71,11 @@ function Vars({
   countRef,
   refPointer,
 }: {
-  currentIndex: number;
-  refs?: string[];
-  nameRef?: boolean;
-  countRef?: boolean;
-  refPointer?: 0 | 1;
+  currentIndex: number
+  refs?: string[]
+  nameRef?: boolean
+  countRef?: boolean
+  refPointer?: 0 | 1
 }) {
   return (
     <div
@@ -147,7 +147,7 @@ function Vars({
         </div>
       )}
     </div>
-  );
+  )
 }
 
 function Pointer({ position, label }: { position: 0 | 1; label: string }) {
@@ -184,7 +184,7 @@ function Pointer({ position, label }: { position: 0 | 1; label: string }) {
         )}
       </svg>
     </div>
-  );
+  )
 }
 
 export function MultipleRefs() {
@@ -192,12 +192,8 @@ export function MultipleRefs() {
     <>
       {/* intro */}
       <Slide data-transition="none-out">
-        <Fragment index={2} className="fade custom">
-          <ReactCode />
-        </Fragment>
-        <Fragment index={1} className="fade custom">
-          <ComponentCode />
-        </Fragment>
+        <ReactCode />
+        <ComponentCode />
       </Slide>
 
       {/* react setup */}
@@ -218,31 +214,7 @@ export function MultipleRefs() {
 
       {/* in useRef */}
       <Slide data-transition="none">
-        <div style={{ position: "relative" }}>
-          <ReactCode highlightLines="7,16|8,10" />
-          <div
-            className="fragment"
-            style={{
-              position: "absolute",
-              top: "104px",
-              bottom: "0px",
-              left: "50px",
-              right: "50px",
-              backgroundColor: "hsl(300 50% 50% / .1)",
-            }}
-          />
-          <div
-            className="fragment"
-            style={{
-              position: "absolute",
-              top: "0px",
-              bottom: "0px",
-              left: "50px",
-              right: "50px",
-              backgroundColor: "hsl(300 50% 50% / .1)",
-            }}
-          />
-        </div>
+        <ReactCode highlightLines="7,16|8,10" />
         <ComponentCode highlightLines="2" />
         <Vars currentIndex={0} />
       </Slide>
@@ -370,10 +342,27 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode isBackground />
+        <ReactCode highlightLines="19,21|20" />
         <ComponentCode isBackground />
         <Vars
           currentIndex={2}
+          refs={["current: <input />", "current: <input />"]}
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="20" />
+        <ComponentCode isBackground />
+        <Vars
+          currentIndex={0}
+          refs={["current: <input />", "current: <input />"]}
+        />
+      </Slide>
+
+      <Slide data-transition="none">
+        <ReactCode isBackground />
+        <ComponentCode isBackground />
+        <Vars
+          currentIndex={0}
           refs={["current: <input />", "current: <input />"]}
         />
       </Slide>
@@ -397,7 +386,7 @@ export function MultipleRefs() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="5-8" />
+        <ComponentCode highlightLines="5-8|7" />
         <Vars
           currentIndex={2}
           refs={["current: <input />", "current: <input />"]}
@@ -411,7 +400,7 @@ export function MultipleRefs() {
         <ComponentCode />
       </Slide>
     </>
-  );
+  )
 }
 
 function ClosureEnclosure() {
@@ -426,7 +415,7 @@ function ClosureEnclosure() {
         backgroundColor: "hsl(300 50% 50% / .1)",
       }}
     ></div>
-  );
+  )
 }
 
 function ClosureScope() {
@@ -441,5 +430,5 @@ function ClosureScope() {
         backgroundColor: "hsl(300 50% 50% / .1)",
       }}
     ></div>
-  );
+  )
 }
