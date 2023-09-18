@@ -21,7 +21,7 @@ export function UseState() {
     <>
       <InventorySlide hideSortButtons hideFilter items={[]} />
       <Slide>
-        <Code highlightLines="|8-14|2|4-7">{addItemUsingRefCode}</Code>
+        <Code highlightLines="|8-14|2|4-7|12">{addItemUsingRefCode}</Code>
       </Slide>
       <Slide>
         <button onClick={() => setRender((render) => !render)}>
@@ -42,7 +42,7 @@ export function UseState() {
         <Code highlightLines="|2|4-8|5,7|13">{inventoryCode}</Code>
       </Slide>
       <UseStateImplementation />
-      <Slide>
+      {/* <Slide>
         <div style={{ display: "flex" }}>
           <ItemList
             items={items}
@@ -72,14 +72,14 @@ export function UseState() {
           <SortItemList items={items} />
         </div>
       </Slide>
-      <ArrayMethods />
+      <ArrayMethods /> */}
 
       <InverseTitle>
         <h2>useState</h2>
         <ul>
           <li>store states between renders</li>
           <li>causes a re-render when updated</li>
-          <li>watch out for mutating array methods!</li>
+          {/* <li>watch out for mutating array methods!</li> */}
         </ul>
       </InverseTitle>
     </>

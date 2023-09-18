@@ -8,6 +8,10 @@ export const multipleRefsCode = `const React = () => {
   let currentIndex = 0;
   const refs = [];
 
+  function after() {
+    currentIndex = 0;
+  }
+
   return {
     useRef(initialValue) {
       if (typeof refs[currentIndex] === 'undefined') {
@@ -19,10 +23,6 @@ export const multipleRefsCode = `const React = () => {
 
       return ref;
     }
-  }
-
-  function after() {
-    currentIndex = 0;
   }
 }`
 
@@ -214,42 +214,37 @@ export function MultipleRefs() {
 
       {/* in useRef */}
       <Slide data-transition="none">
-        <ReactCode highlightLines="7,16|8,10" />
+        <ReactCode highlightLines="11,20|12,14|13" />
         <ComponentCode highlightLines="2" />
         <Vars currentIndex={0} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="8,10|9" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="9" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="12" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="12" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13" />
         <ComponentCode highlightLines="2" />
+        <Vars currentIndex={0} refs={["current: null"]} />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="16" />
+        <ComponentCode highlightLines="2" />
+        <Vars currentIndex={0} refs={["current: null"]} />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="16" />
+        <ComponentCode highlightLines="2" />
         <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13|15" />
+        <ReactCode highlightLines="17" />
+        <ComponentCode highlightLines="2" />
+        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="17|19" />
         <ComponentCode highlightLines="2" />
         <Vars currentIndex={1} refs={["current: null"]} refPointer={0} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="15" />
+        <ReactCode highlightLines="19" />
         <ComponentCode highlightLines="2" />
         <Vars currentIndex={1} refs={["current: null"]} nameRef />
       </Slide>
@@ -259,37 +254,9 @@ export function MultipleRefs() {
         <Vars currentIndex={1} refs={["current: null"]} nameRef />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="7-10,16" />
+        <ReactCode highlightLines="11,12,14,20|13" />
         <ComponentCode highlightLines="3" />
         <Vars currentIndex={1} refs={["current: null"]} nameRef />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="7-10,16" />
-        <ComponentCode highlightLines="3" />
-        <Vars
-          currentIndex={1}
-          refs={["current: null", "current: null"]}
-          nameRef
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="12" />
-        <ComponentCode highlightLines="3" />
-        <Vars
-          currentIndex={1}
-          refs={["current: null", "current: null"]}
-          nameRef
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="12" />
-        <ComponentCode highlightLines="3" />
-        <Vars
-          currentIndex={1}
-          refs={["current: null", "current: null"]}
-          nameRef
-          refPointer={1}
-        />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13" />
@@ -298,11 +265,39 @@ export function MultipleRefs() {
           currentIndex={1}
           refs={["current: null", "current: null"]}
           nameRef
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="16" />
+        <ComponentCode highlightLines="3" />
+        <Vars
+          currentIndex={1}
+          refs={["current: null", "current: null"]}
+          nameRef
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="16" />
+        <ComponentCode highlightLines="3" />
+        <Vars
+          currentIndex={1}
+          refs={["current: null", "current: null"]}
+          nameRef
           refPointer={1}
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13|15" />
+        <ReactCode highlightLines="17" />
+        <ComponentCode highlightLines="3" />
+        <Vars
+          currentIndex={1}
+          refs={["current: null", "current: null"]}
+          nameRef
+          refPointer={1}
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="17|19" />
         <ComponentCode highlightLines="3" />
         <Vars
           currentIndex={2}
@@ -342,7 +337,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="19,21|20" />
+        <ReactCode highlightLines="6-8|7" />
         <ComponentCode isBackground />
         <Vars
           currentIndex={2}
@@ -350,7 +345,7 @@ export function MultipleRefs() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="20" />
+        <ReactCode highlightLines="7" />
         <ComponentCode isBackground />
         <Vars
           currentIndex={0}

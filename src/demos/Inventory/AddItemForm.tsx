@@ -1,9 +1,9 @@
 import { FormEvent, useRef } from "react"
 
 export const addItemFormCode = `function AddItemForm({ onSubmit }: Props) {
-  const nameRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef(null);
 
-  const handleAddItem = (event: FormEvent) => {
+  const handleAddItem = (event) => {
     event.preventDefault();
     onSubmit(nameRef.current?.value);
   }
@@ -18,10 +18,10 @@ export const addItemFormCode = `function AddItemForm({ onSubmit }: Props) {
 `
 
 export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Props) {
-  const nameRef = useRef<HTMLInputElement>(null)
-  const countRef = useRef<HTMLInputElement>(null)
+  const nameRef = useRef(null)
+  const countRef = useRef(null)
 
-  const handleAddItem = (event: FormEvent) => {
+  const handleAddItem = (event) => {
     event.preventDefault()
     onSubmit(nameRef.current?.value, countRef.current?.value)
   }

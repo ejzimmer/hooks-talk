@@ -165,6 +165,19 @@ function ArrowHeadDef() {
         >
           <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
         </marker>
+        <marker
+          id="green-left"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="var(--primary-colour)"
+          orient="270"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
       </defs>
     </svg>
   )
