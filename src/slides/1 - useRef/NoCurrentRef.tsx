@@ -10,7 +10,7 @@ export const renderCounterWithoutCurrentCode = `function RenderCounter() {
 }
 `
 
-export const singleRefWithoutCurrentCode = `const React = {
+export const singleRefWithoutCurrentCode = `const FakeReact = {
   ...
   let ref;
 

@@ -1,30 +1,29 @@
-import { Code } from "../../helpers/Code";
-import { Fragment, Slide } from "../../helpers/Slide";
+import { ReactNode } from "react"
+import { Code } from "../../helpers/Code"
+import { Fragment, Slide } from "../../helpers/Slide"
 
-const useEffectImplementationCode = `const React = () => {
+const useEffectImplementationCode = `const FakeReact = () => {
   let currentIndex = 0
   let effects = []
 
   function after() {
     effects.forEach((effect) => {
-      const needsCleanup = dependenciesChanged(effect) || componentUnmounting()
+      const needsCleanup = dependenciesChanged(effect) || isUnmounting()
       if (needsCleanup && effect.cleanup) {
         effect.cleanup()
       }
     })
 
-    if (!componentUnmounting()) {
-      effects = effects.map((effect) => {
-        if (!effect.deps || !effect.prevDeps || dependenciesChanged(effect)) {
-          return {
-            prevDeps: effect.deps,
-            cleanup: effect.callback(),
-          }
+    effects = effects.map((effect) => {
+      if (!effect.deps || !effect.prevDeps || dependenciesChanged(effect)) {
+        return {
+          prevDeps: effect.deps,
+          cleanup: effect.callback(),
         }
-  
-        return effect
-      })
-    }
+      }
+
+      return effect
+    })
 
     currentIndex = 0;
   }
@@ -54,21 +53,18 @@ const useEffectImplementationCode = `const React = () => {
     }
   }
 }
-`;
+`
 
-export const keyboardShortcutCode = `function ItemList({ items }: Props) {
-  const [itemsToShow, setItemsToShow] = useState(items)
-
-  ...sort & filter code...
+export const keyboardShortcutCode = `function ItemList({ items, setItems }) {
 
   useEffect(
     () => {
-      const onKeyDown = (event: KeyboardEvent) => {
+      const onKeyDown = (event) => {
         if (!event.key.match(/^[0-9]$/)) return
         const indexToUpdate = Number.parseInt(event.key) - 1
         const itemToUpdate = itemsToShow[indexToUpdate]
-        setItemsToShow(
-          itemsToShow.map((i) => (i === item ? { ...i, count: --i.count } : i))
+        setItems(
+          items.map((i) => (i === item ? { ...i, count: --i.count } : i))
         )
       }
 
@@ -76,19 +72,19 @@ export const keyboardShortcutCode = `function ItemList({ items }: Props) {
 
       return () => window.removeEventListener("keydown", onKeyDown)
     }, 
-    [itemsToShow]
+    [items, setItems]
   )
 
   return (...)
 }
-`;
+`
 
 function ReactCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -99,15 +95,15 @@ function ReactCode({
     >
       {useEffectImplementationCode}
     </Code>
-  );
+  )
 }
 
 function ComponentCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -118,566 +114,317 @@ function ComponentCode({
     >
       {keyboardShortcutCode}
     </Code>
-  );
+  )
 }
 
-function EffectArray({
-  currentIndex = 0,
-  value,
-  isListening,
-  itemsToShow,
+function Vars({
+  currentIndex,
+  effects,
+  items,
+  setItems,
+  callback,
   deps,
+  hideHookVars,
 }: {
-  currentIndex?: number;
-  value?: {
-    deps?: string[] | string;
-    prevDeps?: string[];
-    callback?: string;
-    cleanup?: string;
-  };
-  isListening?: boolean;
-  itemsToShow?: string[] | string;
-  deps?: string[];
+  currentIndex: number
+  effects?: boolean
+  items?: string[]
+  setItems?: true
+  callback?: boolean
+  deps?: boolean | string[]
+  hideHookVars?: boolean
 }) {
   return (
     <div
       style={{
-        position: "absolute",
+        width: "435px",
+        height: "230px",
+        background: "hsl(0 0% 100% / .1)",
+        position: "fixed",
         top: 0,
         right: 0,
+        fontFamily: "Courier",
+        padding: ".5em",
+        lineHeight: ".8",
       }}
     >
-      {isListening && (
-        <div style={{ position: "absolute", top: 0, right: 0 }}>🦻</div>
-      )}
-      <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-        <code>currentIndex</code>➡️<code>{currentIndex}</code>
+      <SimpleVar name="currentIndex">{currentIndex}</SimpleVar>
+      <div style={{ display: "flex", alignItems: "baseline" }}>
+        effects
+        <svg
+          viewBox="0 0 10 10"
+          stroke="white"
+          width="10px"
+          style={{ markerEnd: "url(#white)" }}
+        >
+          <line x1="0" y1="5" x2="10" y2="5" strokeWidth="2" />
+        </svg>
+        [
+        {effects && (
+          <span>
+            &#x7b;
+            <svg
+              viewBox="0 0 70 70"
+              stroke="currentColor"
+              fill="none"
+              strokeWidth="3"
+              style={{
+                position: "absolute",
+                top: "50px",
+                left: "220px",
+                width: "70px",
+                height: "70px",
+                markerEnd: "url(#white-down)",
+              }}
+            >
+              <path d="M15,10 C50 10, 50 40, 50 40" />
+            </svg>
+            <svg
+              viewBox="0 0 140 80"
+              stroke="currentColor"
+              fill="none"
+              strokeWidth="3"
+              style={{
+                position: "absolute",
+                top: "50px",
+                left: "220px",
+                width: "140px",
+                height: "80px",
+                markerEnd: "url(#white-down)",
+              }}
+            >
+              <path d="M15,20 C50 20, 140 10, 130 80" />
+            </svg>
+            &#x7d;
+          </span>
+        )}
+        ]
       </div>
-      <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-        <code>effects</code>➡️
-        <div style={{ display: "flex", maxWidth: "220px" }}>
-          {value && [
-            <div style={{}}>
-              [{value.callback && <div>callback: {value.callback}</div>}
-              {value.prevDeps && (
-                <div>prevDeps: [[{value.prevDeps.join(", ")}]]</div>
-              )}
-              {value.cleanup && <div>cleanup: {value.cleanup}</div>}
-              {value.deps && (
-                <div>
-                  deps: [
-                  {Array.isArray(value.deps)
-                    ? `[${value.deps.join(", ")}]`
-                    : value.deps}
-                  ]
-                </div>
-              )}
-              ]
-            </div>,
-          ]}
-        </div>
+
+      {/* component props */}
+      <div style={{ marginTop: ".25em" }}>
+        {items && (
+          <SimpleVar name="items" scope="component">
+            [<span style={{ fontSize: ".8em" }}>{items?.join()}</span>]
+          </SimpleVar>
+        )}
+        {setItems && (
+          <SimpleVar name="setItems" scope="component">
+            <span style={{ fontSize: ".8em" }}>🔑</span>
+          </SimpleVar>
+        )}
       </div>
-      {itemsToShow && (
-        <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-          <code style={{ color: "var(--primary-colour)" }}>itemsToShow</code>
-          {Array.isArray(itemsToShow) ? (
-            <>
-              ➡️<code>[{itemsToShow.join(",")}]</code>
-            </>
-          ) : (
-            itemsToShow
-          )}
-        </div>
-      )}
-      {deps && (
-        <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-          <code style={{ color: "var(--hookVars)" }}>deps</code>➡️
-          <code>[{deps.join(",")}]</code>
-        </div>
-      )}
+
+      {/* hook props */}
+      <div style={{ marginTop: ".25em" }}>
+        {callback && (
+          <SimpleVar name="callback" scope="hook" hideVarName={hideHookVars}>
+            <span style={{ fontSize: ".8em", position: "relative" }}>
+              🦻
+              <span
+                style={{
+                  fontSize: ".6em",
+                  position: "absolute",
+                  right: "0",
+                  bottom: "0",
+                }}
+              >
+                ➕
+              </span>
+            </span>
+          </SimpleVar>
+        )}
+        {deps === true && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              color: "var(--purple)",
+            }}
+          >
+            deps
+            <svg
+              viewBox="0 0 10 10"
+              stroke="currentColor"
+              width="10px"
+              style={{ markerEnd: "url(#purple)" }}
+            >
+              <line x1="0" y1="5" x2="10" y2="5" strokeWidth="2" />
+            </svg>
+            [
+            <svg
+              viewBox="0 0 210 120"
+              style={{
+                width: "210px",
+                height: "120px",
+                position: "absolute",
+                left: "145px",
+                top: "120px",
+                stroke: "currentColor",
+                markerEnd: "url(#purple-up)",
+                fill: "none",
+              }}
+            >
+              <path d="M5,110 C205 110,205 110,200 3" strokeWidth="3" />
+            </svg>
+            ,{" "}
+            <svg
+              viewBox="0 0 210 120"
+              style={{
+                width: "210px",
+                height: "120px",
+                position: "absolute",
+                left: "145px",
+                top: "120px",
+                stroke: "currentColor",
+                markerEnd: "url(#purple-left)",
+                fill: "none",
+              }}
+            >
+              <path d="M5,110 C205 110,205 20,150 20" strokeWidth="3" />
+            </svg>
+            ]
+          </div>
+        )}
+        {Array.isArray(deps) && (
+          <SimpleVar name="deps" scope="hook" hideVarName={hideHookVars}>
+            [
+            <span style={{ color: "var(--primary-colour)" }}>
+              [<span style={{ fontSize: ".8em" }}>{deps.join()}</span>]
+            </span>
+            , <span style={{ fontSize: ".8em" }}>🔑</span>]
+          </SimpleVar>
+        )}
+      </div>
     </div>
-  );
+  )
+}
+
+function SimpleVar({
+  name,
+  scope,
+  children,
+  hideVarName,
+}: {
+  name: string
+  children: ReactNode
+  scope?: "hook" | "component"
+  hideVarName?: boolean
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "baseline",
+        color:
+          scope === "hook"
+            ? "var(--purple)"
+            : scope === "component"
+            ? "var(--primary-colour)"
+            : "white",
+      }}
+    >
+      <span style={{ opacity: hideVarName ? 0 : 1 }}>
+        {name}
+        <svg
+          viewBox="0 0 30 10"
+          width="30px"
+          height="15px"
+          stroke="currentColor"
+          style={{
+            markerEnd:
+              scope === "hook"
+                ? "url(#purple)"
+                : scope === "component"
+                ? "url(#green)"
+                : "url(#white)",
+          }}
+        >
+          <line x1="0" y1="5" x2="30" y2="5" strokeWidth="3" />
+        </svg>
+      </span>
+      {children}
+    </div>
+  )
 }
 
 export function UseEffectImplementation() {
   return (
     <>
-      {/* intro slide */}
-      <Slide data-transition="none-out">
-        <Fragment index={2} className="fade custom">
-          <ReactCode />
-        </Fragment>
-        <Fragment index={1} className="fade custom">
-          <ComponentCode />
-        </Fragment>
-      </Slide>
-
       {/* react setup */}
       <Slide data-transition="none">
         <ReactCode highlightLines="1-3,53" />
         <ComponentCode isBackground />
         <Fragment>
-          <EffectArray currentIndex={0} value={{}} />
+          <Vars currentIndex={0} />
         </Fragment>
       </Slide>
 
-      {/* initial render */}
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="1,2,4,25" />
-        <EffectArray currentIndex={0} value={{}} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="6-22" />
-        <EffectArray
-          currentIndex={0}
-          value={{}}
-          itemsToShow={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="39,48|40|41" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray currentIndex={0} value={{}} deps={["🍎", "🍍", "🦄"]} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="41" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={0}
-          value={{ callback: "🦻+", deps: "⬇️" }}
-          deps={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="50" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={0}
-          value={{ callback: "🦻+", deps: "⬇️" }}
-          deps={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="50" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={1}
-          value={{ callback: "🦻+", deps: "⬇️" }}
-          deps={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="6,22|24" />
-        <EffectArray
-          currentIndex={1}
-          value={{ callback: "🦻+", deps: ["🍎", "🍍", "🦄"] }}
-          itemsToShow={"⬆️"}
-        />
-      </Slide>
-
-      {/* after */}
-      <Slide data-transition="none">
-        <ReactCode highlightLines="5,27|6,11|7|29,34|30,32|31|7|8,10|13,24|14,23|15,20|16-19|18" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{ callback: "🦻+", deps: ["🍎", "🍍", "🦄"] }}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="18|16-19|14" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{ callback: "🦻+", deps: ["🍎", "🍍", "🦄"] }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="14" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="26" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="26" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode isBackground />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-        />
+        <ComponentCode highlightLines="1,22|3-19" />
+        <Vars currentIndex={0} items={["🍎", "🍇", "🍠"]} setItems />
       </Slide>
 
       <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="1-4,25|6-22" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-          itemsToShow={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode highlightLines="39,40,51|43-47" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-          deps={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode highlightLines="43-47|50" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: "⬇️",
-          }}
-          isListening
-          deps={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode highlightLines="50" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: "⬇️",
-          }}
-          isListening
-          deps={["🍎", "🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="6-22|24" />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode highlightLines="5,27|6,11|7|29,34|30,32|33|7|8,10|13,24|14,23|15,20|22|26" />
+        <ReactCode highlightLines="37,49" />
         <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        parent re-rendered
-        <ReactCode highlightLines="26" />
-        <ComponentCode isBackground />
-        <EffectArray
+        <Vars
           currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
+          items={["🍎", "🍇", "🍠"]}
+          setItems
+          callback
+          deps
         />
       </Slide>
       <Slide data-transition="none">
-        parent re-rendered
+        <ReactCode highlightLines="37,49|38,40,46|39" />
+        <ComponentCode isBackground />
+        <Vars currentIndex={0} callback deps={["🍎", "🍇", "🍠"]} />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="39|48" />
+        <ComponentCode isBackground />
+        <Vars currentIndex={0} callback deps={["🍎", "🍇", "🍠"]} effects />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="48" />
+        <ComponentCode isBackground />
+        <Vars currentIndex={1} callback deps={["🍎", "🍇", "🍠"]} effects />
+      </Slide>
+      <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
+        <ComponentCode highlightLines="21" />
+        <Vars
+          currentIndex={1}
+          callback
+          deps={["🍎", "🍇", "🍠"]}
+          effects
+          hideHookVars
         />
       </Slide>
 
+      {/* unannotated */}
       <Slide data-transition="none">
-        onKeyDown fired
+        <ReactCode highlightLines="5,25|6-11|6,11|7|27,32|28,30|29|7|8,10|13-22|13,22|14,19|15-18|16|17|24" />
+        <ComponentCode isBackground />
+      </Slide>
+      <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="8-15|12-14" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-          itemsToShow={["🍎", "🍍", "🦄"]}
-        />
+        <ComponentCode highlightLines="5-12|9-11|1,22|3,19" />
       </Slide>
       <Slide data-transition="none">
-        onKeyDown fired
+        <ReactCode highlightLines="37,50|38,40,46|41-45|41,42,45|41,43,44,45|48" />
+        <ComponentCode isBackground />
+      </Slide>
+      <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="12-14|1-4,25" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-          itemsToShow={["🍍", "🦄"]}
-        />
+        <ComponentCode highlightLines="21" />
       </Slide>
       <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="6-22" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-          itemsToShow={["🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="39,51|40|43-47" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍎", "🍍", "🦄"],
-          }}
-          isListening
-          deps={["🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="43-47|50" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: "⬇️",
-          }}
-          isListening
-          deps={["🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="50" />
-        <ComponentCode highlightLines="6,22" />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: "⬇️",
-          }}
-          isListening
-          deps={["🍍", "🦄"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="24" />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="5,27|6,11|7|8,10|9" />
+        <ReactCode highlightLines="5,25|6-11|7|27,32|28,30|31|7|8,10|9|13-22|14,19|15-18|16|17|24" />
         <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍍", "🦄"],
-          }}
-          isListening
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="9" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍍", "🦄"],
-          }}
-          isListening={false}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="13,24|14,23|15,20|16-19|17" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍎", "🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍍", "🦄"],
-          }}
-          isListening={false}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="17|18" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍍", "🦄"],
-          }}
-          isListening={false}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="18" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍍", "🦄"],
-            callback: "🦻+",
-            deps: ["🍍", "🦄"],
-          }}
-          isListening={true}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="18|26" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={1}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍍", "🦄"],
-          }}
-          isListening={true}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        onKeyDown fired
-        <ReactCode highlightLines="18|26" />
-        <ComponentCode isBackground />
-        <EffectArray
-          currentIndex={0}
-          value={{
-            cleanup: "🦻❌",
-            prevDeps: ["🍍", "🦄"],
-          }}
-          isListening={true}
-        />
       </Slide>
     </>
-  );
+  )
 }

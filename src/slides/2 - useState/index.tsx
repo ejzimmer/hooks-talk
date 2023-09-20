@@ -1,35 +1,18 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { UseStateImplementation, inventoryCode } from "./UseStateImplementation"
-import { Item, addItemToInventory, items } from "../../demos/Inventory/utils"
+import { Item, addItemToInventory } from "../../demos/Inventory/utils"
 import { AddItemForm } from "../../demos/Inventory/AddItemForm"
 import { ItemList } from "../../demos/Inventory/ItemList"
 import { FunctionalComponentProblems } from "../0 - intro/FunctionalComponentsProblems"
-import {
-  FilterItemList,
-  SortItemList,
-  filterItemListCode,
-  sortItemListCode,
-} from "../../demos/Inventory/FilterVsSort"
-import { ArrayMethods } from "./ArrayMethods"
 
 export function UseState() {
-  const [, setRender] = useState(false)
   return (
     <>
-      <InventorySlide hideSortButtons hideFilter items={[]} />
-      <Slide>
-        <Code highlightLines="|8-14|2|4-7|12">{addItemUsingRefCode}</Code>
-      </Slide>
-      <Slide>
-        <button onClick={() => setRender((render) => !render)}>
-          Render parent
-        </button>
-        <AddItemsUsingRef />
-      </Slide>
       <FunctionalComponentProblems />
+      <InventorySlide hideSortButtons hideFilter items={[]} />
       <ShinyTitle title="useState" />
       <InverseTitle>
         <h2>useState</h2>
@@ -87,7 +70,7 @@ export function UseState() {
 }
 
 const addItemUsingRefCode = `function Inventory() {
-  const inventory = useRef<Item[]>([])
+  const inventory = useRef([])
 
   const addItem = (name?: string, count?: string) => {
     inventory.current = 

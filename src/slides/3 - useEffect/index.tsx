@@ -1,30 +1,21 @@
-import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide";
-import { InventorySlide } from "../../demos/Inventory";
+import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
+import { InventorySlide } from "../../demos/Inventory"
 import {
   WithoutUseEffectSlide,
   withoutUseEffectCode,
-} from "../../demos/Inventory/KeyboardShortcuts";
-import { Code } from "../../helpers/Code";
-import { LinterError } from "../../helpers/LinterError";
+} from "../../demos/Inventory/KeyboardShortcuts"
+import { Code } from "../../helpers/Code"
 import {
   UseEffectImplementation,
   keyboardShortcutCode,
-} from "./UseEffectImplementation";
-
-// uses for useEffect
-// no dependency array vs missing dependencies - linter
-// summary - for things outside react's control. callback called after render when dependencies change. clean up with returned function
+} from "./UseEffectImplementation"
 
 export function UseEffect() {
   return (
     <>
-      <InventorySlide />
+      <InventorySlide hideFilter hideSortButtons />
       <Slide>
-        <Code highlightLines="|6-17|6|7|9|10-16">{withoutUseEffectCode}</Code>
-      </Slide>
-      <WithoutUseEffectSlide />
-      <Slide>
-        <Code highlightLines="|6-17|10-16|">{withoutUseEffectCode}</Code>
+        <Code highlightLines="|3-14">{withoutUseEffectCode}</Code>
       </Slide>
       <ShinyTitle title="useEffect" />
       <InverseTitle>
@@ -34,7 +25,7 @@ export function UseEffect() {
         </ul>
       </InverseTitle>
       <Slide>
-        <Code fontSize=".4em" highlightLines="|6-22|6,22|7-20|21|7-20|8-17|19">
+        <Code fontSize=".4em" highlightLines="|3-19|3,19|4-17|5-14|18|16">
           {keyboardShortcutCode}
         </Code>
       </Slide>
@@ -65,7 +56,7 @@ export function UseEffect() {
           <Fragment as="li">Empty dependency array - run once</Fragment>
         </ul>
       </Slide>
-      <Slide>
+      <InverseTitle>
         <h2>Use useEffect for</h2>
         <ul>
           <li>native event handlers</li>
@@ -75,7 +66,7 @@ export function UseEffect() {
           <Fragment as="li">making HTTP calls</Fragment>
           <Fragment as="li">interacting with 3rd party libraries</Fragment>
         </ul>
-      </Slide>
+      </InverseTitle>
     </>
-  );
+  )
 }

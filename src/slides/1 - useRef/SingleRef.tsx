@@ -3,7 +3,7 @@ import { Code, Props as CodeProps } from "../../helpers/Code"
 import { Slide, Fragment } from "../../helpers/Slide"
 import { Box } from "../../helpers/StepByStep"
 
-export const singleRefCode = `const React = () => {
+export const singleRefCode = `const FakeReact = () => {
   ...
   let ref = {};
 
@@ -174,6 +174,19 @@ function ArrowHeadDef() {
           markerHeight="10"
           strokeWidth="0"
           fill="var(--primary-colour)"
+          orient="270"
+        >
+          <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />
+        </marker>
+        <marker
+          id="purple-left"
+          viewBox="0 0 10 10"
+          refX="5"
+          refY="5"
+          markerWidth="5"
+          markerHeight="10"
+          strokeWidth="0"
+          fill="var(--purple)"
           orient="270"
         >
           <path d="M 0 5 a 5 5, 0, 0, 0, 10 0 z" />

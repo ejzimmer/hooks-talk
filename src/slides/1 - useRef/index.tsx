@@ -28,13 +28,13 @@ export function UseRef() {
       </Slide>
       <ElementRef />
       <MultipleRefs />
-      <RulesOfHooks />
       <InverseTitle>
-        <ul>
-          <Fragment as="li">Hooks store data in arrays & closures</Fragment>
-          <Fragment as="li">Each component has its own array/closure</Fragment>
-        </ul>
+        <h2>
+          Hooks are arrays
+          <br /> that live in closures
+        </h2>
       </InverseTitle>
+      {/* <RulesOfHooks /> */}
     </>
   )
 }

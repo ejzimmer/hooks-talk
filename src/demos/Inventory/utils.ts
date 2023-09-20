@@ -14,6 +14,7 @@ export const items: Item[] = [
 
 export type Props = {
   items: Item[]
+  setItems: (items: Item[]) => void
   addEventHandler: any
   isCurrent: boolean
 }

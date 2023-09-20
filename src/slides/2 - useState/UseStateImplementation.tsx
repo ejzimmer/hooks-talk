@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { Code } from "../../helpers/Code"
 import { Fragment, Slide } from "../../helpers/Slide"
 
-const useStateImplementationCode = `const MyReact = () => {
+const useStateImplementationCode = `const FakeReact = () => {
   let currentIndex = 0
   const states = []
   let runComponent = false
@@ -44,7 +44,7 @@ const useStateImplementationCode = `const MyReact = () => {
 export const inventoryCode = `function Inventory() {
   const [inventory, setInventory] = useState([])
 
-  const addItem = (name?: string, count?: string) => {
+  const addItem = (name, count) => {
     setInventory(
       addItemToInventory(inventory, name, count)
     )
@@ -71,7 +71,7 @@ function ReactCode({
       fontSize=".4em"
       highlightLines={highlightLines}
       isTwoUp
-      isBackground={isBackground}
+      isBackground={isBackground || highlightLines === ""}
     >
       {useStateImplementationCode}
     </Code>
@@ -90,7 +90,7 @@ function ComponentCode({
       fontSize=".4em"
       highlightLines={highlightLines}
       isTwoUp
-      isBackground={isBackground}
+      isBackground={isBackground || highlightLines === ""}
     >
       {inventoryCode}
     </Code>
@@ -134,6 +134,13 @@ function Vars({
       <SimpleVar name="currentIndex" value={`${currentIndex}`} />
       <SimpleVar name="runComponent">
         <span style={{ fontSize: ".6em" }}>{runComponent ? "✅" : "❌"}</span>
+        {(setter || setInventory) && (
+          <span
+            style={{ position: "absolute", fontSize: ".6em", right: "30px" }}
+          >
+            🔑
+          </span>
+        )}
       </SimpleVar>
       <SimpleVar name="states">
         [
@@ -331,22 +338,22 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="20,35|21,23|22" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode />
         <Vars currentIndex={0} runComponent={false} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="22|25-30|25" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="25|26" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" value />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="26|27-30" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode />
         <Vars
           currentIndex={0}
           runComponent={false}
@@ -357,7 +364,7 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="27-30|32" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode />
         <Vars
           currentIndex={0}
           runComponent={false}
@@ -369,7 +376,7 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="32|34" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode />
         <Vars
           currentIndex={1}
           runComponent={false}
@@ -381,7 +388,7 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="2|4,8|10-15|12" />
+        <ComponentCode highlightLines="2|4-8|10-15|12" />
         <Vars
           currentIndex={1}
           runComponent={false}
@@ -392,7 +399,7 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="11,18|12-17" />
-        <ComponentCode highlightLines="12" />
+        <ComponentCode />
         <Vars
           currentIndex={1}
           runComponent={false}
@@ -440,13 +447,13 @@ export function UseStateImplementation() {
         <Vars currentIndex={0} runComponent={false} states="[]" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13" />
+        <ReactCode />
         <ComponentCode highlightLines="4-8" />
         <Vars currentIndex={0} runComponent={false} states="[]" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13" />
-        <ComponentCode highlightLines="4-8|5-7" />
+        <ReactCode />
+        <ComponentCode highlightLines="5-7" />
         <Vars
           currentIndex={0}
           runComponent={false}
@@ -457,12 +464,12 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="27-30|28" />
-        <ComponentCode highlightLines="5-7" />
+        <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" setValue="🍎" />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="28|29" />
-        <ComponentCode highlightLines="5-7" />
+        <ComponentCode />
         <Vars
           currentIndex={0}
           runComponent={false}
@@ -472,7 +479,7 @@ export function UseStateImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="29" />
-        <ComponentCode highlightLines="5-7" />
+        <ComponentCode />
         <Vars
           currentIndex={0}
           runComponent={true}

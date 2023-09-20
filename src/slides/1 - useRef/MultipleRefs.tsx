@@ -3,7 +3,7 @@ import { Code } from "../../helpers/Code"
 import { Fragment, Slide } from "../../helpers/Slide"
 import { Box } from "../../helpers/StepByStep"
 
-export const multipleRefsCode = `const React = () => {
+export const multipleRefsCode = `const FakeReact = () => {
   ...
   let currentIndex = 0;
   const refs = [];

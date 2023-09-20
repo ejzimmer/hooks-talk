@@ -1,7 +1,7 @@
-import { Code } from "../../helpers/Code";
-import { Fragment, Slide } from "../../helpers/Slide";
+import { Code } from "../../helpers/Code"
+import { Fragment, Slide } from "../../helpers/Slide"
 
-const useMemoImplementationCode = `const React = () => {
+const useMemoImplementationCode = `const FakeReact = () => {
   let currentIndex = 0;
   const memoisedValues = [];
 
@@ -32,34 +32,31 @@ const useMemoImplementationCode = `const React = () => {
       return returnValue;
     },
 }
-`;
+`
 
-const memoisedCode = `function ItemList({ items, setItems }: Props) {
-  const [sortBy, setSortBy] = useState<keyof Item | undefined>();
-  const [filter, setFilter] = useState("");
+const memoisedCode = `function ItemList({ items, setItems }) {
+  const [sortBy, setSortBy] = useState();
 
-  const itemsToShow = useMemo(
-    () => {
-      const filteredItems = filter
-        ? items.filter((item) => item.name.includes(filter))
-        : [...items];
-      return sortBy ? filteredItems.sort(sortFunction(sortBy)) : filteredItems;
+  const sortedItems = useMemo(
+    () => sortBy ? 
+      items.sort(sortFunction(sortBy)) : 
+      items;
     }, 
-    [filter, sortBy, items]
+    [sortBy, items]
   );
 
-  useEffect(() => {...}, [itemsToShow, items, setItems]);
+  useEffect(() => {...}, [sortedItems, items]);
 
   return (...);
 }
-`;
+`
 
 function ReactCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -70,15 +67,15 @@ function ReactCode({
     >
       {useMemoImplementationCode}
     </Code>
-  );
+  )
 }
 
 function ComponentCode({
   highlightLines = "",
   isBackground,
 }: {
-  highlightLines?: string;
-  isBackground?: boolean;
+  highlightLines?: string
+  isBackground?: boolean
 }) {
   return (
     <Code
@@ -89,7 +86,7 @@ function ComponentCode({
     >
       {memoisedCode}
     </Code>
-  );
+  )
 }
 
 function MemoArray({
@@ -102,17 +99,17 @@ function MemoArray({
   itemsToShow,
   filterValue,
 }: {
-  currentIndex?: number;
+  currentIndex?: number
   memo?: {
-    value: string;
-    deps: string[] | string;
-  };
-  deps?: string[];
-  memoisedValue?: string;
-  needsUpdating?: boolean;
-  returnValue?: string;
-  itemsToShow?: string;
-  filterValue?: string;
+    value: string
+    deps: string[] | string
+  }
+  deps?: string[]
+  memoisedValue?: string
+  needsUpdating?: boolean
+  returnValue?: string
+  itemsToShow?: string
+  filterValue?: string
 }) {
   return (
     <div
@@ -153,23 +150,13 @@ function MemoArray({
       {itemsToShow && <code>itemsToShow: {itemsToShow}</code>}
       {filterValue && <code>filter: {filterValue}</code>}
     </div>
-  );
+  )
 }
 
 export function UseMemoImplementation() {
   return (
     <>
-      {/* intro slide */}
-      <Slide data-transition="none-out">
-        <Fragment index={2} className="fade custom">
-          <ReactCode />
-        </Fragment>
-        <Fragment index={1} className="fade custom">
-          <ComponentCode />
-        </Fragment>
-      </Slide>
-
-      {/* react setup */}
+      s {/* react setup */}
       <Slide data-transition="none">
         <ReactCode highlightLines="1-3,31" />
         <ComponentCode isBackground />
@@ -177,11 +164,10 @@ export function UseMemoImplementation() {
           <MemoArray currentIndex={0} />
         </Fragment>
       </Slide>
-
       {/* initial render */}
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="1,18|2,3|5,13|6-11|12|5,13" />
+        <ComponentCode highlightLines="1,18|2|4,10|5-8|9|4,10" />
         <MemoArray currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
@@ -210,16 +196,17 @@ export function UseMemoImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="14|15-17|16" />
+        <ReactCode highlightLines="16" />
         <ComponentCode highlightLines="5,13" />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
           memoisedValue="undefined"
+          needsUpdating={true}
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="16|19,24|20-23" />
+        <ReactCode highlightLines="19,24|20-23" />
         <ComponentCode highlightLines="5,13" />
         <MemoArray
           currentIndex={0}
@@ -259,7 +246,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="27|29" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode highlightLines="4,10" />
         <MemoArray
           currentIndex={1}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -274,7 +261,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="5,13|15|17" />
+        <ComponentCode highlightLines="4,10|12|14" />
         <MemoArray
           currentIndex={1}
           memo={{
@@ -306,16 +293,15 @@ export function UseMemoImplementation() {
           }}
         />
       </Slide>
-
       {/* re-render, no change */}
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="1,18|2,3|5-13" />
+        <ComponentCode highlightLines="1,15|2|4-10" />
         <MemoArray currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13,30" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -323,7 +309,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="14" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -331,7 +317,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="14|15-17|16|17" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -340,7 +326,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="15-17|19,24" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -350,7 +336,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="26" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -364,7 +350,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="26|27" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={0}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -379,7 +365,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="27|29" />
-        <ComponentCode highlightLines="5,13" />
+        <ComponentCode isBackground />
         <MemoArray
           currentIndex={1}
           deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
@@ -394,7 +380,7 @@ export function UseMemoImplementation() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="5,13|15|17" />
+        <ComponentCode highlightLines="4,10|12|14" />
         <MemoArray
           currentIndex={1}
           memo={{
@@ -426,149 +412,23 @@ export function UseMemoImplementation() {
           }}
         />
       </Slide>
-
-      {/* re-render due to filter */}
+      {/* re-render due to sort */}
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="1-3,18|5-13" />
-        <MemoArray
-          currentIndex={0}
-          filterValue="🍎"
-          memo={{
-            value: "['🍎', '🍍', '🦄']",
-            deps: ["''", "undefined", "['🍎', '🍍', '🦄']"],
-          }}
-        />
+        <ComponentCode highlightLines="1,15,2|4,10" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13,30" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={0}
-          memo={{
-            value: "['🍎', '🍍', '🦄']",
-            deps: ["''", "undefined", "['🍎', '🍍', '🦄']"],
-          }}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="14" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={0}
-          memo={{
-            value: "['🍎', '🍍', '🦄']",
-            deps: ["''", "undefined", "['🍎', '🍍', '🦄']"],
-          }}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="14|15-17|16|17|15-17" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={0}
-          memo={{
-            value: "['🍎', '🍍', '🦄']",
-            deps: ["''", "undefined", "['🍎', '🍍', '🦄']"],
-          }}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="value: ['🍎', '🍍', '🦄'], deps: ['', undefined, ['🍎', '🍍', '🦄']]"
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="15-17|19,24|20-23" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={0}
-          memo={{
-            value: "['🍎', '🍍', '🦄']",
-            deps: ["''", "undefined", "['🍎', '🍍', '🦄']"],
-          }}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="value: ['🍎', '🍍', '🦄'], deps: ['', undefined, ['🍎', '🍍', '🦄']]"
-          needsUpdating={true}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="20-23|26" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={0}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="value: ['🍎'], deps: ['', 🍎, ['🍎', '🍍', '🦄']]"
-          needsUpdating={true}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎']",
-          }}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="26|27" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={0}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="value: ['🍎'], deps: ['', 🍎, ['🍎', '🍍', '🦄']]"
-          needsUpdating={true}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎']",
-          }}
-          returnValue="⬆️"
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="27|29" />
-        <ComponentCode highlightLines="5,13" />
-        <MemoArray
-          currentIndex={1}
-          deps={["''", "🍎", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="value: ['🍎'], deps: ['', 🍎, ['🍎', '🍍', '🦄']]"
-          needsUpdating={true}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎']",
-          }}
-          returnValue="⬆️"
-        />
+        <ReactCode highlightLines="13,30|14|15-17|19,24|20-23|26|27|29" />
+        <ComponentCode isBackground />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="5,13|15|17" />
-        <MemoArray
-          currentIndex={1}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎']",
-          }}
-          itemsToShow="⬆️"
-        />
+        <ComponentCode highlightLines="4,10|12|14" />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="5-7" />
         <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={1}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎']",
-          }}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="5-7" />
-        <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={0}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎']",
-          }}
-        />
       </Slide>
     </>
-  );
+  )
 }

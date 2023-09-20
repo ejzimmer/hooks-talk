@@ -1,42 +1,39 @@
-import { InventorySlide, UnaddableInventorySlide } from "../../demos/Inventory";
-import { Code } from "../../helpers/Code";
-import {
-  Fragment,
-  InverseTitle,
-  Notes,
-  ShinyTitle,
-  Slide,
-} from "../../helpers/Slide";
-import { UseMemoImplementation } from "./UseMemoImplementation";
-
-// step through code with useMemo
-// summary - no redundant state, test performance, useMemo
-// add buttons
-// extract repeated code
-// callback causing re-render problem
-// fix with useMemo but isn't it a bit icky
-// useCallback shiny slide
-// useCallback = useMemo for functions
-// transform code from useMemo to useCallback
-// now everything works great yay - demo
-// summary
-// further reading
-// thanks
+import { InventorySlide, UnaddableInventorySlide } from "../../demos/Inventory"
+import { Code } from "../../helpers/Code"
+import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
+import { UseMemoImplementation } from "./UseMemoImplementation"
 
 export function UseMemo() {
   return (
     <>
-      <UnaddableInventorySlide />
       <Slide>
-        <Code fontSize=".4em" highlightLines="|2|34-36|8-10">
+        <blockquote>
+          Effects are an escape hatch from the React paradigm.
+        </blockquote>
+        <cite className="footnote">
+          <a
+            href="https://react.dev/learn/you-might-not-need-an-effect"
+            target="_blank"
+            rel="noreferrer"
+          >
+            React docs
+          </a>
+        </cite>
+      </Slide>
+      <InventorySlide hideFilter />
+      {/* <Slide>
+        <Code fontSize=".4em" highlightLines="|2|4-6|12-15|21|25,26|27-31">
           {unaddableInventoryCode}
         </Code>
       </Slide>
+      <UnaddableInventorySlide hideFilter />
       <Slide>
-        <Code
-          fontSize=".4em"
-          highlightLines="6,7,19,20,23|3|25-27|21|9-11,17|4|28-30|13-16,22"
-        >
+        <Code fontSize=".4em" highlightLines="2|5">
+          {unaddableInventoryCode}
+        </Code>
+      </Slide> */}
+      <Slide>
+        <Code fontSize=".4em" highlightLines="|2|5-15">
           {itemListWithTooMuchEffectCode}
         </Code>
         <Fragment
@@ -52,37 +49,10 @@ export function UseMemo() {
         </Fragment>
       </Slide>
       <Slide>
-        <blockquote>
-          Effects are an escape hatch from the React paradigm.
-        </blockquote>
-        <cite className="footnote">
-          <a
-            href="https://react.dev/learn/you-might-not-need-an-effect"
-            target="_blank"
-            rel="noreferrer"
-          >
-            React docs
-          </a>
-        </cite>
-        <Notes>
-          <p>
-            we tend to think of useEffect as a mechanism to watch for changes,
-            but that's not really what it is. the whole of react is a mechanism
-            to watch for changes. useEffect is for dealing with things outside
-            the control of react
-          </p>
-          <p>
-            if your effect is happening due to a user interaction, use an event
-            handler
-          </p>
-          <p>
-            if your effect is transforming data for rendering - like we're doing
-            here - we don't even need anything
-          </p>
-        </Notes>
-      </Slide>
-      <Slide>
-        <h2>Don't use effects to transform data</h2>
+        <h2>
+          Don't use effects
+          <br /> to transform data
+        </h2>
         <Fragment>
           <blockquote>
             If you can calculate some information from the component’s props or
@@ -101,12 +71,10 @@ export function UseMemo() {
         </Fragment>
       </Slide>
       <Slide>
-        <Code fontSize=".4em" highlightLines="|2,3|18|5,6|8-11">
+        <Code fontSize=".4em" highlightLines="|2|4">
           {justRightCode}
         </Code>
       </Slide>
-      <InventorySlide />
-
       <Slide>
         <h2>But what if my calculation is really expensive?</h2>
       </Slide>
@@ -121,172 +89,138 @@ export function UseMemo() {
       <Slide>
         <Code highlightLines="">{unmemoisedCode}</Code>
         <Fragment>
-          <Code highlightLines="|1,11|2-9|10">{memoisedCode}</Code>
+          <Code highlightLines="|1,6|2-4|5">{memoisedCode}</Code>
         </Fragment>
       </Slide>
       <UseMemoImplementation />
-      <Slide>
+      <InverseTitle>
         <h2>useMemo</h2>
         <ul>
           <li>calculates a value</li>
           <li>only recalculates the value if the dependencies change</li>
         </ul>
-      </Slide>
+      </InverseTitle>
     </>
-  );
+  )
 }
 
-const unmemoisedCode = `const filteredItems = filter
-  ? items.filter((item) => item.name.includes(filter))
-  : [...items];
-const itemsToShow = sortBy 
-  ? filteredItems.sort(sortFunction(sortBy)) 
-  : filteredItems;
-`;
-const memoisedCode = `const itemsToShow = useMemo(
-  () => {
-    const filteredItems = filter
-      ? items.filter((item) => item.name.includes(filter))
-      : [...items];
-    return sortBy 
-      ? filteredItems.sort(sortFunction(sortBy)) 
-      : filteredItems;
-  }, 
-  [filter, items, sortBy]
+const unmemoisedCode = `const sortedItems = sortBy 
+  ? items.sort(sortFunction(sortBy)) 
+  : items;
+`
+const memoisedCode = `const sortedItems = useMemo(
+  () => sortBy 
+      ? items.sort(sortFunction(sortBy)) 
+      : items, 
+  [items, sortBy]
 );
-`;
+`
 
-const unaddableInventoryCode = `export function ItemList({ items }: Props) {
-  const [itemsToShow, setItemsToShow] = useState<Item[]>(items);
+const unaddableInventoryCode = `export function ItemList({ items, setItems }) {
+  const [sortedItems, setSortedItems] = useState(items);
 
-  const handleSort = (sortBy: keyof Item) => {
-    setItemsToShow([...itemsToShow].sort(sortFunction(sortBy)));
-  };
-  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setItemsToShow(
-      items.filter((item) => item.name.includes(event.target.value))
-    );
+  const handleSort = (sortBy) => {
+    setItemsToShow(items.toSorted(sortFunction(sortBy)));
   };
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return;
       const indexToUpdate = Number.parseInt(event.key) - 1;
-      const itemToUpdate = itemsToShow[indexToUpdate];
-      setItemsToShow(
-        items.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
+      const itemToUpdate = sortedItems[indexToUpdate];
+      setSortedItems(
+        sortedItems.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
       );
     };
 
     window.addEventListener("keydown", onKeyDown);
 
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [itemsToShow, items, isCurrent]);
+  }, [sortedItems]);
 
   return (
     <>
-      <input onChange={handleFilter} />
       <button onClick={() => handleSort("name")}>Sort by name</button>
       <button onClick={() => handleSort("count")}>Sort by count</button>
       <ol>
-        {itemsToShow.map((item) => (
+        {sortedItems.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
       </ol>
     </>
   );
 }
-`;
+`
 
-const itemListWithTooMuchEffectCode = `function ItemList({ items }: Props) {
-  const [itemsToShow, setItemsToShow] = useState<Item[]>(items);
-  const [sortBy, setSortBy] = useState<keyof Item>();
-  const [filterBy, setFilterBy] = useState<string>();
+const itemListWithTooMuchEffectCode = `function ItemList({ items }) {
+  const [sortedItems, setSortedItems] = useState(items);
+  const [sortBy, setSortBy] = useState();
 
   useEffect(() => {
-    setItemsToShow(items)
-
     if (sortBy) {
-      const sortedItems = items.sort(sortFunction(sortBy))
-      setItemsToShow(sortedItems)
-
-      if (filterBy) {
-        const filteredItems = sortedItems.filter((item) => item.name.includes(filterBy))
-        setItemsToShow(filteredItems)
-      }
+      setSortedItems(items.sort(sortFunction(sortBy)))
+    } else {
+      setSortedItems(items)
     }
   }, 
   [
     items, 
-    sortBy, 
-    filterBy
+    sortBy,
   ]);
 
   const handleSort = (sortBy: keyof Item) => {
     setSortBy(sortBy);
   };
-  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterBy(event.target.value);
-  };
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return;
       const indexToUpdate = Number.parseInt(event.key) - 1;
-      const itemToUpdate = itemsToShow[indexToUpdate];
-      setItemsToShow(
-        items.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
+      const itemToUpdate = sortedItems[indexToUpdate];
+      setSortedItems(
+        sortedItems.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
       );
     };
 
     window.addEventListener("keydown", onKeyDown);
 
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [itemsToShow, items, isCurrent]);
+  }, [sortedItems]);
 
   return (
     <>
-      <input onChange={handleFilter} />
       <button onClick={() => handleSort("name")}>Sort by name</button>
       <button onClick={() => handleSort("count")}>Sort by count</button>
       <ol>
-        {itemsToShow.map((item) => (
+        {sortedItems.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
       </ol>
     </>
   );
 }
-`;
+`
 
-const justRightCode = `function ItemList({
-  items,
-  setItems,
-}: Props) {
-  const [sortBy, setSortBy] = useState<keyof Item | undefined>();
-  const [filter, setFilter] = useState("");
+const justRightCode = `function ItemList({ items, setItems }) {
+  const [sortBy, setSortBy] = useState();
 
-  const filteredItems = filter
-    ? items.filter((item) => item.name.includes(filter))
-    : [...items];
-  const itemsToShow = sortBy ? filteredItems.sort(sortFunction(sortBy)) : filteredItems;
+  const sortedItems = sortBy ? items.sort(sortFunction(sortBy)) : items;
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!event.key.match(/^[0-9]$/)) return;
       const indexToUpdate = Number.parseInt(event.key) - 1;
-      const itemToUpdate = itemsToShow[indexToUpdate];
-      setItems(items.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i)));
+      const itemToUpdate = sortedItems[indexToUpdate];
+      setItems(sortedItems.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i)));
     };
 
     window.addEventListener("keydown", onKeyDown);
 
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [itemsToShow, items, setItems]);
+  }, [sortedItems]);
 
   return (
     <>
-      <input onChange={(event) => setFilter(event.target.value)} />
       <button onClick={() => setSortBy("name")}>Sort by name</button>
       <button onClick={() => setSortBy("count")}>Sort by count</button>
       <ol>
@@ -300,4 +234,4 @@ const justRightCode = `function ItemList({
     </>
   );
 }
-`;
+`

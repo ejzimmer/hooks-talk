@@ -1,14 +1,14 @@
-import { Code } from "../../helpers/Code";
-import { Slide, InverseTitle, Fragment, ShinyTitle } from "../../helpers/Slide";
-import { LinterError } from "../../helpers/LinterError";
-import { InventorySlide } from "../../demos/Inventory";
+import { Code } from "../../helpers/Code"
+import { Slide, InverseTitle, Fragment, ShinyTitle } from "../../helpers/Slide"
+import { LinterError } from "../../helpers/LinterError"
+import { InventorySlide } from "../../demos/Inventory"
 
 export function UseCallback() {
   return (
     <>
-      <InventorySlide />
+      <InventorySlide hideFilter />
       <Slide>
-        <Code highlightLines="|4">{onClickCode}</Code>
+        <Code highlightLines="|4-6">{onClickCode}</Code>
       </Slide>
       <Slide>
         <Code fontSize=".4em" highlightLines="5-9">
@@ -16,7 +16,7 @@ export function UseCallback() {
         </Code>
       </Slide>
       <Slide>
-        <Code fontSize=".4em" highlightLines="7-9|40|17|26">
+        <Code fontSize=".4em" highlightLines="7-9|40|17|27">
           {extractConsumeItemCode}
         </Code>
       </Slide>
@@ -67,7 +67,7 @@ export function UseCallback() {
         </Fragment>
       </Slide>
     </>
-  );
+  )
 }
 
 const onClickCode = `<ol>
@@ -78,24 +78,24 @@ const onClickCode = `<ol>
     </button>
   </li>
 ))}
-</ol>`;
+</ol>`
 
 const useItemCode = `useEffect(() => {
   const onKeyDown = (event: KeyboardEvent) => {
     if (!event.key.match(/^[0-9]$/)) return
     const indexToUpdate = Number.parseInt(event.key) - 1
-    setSortedItems(
+    setItems(
       sortedItems.map((item, index) =>
         index === indexToUpdate ? { ...item, count: --item.count } : item
       )
     )
   }
 
-  isCurrent && window.addEventListener("keydown", onKeyDown)
+  window.addEventListener("keydown", onKeyDown)
 
   return () => window.removeEventListener("keydown", onKeyDown)
-}, [sortedItems, isCurrent])
-`;
+}, [sortedItems, setItems])
+`
 
 export const extractConsumeItemCode = `function ItemList({ items, setItems }: Props) {
   const [sortBy, setSortBy] = useState<keyof Item | undefined>();
@@ -112,7 +112,7 @@ export const extractConsumeItemCode = `function ItemList({ items, setItems }: Pr
       const onKeyDown = (event: KeyboardEvent) => {
         if (!event.key.match(/^[0-9]$/)) return;
         const indexToUpdate = Number.parseInt(event.key) - 1;
-        const itemToUpdate = itemsToShow[indexToUpdate];
+        const itemToUpdate = sortedItems[indexToUpdate];
         consumeItem(itemToUpdate);
       };
 
@@ -121,9 +121,9 @@ export const extractConsumeItemCode = `function ItemList({ items, setItems }: Pr
       return () => window.removeEventListener("keydown", onKeyDown);
     }, 
     [
-      itemsToShow, 
+      sortedItems,
+      setItems, 
       consumeItem, 
-      isCurrent
     ]
   );
 
@@ -144,7 +144,7 @@ export const extractConsumeItemCode = `function ItemList({ items, setItems }: Pr
     </>
   );
 }
-`;
+`
 
 export const memoisedConsumeItemCode = `const consumeItem = useMemo(
   () => (item: Item) => {
@@ -155,7 +155,7 @@ export const memoisedConsumeItemCode = `const consumeItem = useMemo(
     )
   }, 
   [items, setItems]
-)`;
+)`
 
 export const callbackisedConsumeItemCode = `const consumeItem = useCallback(
   (item: Item) => {
@@ -166,4 +166,4 @@ export const callbackisedConsumeItemCode = `const consumeItem = useCallback(
     )
   }, 
   [items, setItems]
-)`;
+)`
