@@ -53,11 +53,6 @@ export function RenderCounterSlides() {
         </div>
       </Slide>
       <Slide>
-        <Code fontSize="0.5em" highlightLines="|4|7">
-          {classComponentCode}
-        </Code>
-      </Slide>
-      <Slide>
         <Code highlightLines="|2|4|7-9|1,11|2">
           {brokenFunctionalComponentCode}
         </Code>

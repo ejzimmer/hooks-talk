@@ -29,8 +29,10 @@ const useStateImplementationCode = `const FakeReact = () => {
       const value = states[currentIndex]
       const setterIndex = currentIndex
       const setter = (value) => {
-        states[setterIndex] = value
-        runComponent = true
+        if (value !== states[setterIndex]) {
+          states[setterIndex] = value
+          runComponent = true
+        }
       }
 
       currentIndex++
@@ -342,7 +344,7 @@ export function UseStateImplementation() {
         <Vars currentIndex={0} runComponent={false} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="22|25-30|25" />
+        <ReactCode highlightLines="22|25-32|25" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" />
       </Slide>
@@ -352,7 +354,7 @@ export function UseStateImplementation() {
         <Vars currentIndex={0} runComponent={false} states="[]" value />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="26|27-30" />
+        <ReactCode highlightLines="26|27-32" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -363,7 +365,7 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="27-30|32" />
+        <ReactCode highlightLines="27-32|34" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -375,7 +377,7 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="32|34" />
+        <ReactCode highlightLines="34|36" />
         <ComponentCode />
         <Vars
           currentIndex={1}
@@ -463,12 +465,12 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="27-30|28" />
+        <ReactCode highlightLines="27-32|28,31|29" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" setValue="🍎" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="28|29" />
+        <ReactCode highlightLines="29|30" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -478,7 +480,7 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="29" />
+        <ReactCode highlightLines="30" />
         <ComponentCode />
         <Vars
           currentIndex={0}

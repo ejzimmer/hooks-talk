@@ -39,7 +39,7 @@ export function RenderCounterWithRerender() {
   return (
     <>
       <button onClick={() => setRerender((rerender) => !rerender)}>
-        Trigger rerender
+        Trigger render
       </button>
       <RenderCounter />
     </>

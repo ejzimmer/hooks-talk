@@ -22,7 +22,7 @@ export function UseState() {
         </ul>
       </InverseTitle>
       <Slide>
-        <Code highlightLines="|2|4-8|5,7|13">{inventoryCode}</Code>
+        <Code highlightLines="|12,13|2|4-8|5,7|13">{inventoryCode}</Code>
       </Slide>
       <UseStateImplementation />
       {/* <Slide>

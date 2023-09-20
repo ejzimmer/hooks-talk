@@ -15,7 +15,7 @@ export function UseEffect() {
     <>
       <InventorySlide hideFilter hideSortButtons />
       <Slide>
-        <Code highlightLines="|3-14">{withoutUseEffectCode}</Code>
+        <Code highlightLines="|3-14|8">{withoutUseEffectCode}</Code>
       </Slide>
       <ShinyTitle title="useEffect" />
       <InverseTitle>
@@ -37,13 +37,13 @@ export function UseEffect() {
           </Fragment>
           <Fragment as="li">
             <span style={{ color: "var(--primary-colour)" }}>dependencies</span>
-            : when the callback gets called
+            : manage stale closures
           </Fragment>
           <Fragment as="li">
             <span style={{ color: "var(--primary-colour)" }}>
               cleanup function
             </span>
-            : returned from callback
+            : clean up before callback
           </Fragment>
         </ul>
       </Slide>
