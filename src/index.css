@@ -8,6 +8,7 @@ body {
   --primary-colour: #4ad59c;
   --background-colour: #333;
   --purple: hsl(300 50% 50%);
+  --blue: #16a9f2;
 }
 
 code {

@@ -20,7 +20,7 @@ const useStateImplementationCode = `const FakeReact = () => {
         }
       })
     },
-    useRef(initialValue) {...},
+    // useRef,
     useState(initialValue) {
       if (typeof states[currentIndex] === "undefined") {
         states[currentIndex] = initialValue
@@ -109,6 +109,7 @@ function Vars({
   inventory,
   setInventory,
   setValue,
+  up,
 }: {
   currentIndex: number
   runComponent: boolean
@@ -119,15 +120,16 @@ function Vars({
   inventory?: boolean
   setInventory?: boolean
   setValue?: string
+  up?: boolean
 }) {
   return (
     <div
       style={{
         width: "380px",
         height: "230px",
-        background: "hsl(0 0% 100% / .1)",
+        background: "hsl(0 0% 0% / .2)",
         position: "fixed",
-        top: 0,
+        top: up ? 0 : "310px",
         right: 0,
         fontFamily: "Courier",
         padding: ".5em",
@@ -330,16 +332,17 @@ export function UseStateImplementation() {
         <ReactCode highlightLines="2-4" />
         <ComponentCode isBackground />
         <Fragment>
-          <Vars currentIndex={0} runComponent={false} />
+          <Vars currentIndex={0} runComponent={false} up />
         </Fragment>
       </Slide>
+
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="1,16|2" />
-        <Vars currentIndex={0} runComponent={false} />
+        <Vars currentIndex={0} runComponent={false} up />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="20,35|21,23|22" />
+        <ReactCode highlightLines="20,37|21,23|22" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} />
       </Slide>
@@ -397,6 +400,7 @@ export function UseStateImplementation() {
           states="[]"
           inventory
           setInventory
+          up
         />
       </Slide>
       <Slide data-transition="none">
@@ -451,7 +455,7 @@ export function UseStateImplementation() {
       <Slide data-transition="none">
         <ReactCode />
         <ComponentCode highlightLines="4-8" />
-        <Vars currentIndex={0} runComponent={false} states="[]" />
+        <Vars currentIndex={0} runComponent={false} states="[]" up />
       </Slide>
       <Slide data-transition="none">
         <ReactCode />
@@ -462,6 +466,7 @@ export function UseStateImplementation() {
           states="[]"
           inventory
           setInventory
+          up
         />
       </Slide>
       <Slide data-transition="none">
@@ -504,7 +509,7 @@ export function UseStateImplementation() {
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="1,2,16" />
-        <Vars currentIndex={0} runComponent={true} states="[🍎]" />
+        <Vars currentIndex={0} runComponent={true} states="[🍎]" up />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
@@ -515,6 +520,7 @@ export function UseStateImplementation() {
           states="[🍎]"
           inventory
           setInventory
+          up
         />
       </Slide>
     </>

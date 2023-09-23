@@ -37,7 +37,7 @@ function ReactCode({
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
-      isBackground={isBackground}
+      isBackground={isBackground || highlightLines === ""}
       isTwoUp
     >
       {multipleRefsCode}
@@ -56,7 +56,7 @@ function ComponentCode({
     <Code
       fontSize=".4em"
       highlightLines={highlightLines}
-      isBackground={isBackground}
+      isBackground={isBackground || highlightLines === ""}
       isTwoUp
     >
       {addItemFormWithCountCode}
@@ -70,21 +70,23 @@ function Vars({
   nameRef,
   countRef,
   refPointer,
+  down,
 }: {
   currentIndex: number
   refs?: string[]
   nameRef?: boolean
   countRef?: boolean
   refPointer?: 0 | 1
+  down?: boolean
 }) {
   return (
     <div
       style={{
         width: "420px",
         height: "230px",
-        background: "hsl(0 0% 100% / .1)",
+        background: "hsl(0 0% 0% / .2)",
         position: "fixed",
-        top: 0,
+        top: down ? "350px" : 0,
         right: 0,
         fontFamily: "Courier",
         padding: ".5em",
@@ -214,37 +216,42 @@ export function MultipleRefs() {
 
       {/* in useRef */}
       <Slide data-transition="none">
-        <ReactCode highlightLines="11,20|12,14|13" />
-        <ComponentCode highlightLines="2" />
+        <ReactCode highlightLines="11,20" />
+        <ComponentCode />
         <Vars currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
+        <ReactCode highlightLines="11,20|12,14|13" />
+        <ComponentCode />
+        <Vars currentIndex={0} down />
+      </Slide>
+      <Slide data-transition="none">
         <ReactCode highlightLines="13" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} />
+        <ComponentCode />
+        <Vars currentIndex={0} refs={["current: null"]} down />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="16" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} />
+        <ComponentCode />
+        <Vars currentIndex={0} refs={["current: null"]} down />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="16" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
+        <ComponentCode />
+        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} down />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="17" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
+        <ComponentCode />
+        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} down />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="17|19" />
-        <ComponentCode highlightLines="2" />
-        <Vars currentIndex={1} refs={["current: null"]} refPointer={0} />
+        <ComponentCode />
+        <Vars currentIndex={1} refs={["current: null"]} refPointer={0} down />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="19" />
+        <ReactCode />
         <ComponentCode highlightLines="2" />
         <Vars currentIndex={1} refs={["current: null"]} nameRef />
       </Slide>
@@ -255,55 +262,60 @@ export function MultipleRefs() {
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="11,12,14,20|13" />
-        <ComponentCode highlightLines="3" />
-        <Vars currentIndex={1} refs={["current: null"]} nameRef />
+        <ComponentCode />
+        <Vars currentIndex={1} refs={["current: null"]} nameRef down />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13" />
-        <ComponentCode highlightLines="3" />
+        <ComponentCode />
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
           nameRef
+          down
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="16" />
-        <ComponentCode highlightLines="3" />
+        <ComponentCode />
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
           nameRef
+          down
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="16" />
-        <ComponentCode highlightLines="3" />
+        <ComponentCode />
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
           nameRef
           refPointer={1}
+          down
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="17" />
-        <ComponentCode highlightLines="3" />
+        <ComponentCode />
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
           nameRef
           refPointer={1}
+          down
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="17|19" />
-        <ComponentCode highlightLines="3" />
+        <ComponentCode />
         <Vars
           currentIndex={2}
           refs={["current: null", "current: null"]}
           nameRef
           refPointer={1}
+          down
         />
       </Slide>
       <Slide data-transition="none">

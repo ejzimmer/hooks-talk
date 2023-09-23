@@ -18,8 +18,8 @@ export const addItemFormCode = `function AddItemForm({ onSubmit }: Props) {
 `
 
 export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Props) {
-  const nameRef = useRef(null)
   const countRef = useRef(null)
+  const nameRef = useRef(null)
 
   const handleAddItem = (event) => {
     event.preventDefault()
@@ -28,8 +28,8 @@ export const addItemFormWithCountCode = `function AddItemForm({ onSubmit }: Prop
 
   return (
     <form onSubmit={handleAddItem}>
-      <input ref={nameRef} />
       <input type="number" ref={countRef} />
+      <input ref={nameRef} />
       <button>Add</button>
     </form>
   )
@@ -51,12 +51,14 @@ export function AddItemForm({ onSubmit, hideCount }: Props) {
     onSubmit(nameRef.current.value, countRef.current?.value)
     nameRef.current.value = ""
 
-    if (countRef.current) countRef.current.value = ""
+    if (countRef.current) {
+      countRef.current.value = ""
+      countRef.current.focus()
+    }
   }
 
   return (
     <form onSubmit={handleAddItem}>
-      <input ref={nameRef} />
       {!hideCount && (
         <input
           type="number"
@@ -64,6 +66,7 @@ export function AddItemForm({ onSubmit, hideCount }: Props) {
           onKeyDown={(event) => event.stopPropagation()}
         />
       )}
+      <input ref={nameRef} />
       <button>Add</button>
     </form>
   )
