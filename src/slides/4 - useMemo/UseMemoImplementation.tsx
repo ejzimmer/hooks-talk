@@ -176,7 +176,7 @@ function Vars({
   sortBy?: string
   calculateValue?: boolean
   deps?: boolean
-  memo?: boolean
+  memo?: boolean | number
   needsUpdating?: boolean
   returnValue?: boolean
   hideDepsLabel?: boolean
@@ -459,10 +459,37 @@ function Vars({
           />
         </SimpleVar>
       )}
-      {memo && (
-        <SimpleVar name="memo" scope="hook" marginTop="-.3em">
-          {memo}
-        </SimpleVar>
+      {memo === 2 ? (
+        <div
+          style={{
+            color: "var(--purple)",
+            position: "relative",
+            marginTop: "-.3em",
+          }}
+        >
+          memo
+          <svg
+            viewBox="0 0 200 270"
+            stroke="currentColor"
+            strokeWidth="3"
+            fill="none"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: "270px",
+              width: "200px",
+              markerEnd: "url(#purple-up)",
+            }}
+          >
+            <path d="M0,235 C110 235, 110 235, 110 5" />
+          </svg>
+        </div>
+      ) : (
+        memo && (
+          <SimpleVar name="memo" scope="hook" marginTop="-.3em">
+            {memo}
+          </SimpleVar>
+        )
       )}
       {typeof needsUpdating !== "undefined" && (
         <SimpleVar name="needsUpdating" scope="hook" marginTop="-.3em">
@@ -765,165 +792,651 @@ export function UseMemoImplementation() {
         />
       </Slide>
 
-      {/* needs fixed */}
+      {/* re-render with no change */}
       <Slide data-transition="none">
-        <ReactCode highlightLines="5-7" />
-        <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={1}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
+        <ReactCode />
+        <ComponentCode highlightLines="1,2,15|4-10" />
+        <Vars
+          up
+          currentIndex={0}
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="5-7" />
-        <ComponentCode isBackground />
-        <MemoArray
+        <ReactCode highlightLines="13,30|14" />
+        <ComponentCode />
+        <Vars
           currentIndex={0}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
-        />
-      </Slide>
-      {/* re-render, no change */}
-      <Slide data-transition="none">
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="1,15|2|4-10" />
-        <MemoArray currentIndex={0} />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="13,30" />
-        <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={0}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="14" />
-        <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={0}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          calculateValue
+          deps
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="14|15-17|16|17" />
-        <ComponentCode isBackground />
-        <MemoArray
+        <ComponentCode />
+        <Vars
           currentIndex={0}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="['🍎', '🍍', '🦄']"
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memo={2}
+          calculateValue
+          deps
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="15-17|19,24" />
-        <ComponentCode isBackground />
-        <MemoArray
+        <ReactCode highlightLines="15-17|19,24|26" />
+        <ComponentCode />
+        <Vars
           currentIndex={0}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="['🍎', '🍍', '🦄']"
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memo={2}
           needsUpdating={false}
+          calculateValue
+          deps
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="26" />
-        <ComponentCode isBackground />
-        <MemoArray
+        <ComponentCode />
+        <Vars
           currentIndex={0}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="['🍎', '🍍', '🦄']"
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memo={2}
           needsUpdating={false}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="26|27" />
-        <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={0}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="['🍎', '🍍', '🦄']"
-          needsUpdating={false}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
-          returnValue="⬆️"
+          calculateValue
+          deps
+          returnValue
         />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="27|29" />
-        <ComponentCode isBackground />
-        <MemoArray
+        <ComponentCode />
+        <Vars
           currentIndex={1}
-          deps={["''", "undefined", "['🍎', '🍍', '🦄']"]}
-          memoisedValue="['🍎', '🍍', '🦄']"
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memo={2}
           needsUpdating={false}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
-          returnValue="⬆️"
+          calculateValue
+          deps
+          returnValue
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode isBackground />
+        <ReactCode />
         <ComponentCode highlightLines="4,10|12|14" />
-        <MemoArray
+        <Vars
           currentIndex={1}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
-          itemsToShow="⬆️"
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          sortBy=""
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          sortedItems
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="5-7" />
-        <ComponentCode isBackground />
-        <MemoArray
-          currentIndex={1}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
-          }}
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="5-7" />
-        <ComponentCode isBackground />
-        <MemoArray
+        <ReactCode />
+        <ComponentCode />
+        <Vars
           currentIndex={0}
-          memo={{
-            deps: "⬇️",
-            value: "['🍎', '🍍', '🦄']",
+          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          hideComponentVarLabels
+        />
+      </Slide>
+
+      {/* re-render due to re-sort */}
+      <Slide data-transition="none">
+        <ReactCode />
+        <ComponentCode />
+        <SortVars
+          up
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
+            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
           }}
         />
       </Slide>
-      {/* re-render due to sort */}
       <Slide data-transition="none">
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="1,15,2|4,10" />
+        <ReactCode />
+        <ComponentCode highlightLines="1,2,15|4-10" />
+        <SortVars
+          up
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
+            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+        />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13,30|14|15-17|19,24|20-23|26|27|29" />
-        <ComponentCode isBackground />
+        <ReactCode highlightLines="13,30|14" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
+            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+        />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode isBackground />
-        <ComponentCode highlightLines="4,10|12|14" />
+        <ReactCode highlightLines="14|15-17|16|17" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
+            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+          memo
+        />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="5-7" />
-        <ComponentCode isBackground />
+        <ReactCode highlightLines="15-17|19,24|20-23|21" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
+            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+          memo
+          needsUpdating
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="21|22" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
+            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+          memo
+          needsUpdating
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="22|26" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
+            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+          memo
+          needsUpdating
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="26" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
+            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+          memo
+          needsUpdating
+          returnValue
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="27|29" />
+        <ComponentCode />
+        <SortVars
+          currentIndex={1}
+          memos={{
+            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
+            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          calculateValue
+          deps
+          memo
+          needsUpdating
+          returnValue
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode />
+        <ComponentCode highlightLines="4-10|12|14" />
+        <SortVars
+          currentIndex={1}
+          memos={{
+            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
+            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          sortBy="'count'"
+          items
+          sortedItems
+        />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode />
+        <ComponentCode />
+        <SortVars
+          currentIndex={0}
+          memos={{
+            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
+            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+          }}
+          inlineDeps
+        />
       </Slide>
     </>
+  )
+}
+
+function SortVars({
+  currentIndex,
+  memos,
+  up,
+  items,
+  sortBy,
+  hideComponentVarLabels,
+  calculateValue,
+  deps,
+  hideDepsLabel,
+  memo,
+  needsUpdating,
+  returnValue,
+  sortedItems,
+  inlineDeps,
+}: {
+  currentIndex: number
+  memos?: any
+  up?: boolean
+  items?: boolean
+  sortBy?: string
+  hideComponentVarLabels?: boolean
+  calculateValue?: boolean
+  deps?: boolean
+  hideDepsLabel?: boolean
+  memo?: boolean
+  needsUpdating?: boolean
+  returnValue?: boolean
+  sortedItems?: boolean
+  inlineDeps?: boolean
+}) {
+  return (
+    <div
+      style={{
+        width: "435px",
+        height: "470px",
+        background: "hsl(0 0% 0% / .6)",
+        position: "fixed",
+        top: up ? 0 : "",
+        bottom: up ? "" : 0,
+        right: 0,
+        fontFamily: "Courier",
+        padding: ".5em",
+        textAlign: "start",
+      }}
+    >
+      <SimpleVar name="currentIndex">{currentIndex}</SimpleVar>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: memos ? "-1.1em" : "-.3em",
+          marginBottom: memos ? "-.2em" : ".5em",
+        }}
+      >
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+          }}
+        >
+          memos
+          <svg
+            viewBox="0 0 10 10"
+            stroke="white"
+            width="15px"
+            style={{ markerEnd: "url(#white)" }}
+          >
+            <line x1="0" y1="5" x2="10" y2="5" strokeWidth="2" />
+          </svg>
+          <div
+            style={{
+              width: "10px",
+              height: "80px",
+              border: "4px solid",
+              borderRight: "none",
+              marginRight: ".1em",
+            }}
+          />
+          {memos && (
+            <div
+              style={{
+                fontSize: "100px",
+                letterSpacing: "-.3em",
+                marginLeft: memos ? "-.3em" : 0,
+                marginTop: ".2em",
+                display: "flex",
+              }}
+            >
+              &#x7b;
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "start",
+                  fontSize: "20px",
+                  letterSpacing: "normal",
+                  marginLeft: ".6em",
+                  marginRight: "-.9em",
+                  marginTop: "30px",
+                  height: "50px",
+                  marginBottom: memos ? "-.8em" : 0,
+                }}
+              >
+                <span style={{ opacity: memos.value ? 1 : 0 }}>
+                  value:
+                  <span style={{ fontSize: "1.2em" }}>
+                    [<Items items={memos.value} />]
+                  </span>
+                </span>
+                <span
+                  style={{ opacity: memos.deps ? 1 : 0, position: "relative" }}
+                >
+                  deps:
+                  <span style={{ fontSize: "1.2em", position: "relative" }}>
+                    [
+                    {memos.deps[0] === "count" ? (
+                      <>
+                        {inlineDeps ? (
+                          <>
+                            "'count'"
+                            <br />
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <svg
+                              viewBox="0 0 100 100"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              markerEnd="url(#white-down)"
+                              style={{
+                                position: "absolute",
+                                left: 0,
+                                width: "100px",
+                                height: "100px",
+                              }}
+                            >
+                              <line x1="22" y1="10" x2="22" y2="95" />
+                            </svg>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      " "
+                    )}
+                    ,
+                    <span style={{ marginRight: "-.3em", marginLeft: "-.3em" }}>
+                      [
+                    </span>
+                    <Items items={memos.deps[1]} />
+                    <span style={{ marginLeft: "-.3em" }}>]</span>
+                    <span style={{ marginLeft: "-.3em" }}>]</span>
+                  </span>
+                </span>
+              </div>
+              &#x7d;
+            </div>
+          )}
+          <div
+            style={{
+              width: "10px",
+              height: "80px",
+              border: "4px solid",
+              borderLeft: "none",
+              marginLeft: ".1em",
+            }}
+          />
+        </span>
+        <div
+          style={{
+            fontSize: "100px",
+            letterSpacing: "-.3em",
+            marginTop: ".2em",
+            display: "flex",
+          }}
+        ></div>
+      </div>
+
+      {/* component vars */}
+      {items && (
+        <div
+          style={{
+            color: "var(--primary-colour)",
+            position: "relative",
+            marginTop: "-.5em",
+          }}
+        >
+          items
+          <svg
+            viewBox="0 0 300 90"
+            stroke="currentColor"
+            strokeWidth="3"
+            fill="none"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              width: "300px",
+              height: "90px",
+              markerEnd: "url(#green-up)",
+            }}
+          >
+            <path d="M0,60 C210 60, 210 60,210 15" />
+          </svg>
+        </div>
+      )}
+      {typeof sortBy !== "undefined" && (
+        <SimpleVar
+          name="sortBy"
+          scope="component"
+          marginTop="-.3em"
+          hideVarName={hideComponentVarLabels}
+        >
+          {sortBy}
+        </SimpleVar>
+      )}
+      {sortedItems && (
+        <div
+          style={{
+            color: "var(--primary-colour)",
+            position: "relative",
+            marginTop: "-.3em",
+          }}
+        >
+          sortedItems
+          <svg
+            viewBox="0 0 100 210px"
+            stroke="currentColor"
+            strokeWidth="3"
+            fill="none"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: "210px",
+              width: "100px",
+              markerEnd: "url(#green-up)",
+            }}
+          >
+            <path d="M3,180 C50 180, 50 180, 50 20" />
+          </svg>
+        </div>
+      )}
+
+      {/* hook vars */}
+      {deps && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            color: "var(--purple)",
+            position: "relative",
+          }}
+        >
+          <span style={{ opacity: hideDepsLabel ? 0 : 1 }}>
+            deps
+            <svg
+              viewBox="0 0 10 10"
+              stroke="currentColor"
+              width="10px"
+              style={{ markerEnd: "url(#purple)" }}
+            >
+              <line x1="0" y1="5" x2="10" y2="5" strokeWidth="2" />
+            </svg>
+          </span>
+          [
+          <svg
+            viewBox="0 0 150 55"
+            style={{
+              width: "150px",
+              height: "55px",
+              position: "absolute",
+              left: "130px",
+              bottom: "20px",
+              stroke: "currentColor",
+              markerEnd: "url(#purple-up)",
+              fill: "none",
+            }}
+          >
+            <path d="M5,45 C120 45,120 45,120 0" strokeWidth="3" />
+          </svg>
+          ,{" "}
+          <svg
+            viewBox="0 0 180 150"
+            style={{
+              width: "180px",
+              height: "150px",
+              position: "absolute",
+              left: "155px",
+              bottom: "20px",
+              stroke: "currentColor",
+              markerEnd: "url(#purple-up)",
+              fill: "none",
+            }}
+          >
+            <path d="M10,140 C120 140,160 80,160 0" strokeWidth="3" />
+          </svg>
+          ]
+        </div>
+      )}
+      {calculateValue && (
+        <SimpleVar name="calculateValue" scope="hook" marginTop="-1em">
+          <img
+            alt="calculator"
+            src="./calculator.png"
+            style={{ width: "1em" }}
+          />
+        </SimpleVar>
+      )}
+      {memo && (
+        <div
+          style={{
+            color: "var(--purple)",
+            position: "relative",
+            marginTop: "-.3em",
+          }}
+        >
+          memo
+          <svg
+            viewBox="0 0 200 270"
+            stroke="currentColor"
+            strokeWidth="3"
+            fill="none"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: "270px",
+              width: "200px",
+              markerEnd: "url(#purple-up)",
+            }}
+          >
+            <path d="M0,235 C110 235, 110 235, 110 20" />
+          </svg>
+        </div>
+      )}
+      {typeof needsUpdating !== "undefined" && (
+        <SimpleVar name="needsUpdating" scope="hook" marginTop="-.3em">
+          <span style={{ fontSize: ".6em" }}>
+            {needsUpdating ? "✅" : "❌"}
+          </span>
+        </SimpleVar>
+      )}
+      {returnValue && (
+        <div
+          style={{
+            color: "var(--purple)",
+            position: "relative",
+            marginTop: "-.3em",
+          }}
+        >
+          returnValue
+          <svg
+            viewBox="0 0 100 390"
+            stroke="currentColor"
+            strokeWidth="3"
+            fill="none"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: "390px",
+              width: "100px",
+              markerEnd: "url(#purple-up)",
+            }}
+          >
+            <path d="M0,360 C50 360, 50 360, 50 15" />
+          </svg>
+        </div>
+      )}
+    </div>
   )
 }
