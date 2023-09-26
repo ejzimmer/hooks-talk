@@ -1,8 +1,4 @@
-import { Code } from "../../helpers/Code"
-import { Slide } from "../../helpers/Slide"
-import { SingleRefImplementation, singleRefCode } from "./SingleRef"
-import { NoCurrentRef } from "./NoCurrentRef"
-import { abridgedRenderCounterCode } from "../../demos/RenderCounter"
+import { SingleRefImplementation } from "./SingleRef"
 
 export function BasicUseRefImplementation() {
   return (

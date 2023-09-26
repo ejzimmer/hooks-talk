@@ -1,11 +1,7 @@
-import { useRef } from "react"
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { UseStateImplementation, inventoryCode } from "./UseStateImplementation"
-import { Item, addItemToInventory } from "../../demos/Inventory/utils"
-import { AddItemForm } from "../../demos/Inventory/AddItemForm"
-import { ItemList } from "../../demos/Inventory/ItemList"
 import { FunctionalComponentProblems } from "../0 - intro/FunctionalComponentsProblems"
 
 export function UseState() {
@@ -85,25 +81,3 @@ const addItemUsingRefCode = `function Inventory() {
   )
 }
 `
-
-function AddItemsUsingRef() {
-  const inventory = useRef<Item[]>([])
-
-  const addItem = (name: string, count?: string) => {
-    if (!inventory.current) return
-    inventory.current = addItemToInventory(inventory.current, name, count)
-  }
-
-  return (
-    <>
-      <AddItemForm onSubmit={addItem} />
-      <ItemList
-        items={inventory.current}
-        setItems={() => undefined}
-        isCurrent={false}
-        hideSortButtons
-        hideFilter
-      />
-    </>
-  )
-}

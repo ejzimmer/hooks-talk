@@ -6,32 +6,31 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
-import { Code } from "./Code";
+} from "react"
 
 export const Slide = forwardRef<
   HTMLElement,
   PropsWithChildren<{ renderOnVisible?: boolean }>
 >(function Slide({ renderOnVisible, children, ...data }, externalRef) {
-  const internalRef = useRef<HTMLElement>(null);
-  const ref = (externalRef || internalRef) as RefObject<HTMLElement>;
-  const [showChildren, setShowChildren] = useState(!renderOnVisible);
+  const internalRef = useRef<HTMLElement>(null)
+  const ref = (externalRef || internalRef) as RefObject<HTMLElement>
+  const [showChildren, setShowChildren] = useState(!renderOnVisible)
 
   useEffect(() => {
-    if (!ref.current || !renderOnVisible) return;
+    if (!ref.current || !renderOnVisible) return
 
     ref.current.addEventListener("transitionend", () => {
-      const elementIsVisible = ref.current?.classList.contains("present");
-      setShowChildren(!!elementIsVisible);
-    });
-  }, [renderOnVisible, ref]);
+      const elementIsVisible = ref.current?.classList.contains("present")
+      setShowChildren(!!elementIsVisible)
+    })
+  }, [renderOnVisible, ref])
 
   return (
     <section ref={ref} {...data}>
       {showChildren && children}
     </section>
-  );
-});
+  )
+})
 
 export function ShinyTitle({ title }: { title: string }) {
   return (
@@ -43,7 +42,7 @@ export function ShinyTitle({ title }: { title: string }) {
     >
       <h2>{title}</h2>
     </Slide>
-  );
+  )
 }
 
 export function InverseTitle({ children }: PropsWithChildren<any>) {
@@ -54,15 +53,15 @@ export function InverseTitle({ children }: PropsWithChildren<any>) {
     >
       <div className="inverse">{children}</div>
     </Slide>
-  );
+  )
 }
 
 type Props = {
-  as?: ElementType;
-  className?: string;
-  index?: number;
-  style?: any;
-};
+  as?: ElementType
+  className?: string
+  index?: number
+  style?: any
+}
 
 export function Fragment({
   as = "div",
@@ -71,7 +70,7 @@ export function Fragment({
   style,
   children,
 }: PropsWithChildren<Props>) {
-  const As = as;
+  const As = as
   return (
     <As
       className={"fragment " + className}
@@ -80,9 +79,9 @@ export function Fragment({
     >
       {children}
     </As>
-  );
+  )
 }
 
 export function Notes({ children }: PropsWithChildren<any>) {
-  return <aside className="notes">{children}</aside>;
+  return <aside className="notes">{children}</aside>
 }

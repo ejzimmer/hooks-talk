@@ -1,4 +1,4 @@
-import { InventorySlide, UnaddableInventorySlide } from "../../demos/Inventory"
+import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
 import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { UseMemoImplementation } from "./UseMemoImplementation"

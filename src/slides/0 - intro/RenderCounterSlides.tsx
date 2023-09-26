@@ -5,22 +5,6 @@ import {
 import { Code } from "../../helpers/Code"
 import { Slide } from "../../helpers/Slide"
 
-const classComponentCode = `class RenderCounter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.numberOfRenders = 0;
-  }
-  render() {
-    this.numberOfRenders++;
-    return (
-      <div>
-        This component has rendered 
-        {this.numberOfRenders} times
-      </div>
-    );  
-  }
-}`
-
 const brokenFunctionalComponentCode = `function RenderCounter() {
   let numberOfRenders = 0;
 

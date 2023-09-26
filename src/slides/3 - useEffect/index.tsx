@@ -1,9 +1,6 @@
 import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { InventorySlide } from "../../demos/Inventory"
-import {
-  WithoutUseEffectSlide,
-  withoutUseEffectCode,
-} from "../../demos/Inventory/KeyboardShortcuts"
+import { withoutUseEffectCode } from "../../demos/Inventory/KeyboardShortcuts"
 import { Code } from "../../helpers/Code"
 import {
   UseEffectImplementation,
