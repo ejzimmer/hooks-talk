@@ -16,7 +16,8 @@ const useStateImplementationCode = `const FakeReact = () => {
       element.addEventListener("submit", (event) => {
         handler(event)
         if (runComponent) {
-          // run component
+          runComponent = false
+          Component(props)
         }
       })
     },
@@ -122,6 +123,14 @@ function Vars({
   setValue?: string
   up?: boolean
 }) {
+  const stateContents = states?.match(/\[(.*)\]/)?.[1]
+  const StateElement = states ? (
+    <>
+      [<span style={{ fontSize: ".7em" }}>{stateContents}</span>]
+    </>
+  ) : (
+    ""
+  )
   return (
     <div
       style={{
@@ -154,7 +163,7 @@ function Vars({
             position: "relative",
           }}
         >
-          <span style={{ marginInline: "-.25em" }}>{states ?? ""}</span>
+          <span style={{ marginInline: "-.25em" }}>{StateElement}</span>
           {(setter || setInventory) && (
             <span
               style={{ position: "absolute", fontSize: ".6em", right: "-10px" }}
@@ -217,7 +226,11 @@ function Vars({
               width: "100px",
             }}
           >
-            <path d="M0,55 C80 55, 40,25, 5,15" strokeWidth="3" />
+            {states === "[]" ? (
+              <path d="M0,55 C80 55, 40,25, 5,15" strokeWidth="3" />
+            ) : (
+              <path d="M0,55 C80 55, 50,15, 35,15" strokeWidth="3" />
+            )}
           </svg>
         </div>
       )}
@@ -265,7 +278,9 @@ function Vars({
       {setValue?.includes("🍎") && (
         <div style={{ marginTop: ".25em" }}>
           <SimpleVar name="value" scope="hook">
-            [<span style={{ fontSize: ".7em" }}>{setValue}</span>]
+            <span style={{ color: "var(--primary-colour)" }}>
+              [<span style={{ fontSize: ".7em" }}>{setValue}</span>]
+            </span>
           </SimpleVar>
           <SimpleVar name="setterIndex" value="0" scope="hook" />
         </div>
@@ -342,22 +357,22 @@ export function UseStateImplementation() {
         <Vars currentIndex={0} runComponent={false} up />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="20,37|21,23|22" />
+        <ReactCode highlightLines="21,38|22,24|23" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="22|25-32|25" />
+        <ReactCode highlightLines="23|26-33|26" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="25|26" />
+        <ReactCode highlightLines="26|27" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" value />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="26|27-32" />
+        <ReactCode highlightLines="27|28-33" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -368,7 +383,7 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="27-32|34" />
+        <ReactCode highlightLines="28-33|35" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -380,7 +395,7 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="34|36" />
+        <ReactCode highlightLines="35|37" />
         <ComponentCode />
         <Vars
           currentIndex={1}
@@ -470,12 +485,12 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="27-32|28,31|29" />
+        <ReactCode highlightLines="28-33|29,32|30" />
         <ComponentCode />
         <Vars currentIndex={0} runComponent={false} states="[]" setValue="🍎" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="29|30" />
+        <ReactCode highlightLines="30|31" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -485,7 +500,7 @@ export function UseStateImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="30" />
+        <ReactCode highlightLines="31" />
         <ComponentCode />
         <Vars
           currentIndex={0}
@@ -500,23 +515,28 @@ export function UseStateImplementation() {
         <Vars currentIndex={0} runComponent={true} states="[🍎]" />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13|14,16|15" />
+        <ReactCode highlightLines="13|14,17|15" />
         <ComponentCode isBackground />
         <Vars currentIndex={0} runComponent={true} states="[🍎]" />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="15|16" />
+        <ComponentCode isBackground />
+        <Vars currentIndex={0} runComponent={false} states="[🍎]" />
       </Slide>
 
       {/* re-run component */}
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="1,2,16" />
-        <Vars currentIndex={0} runComponent={true} states="[🍎]" up />
+        <Vars currentIndex={0} runComponent={false} states="[🍎]" up />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
-        <ComponentCode highlightLines="1,2,16|4,8|10-15" />
+        <ComponentCode highlightLines="1,2,16|4-8|10-15" />
         <Vars
           currentIndex={0}
-          runComponent={true}
+          runComponent={false}
           states="[🍎]"
           inventory
           setInventory

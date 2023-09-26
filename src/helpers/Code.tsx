@@ -1,13 +1,13 @@
-import { forwardRef } from "react";
+import { forwardRef } from "react"
 
 export type Props = {
-  fontSize?: string;
-  children: string;
-  highlightLines?: string;
-  isTransparent?: boolean;
-  isTwoUp?: boolean;
-  isBackground?: boolean;
-};
+  fontSize?: string
+  children: string
+  highlightLines?: string
+  isTransparent?: boolean
+  isTwoUp?: boolean
+  isBackground?: boolean
+}
 
 export const Code = forwardRef<HTMLElement, Props>(function Code(
   {
@@ -21,28 +21,32 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
   ref
 ) {
   return (
-    <pre
-      style={{
-        fontSize: isTransparent ? "inherit" : fontSize,
-        margin: isTransparent ? 0 : undefined,
-        backgroundColor: isTransparent ? "transparent" : undefined,
-        boxShadow: isTransparent ? "none" : undefined,
-        overflow: "auto",
-        maxHeight: isTwoUp ? "300px" : "100%",
-      }}
-      className={isBackground ? "background" : ""}
-    >
-      <code
-        className="tsx"
+    <>
+      <pre
         style={{
+          fontSize: isTransparent ? "inherit" : fontSize,
+          margin: isTransparent ? 0 : undefined,
           backgroundColor: isTransparent ? "transparent" : undefined,
-          overflow: isTwoUp ? "visible" : "auto",
+          boxShadow: isTransparent ? "none" : undefined,
+          overflow: "auto",
+          maxHeight: isTwoUp ? "300px" : "100%",
+          border: isTransparent ? "none" : undefined,
         }}
-        data-line-numbers={highlightLines}
-        ref={ref}
+        className={isBackground ? "background" : ""}
       >
-        {children}
-      </code>
-    </pre>
-  );
-});
+        <code
+          className="tsx"
+          style={{
+            background: isTransparent ? "transparent" : undefined,
+            overflow: isTwoUp ? "visible" : "auto",
+            paddingTop: isTransparent ? 0 : undefined,
+          }}
+          data-line-numbers={highlightLines}
+          ref={ref}
+        >
+          {children}
+        </code>
+      </pre>
+    </>
+  )
+})

@@ -176,7 +176,9 @@ function Vars({
           🦻
         </div>
       )}
-      <SimpleVar name="currentIndex">{currentIndex}</SimpleVar>
+      <SimpleVar name="currentIndex">
+        <span style={{ marginLeft: ".3em" }}>{currentIndex}</span>
+      </SimpleVar>
       <div
         style={{
           display: "flex",
@@ -335,7 +337,9 @@ function Vars({
       <div style={{ position: "absolute", top: "165px" }}>
         {callback && (
           <SimpleVar name="callback" scope="hook" hideVarName={hideHookVars}>
-            <span style={{ fontSize: ".8em", position: "relative" }}>
+            <span
+              style={{ fontSize: ".8em", position: "relative", left: ".3em" }}
+            >
               🦻
               <span
                 style={{
@@ -391,14 +395,15 @@ function Vars({
               display: "flex",
               alignItems: "baseline",
               color: "var(--purple)",
+              marginTop: "-.5em",
             }}
           >
             deps
             <svg
               viewBox="0 0 10 10"
               stroke="currentColor"
-              width="10px"
-              style={{ markerEnd: "url(#purple)" }}
+              width="15px"
+              style={{ markerEnd: "url(#purple)", marginRight: "-.27em" }}
             >
               <line x1="0" y1="5" x2="10" y2="5" strokeWidth="2" />
             </svg>
@@ -416,14 +421,14 @@ function Vars({
                 fill: "none",
               }}
             >
-              <path d="M5,10 C110 10,120 3,120 45" strokeWidth="3" />
+              <path d="M0,20 C110 20,120 20,120 55" strokeWidth="3" />
             </svg>
             ,{" "}
             <svg
-              viewBox="0 0 280 100"
+              viewBox="0 0 280 110"
               style={{
                 width: "280px",
-                height: "100px",
+                height: "110px",
                 position: "absolute",
                 left: "140px",
                 top: "40px",
@@ -432,7 +437,7 @@ function Vars({
                 fill: "none",
               }}
             >
-              <path d="M20,5 C265 5,350 80,125 90" strokeWidth="3" />
+              <path d="M10,15 C265 5,350 80,125 100" strokeWidth="3" />
             </svg>
             ]
           </div>
@@ -457,7 +462,7 @@ function Vars({
       {typeof needsCleanup !== "undefined" && (
         <div style={{ position: "absolute", top: "285px" }}>
           <SimpleVar name="needsCleanup" scope="hook" marginTop=".25em">
-            <span style={{ fontSize: ".6em" }}>
+            <span style={{ fontSize: ".6em", marginLeft: ".5em" }}>
               {needsCleanup ? "✅" : "❌"}
             </span>
           </SimpleVar>
@@ -466,15 +471,15 @@ function Vars({
 
       {/* component props */}
       <div style={{ position: "absolute", top: "240px" }}>
-        <div style={{ marginTop: ".5em", lineHeight: ".8" }}>
+        <div style={{ marginTop: ".1em" }}>
           {items && (
             <SimpleVar name="items" scope="component">
               [<span style={{ fontSize: ".8em" }}>{items?.join()}</span>]
             </SimpleVar>
           )}
           {setItems && (
-            <SimpleVar name="setItems" scope="component">
-              <span style={{ fontSize: ".8em" }}>🔑</span>
+            <SimpleVar name="setItems" scope="component" marginTop="-.4em">
+              <span style={{ fontSize: ".8em", marginLeft: ".3em" }}>🔑</span>
             </SimpleVar>
           )}
         </div>
@@ -536,6 +541,7 @@ function SimpleVar({
                 : scope === "component"
                 ? "url(#green)"
                 : "url(#white)",
+            marginRight: "-.27em",
           }}
         >
           <line x1="0" y1="5" x2="30" y2="5" strokeWidth="3" />
@@ -561,7 +567,7 @@ export function UseEffectImplementation() {
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="1,22|3-19" />
-        <Vars currentIndex={0} items={["🍎", "🍇", "🍠"]} setItems up />
+        <Vars currentIndex={0} items={["🍎", "💎", "🍄"]} setItems up />
       </Slide>
 
       <Slide data-transition="none">
@@ -569,7 +575,7 @@ export function UseEffectImplementation() {
         <ComponentCode isBackground />
         <Vars
           currentIndex={0}
-          items={["🍎", "🍇", "🍠"]}
+          items={["🍎", "💎", "🍄"]}
           setItems
           callback
           deps
@@ -578,7 +584,7 @@ export function UseEffectImplementation() {
       <Slide data-transition="none">
         <ReactCode highlightLines="37,49|38,40,46|39" />
         <ComponentCode isBackground />
-        <Vars currentIndex={0} callback deps={["🍎", "🍇", "🍠"]} />
+        <Vars currentIndex={0} callback deps={["🍎", "💎", "🍄"]} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="39|48" />
@@ -586,7 +592,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={0}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true }}
         />
       </Slide>
@@ -596,7 +602,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true }}
         />
       </Slide>
@@ -606,7 +612,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           hideHookVars
           effects={{ cb: true, deps: true }}
         />
@@ -619,7 +625,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true }}
           hideHookVars
         />
@@ -630,7 +636,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true }}
           hideHookVars
           needsCleanup={false}
@@ -642,7 +648,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true, prevDeps: true }}
           hideHookVars
           needsCleanup={false}
@@ -654,7 +660,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true, prevDeps: true }}
           hideHookVars
           needsCleanup={false}
@@ -667,7 +673,7 @@ export function UseEffectImplementation() {
         <Vars
           currentIndex={1}
           callback
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ cb: true, deps: true, prevDeps: true, cleanup: true }}
           hideHookVars
           needsCleanup={false}
@@ -680,7 +686,7 @@ export function UseEffectImplementation() {
         <ComponentCode isBackground />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true }}
           hideHookVars
           needsCleanup={false}
@@ -693,7 +699,7 @@ export function UseEffectImplementation() {
         <ComponentCode isBackground />
         <Vars
           currentIndex={0}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true }}
           hideHookVars
           needsCleanup={false}
@@ -706,7 +712,7 @@ export function UseEffectImplementation() {
         <ComponentCode isBackground />
         <Vars
           currentIndex={0}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true }}
           hideHookVars
           listening
@@ -720,13 +726,13 @@ export function UseEffectImplementation() {
         <ComponentCode highlightLines="5-12|9-11" />
         <Vars
           currentIndex={0}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true }}
           hideHookVars
           listening
           cleanup
           up
-          items={["🍎", "🍇", "🍠"]}
+          items={["🍎", "💎", "🍄"]}
           setItems
         />
       </Slide>
@@ -735,13 +741,13 @@ export function UseEffectImplementation() {
         <ComponentCode highlightLines="1,22|3,19" />
         <Vars
           currentIndex={0}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true }}
           hideHookVars
           listening
           cleanup
           up
-          items={["🍇", "🍠"]}
+          items={["💎", "🍄"]}
           setItems
         />
       </Slide>
@@ -751,12 +757,12 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={0}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true }}
           callback={2}
           listening
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideDepsLabel
         />
       </Slide>
@@ -765,12 +771,12 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={0}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true, deps: 2, cb: true }}
           callback={2}
           listening
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideDepsLabel
         />
       </Slide>
@@ -779,12 +785,12 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true, deps: 2, cb: true }}
           callback={2}
           listening
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideDepsLabel
         />
       </Slide>
@@ -793,12 +799,12 @@ export function UseEffectImplementation() {
         <ComponentCode highlightLines="21" />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true, deps: 2, cb: true }}
           callback={2}
           listening
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
         />
@@ -808,12 +814,12 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true, deps: 2, cb: true }}
           callback={2}
           listening
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
         />
@@ -823,12 +829,12 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true, deps: 2, cb: true }}
           callback={2}
           listening
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -839,11 +845,11 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: true, cleanup: true, deps: 2, cb: true }}
           callback={2}
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -854,11 +860,11 @@ export function UseEffectImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={1}
-          deps={["🍎", "🍇", "🍠"]}
+          deps={["🍎", "💎", "🍄"]}
           effects={{ prevDeps: 2, cleanup: true, deps: 2, cb: true }}
           callback={2}
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -872,7 +878,7 @@ export function UseEffectImplementation() {
           effects={{ prevDeps: 2, cleanup: true, deps: 2, cb: true }}
           callback={2}
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -886,7 +892,7 @@ export function UseEffectImplementation() {
           effects={{ prevDeps: 2, cleanup: true, deps: 2, cb: true }}
           callback={2}
           cleanup
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -901,7 +907,7 @@ export function UseEffectImplementation() {
           effects={{ prevDeps: 2, cleanup: true, deps: 2, cb: true }}
           callback={2}
           cleanup={2}
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -915,7 +921,7 @@ export function UseEffectImplementation() {
           currentIndex={1}
           effects={{ prevDeps: 2, cleanup: true }}
           cleanup={2}
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -929,7 +935,7 @@ export function UseEffectImplementation() {
           currentIndex={0}
           effects={{ prevDeps: 2, cleanup: true }}
           cleanup={2}
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           needsCleanup
@@ -943,7 +949,7 @@ export function UseEffectImplementation() {
           currentIndex={0}
           effects={{ prevDeps: 2, cleanup: true }}
           cleanup={2}
-          newDeps={["🍇", "🍠"]}
+          newDeps={["💎", "🍄"]}
           hideHookVars
           hideDepsLabel
           listening={2}

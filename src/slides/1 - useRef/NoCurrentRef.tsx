@@ -80,7 +80,7 @@ function Vars({ value, count }: { value?: string; count?: string }) {
                   strokeWidth="3"
                   stroke="currentColor"
                   fill="none"
-                  marker-end="url(#green-up)"
+                  markerEnd="url(#green-up)"
                 />
               </svg>
             ) : (
@@ -91,7 +91,7 @@ function Vars({ value, count }: { value?: string; count?: string }) {
                     strokeWidth="3"
                     stroke="currentColor"
                     fill="none"
-                    marker-end="url(#green)"
+                    markerEnd="url(#green)"
                   />
                 </svg>
                 {count}

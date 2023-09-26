@@ -90,70 +90,6 @@ function ComponentCode({
   )
 }
 
-function MemoArray({
-  currentIndex = 0,
-  memo,
-  deps,
-  memoisedValue,
-  needsUpdating,
-  returnValue,
-  itemsToShow,
-  filterValue,
-}: {
-  currentIndex?: number
-  memo?: {
-    value: string
-    deps: string[] | string
-  }
-  deps?: string[]
-  memoisedValue?: string
-  needsUpdating?: boolean
-  returnValue?: string
-  itemsToShow?: string
-  filterValue?: string
-}) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        right: 0,
-        maxWidth: "50%",
-      }}
-    >
-      <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-        <code>currentIndex</code>➡️<code>{currentIndex}</code>
-      </div>
-      <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-        <code>memoisedValues</code>➡️
-        <div style={{ display: "flex", maxWidth: "220px" }}>
-          [
-          {memo && (
-            <>
-              <code>value: {memo.value}</code>
-              <code>deps: {memo.deps}</code>
-            </>
-          )}
-          ]
-        </div>
-      </div>
-      {deps && (
-        <div style={{ display: "flex", gap: ".25em", alignItems: "center" }}>
-          <code style={{ color: "var(--hookVars)" }}>deps</code>➡️
-          <code>[{deps.join(",")}]</code>
-        </div>
-      )}
-      {memoisedValue && <code>memoisedValue: {memoisedValue}</code>}
-      {typeof needsUpdating !== "undefined" && (
-        <code>needsUpdating: {needsUpdating.toString()}</code>
-      )}
-      {returnValue && <code>returnValue: {returnValue}</code>}
-      {itemsToShow && <code>itemsToShow: {itemsToShow}</code>}
-      {filterValue && <code>filter: {filterValue}</code>}
-    </div>
-  )
-}
-
 function Vars({
   currentIndex,
   memos,
@@ -377,7 +313,7 @@ function Vars({
         >
           sortedItems
           <svg
-            viewBox="0 0 100 210px"
+            viewBox="0 0 100 210"
             stroke="currentColor"
             strokeWidth="3"
             fill="none"
@@ -532,7 +468,7 @@ function Items({ items }: { items: Record<string, number> }) {
   return (
     <>
       {Object.entries(items).map(([item, count]) => (
-        <span style={{ position: "relative" }}>
+        <span key={item} style={{ position: "relative" }}>
           {item},
           <span
             style={{
@@ -619,7 +555,7 @@ export function UseMemoImplementation() {
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="1,15|2" />
-        <Vars currentIndex={0} up items={{ "🍎": 3, "🍇": 12, "🍠": 7 }} />
+        <Vars currentIndex={0} up items={{ "🍎": 3, "🍄": 12, "💎": 7 }} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
@@ -627,7 +563,7 @@ export function UseMemoImplementation() {
         <Vars
           currentIndex={0}
           up
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
         />
       </Slide>
@@ -638,18 +574,18 @@ export function UseMemoImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
           calculateValue
           deps
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="14|15-17|16|15-17" />
+        <ReactCode highlightLines="14|15-17|16" />
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
           calculateValue
           deps
@@ -657,11 +593,11 @@ export function UseMemoImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="15-17|19,24|20-23|21" />
+        <ReactCode highlightLines="15-17|19,24|20-23" />
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
           calculateValue
           deps
@@ -670,61 +606,17 @@ export function UseMemoImplementation() {
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="21|22" />
+        <ReactCode highlightLines="20-23|26-29" />
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
           calculateValue
           deps
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 } }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: true }}
           memo
           needsUpdating
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="22|26" />
-        <ComponentCode />
-        <Vars
-          currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
-          sortBy=""
-          calculateValue
-          deps
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: true }}
-          memo
-          needsUpdating
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="26|27" />
-        <ComponentCode />
-        <Vars
-          currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
-          sortBy=""
-          calculateValue
-          deps
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: true }}
-          memo
-          needsUpdating
-          returnValue
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="27|29" />
-        <ComponentCode />
-        <Vars
-          currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
-          sortBy=""
-          calculateValue
-          deps
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: true }}
-          memo
-          needsUpdating
-          returnValue
         />
       </Slide>
 
@@ -735,10 +627,10 @@ export function UseMemoImplementation() {
         <Vars
           up
           currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
           deps
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: true }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: true }}
           hideDepsLabel
         />
       </Slide>
@@ -748,9 +640,9 @@ export function UseMemoImplementation() {
         <Vars
           up
           currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           hideDepsLabel
         />
       </Slide>
@@ -760,9 +652,9 @@ export function UseMemoImplementation() {
         <Vars
           up
           currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           hideDepsLabel
           sortedItems
         />
@@ -773,9 +665,9 @@ export function UseMemoImplementation() {
         <Vars
           up
           currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           hideComponentVarLabels
         />
       </Slide>
@@ -785,9 +677,9 @@ export function UseMemoImplementation() {
         <Vars
           up
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           hideComponentVarLabels
         />
       </Slide>
@@ -799,78 +691,47 @@ export function UseMemoImplementation() {
         <Vars
           up
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13,30|14" />
+        <ReactCode highlightLines="13,30|14-17" />
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           calculateValue
           deps
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="14|15-17|16|17" />
+        <ReactCode highlightLines="14-17" />
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
-          memo={2}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           calculateValue
+          needsUpdating={false}
           deps
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="15-17|19,24|26" />
+        <ReactCode highlightLines="19,24|26-29" />
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
-          memo={2}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           needsUpdating={false}
           calculateValue
           deps
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="26" />
-        <ComponentCode />
-        <Vars
-          currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
-          sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
-          memo={2}
-          needsUpdating={false}
-          calculateValue
-          deps
-          returnValue
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="27|29" />
-        <ComponentCode />
-        <Vars
-          currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
-          sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
-          memo={2}
-          needsUpdating={false}
-          calculateValue
-          deps
-          returnValue
         />
       </Slide>
       <Slide data-transition="none">
@@ -878,9 +739,9 @@ export function UseMemoImplementation() {
         <ComponentCode highlightLines="4,10|12|14" />
         <Vars
           currentIndex={1}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
           sortBy=""
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           sortedItems
         />
       </Slide>
@@ -889,8 +750,8 @@ export function UseMemoImplementation() {
         <ComponentCode />
         <Vars
           currentIndex={0}
-          items={{ "🍎": 3, "🍇": 12, "🍠": 7 }}
-          memos={{ value: { "🍎": 3, "🍇": 12, "🍠": 7 }, deps: 2 }}
+          items={{ "🍎": 3, "🍄": 12, "💎": 7 }}
+          memos={{ value: { "🍎": 3, "🍄": 12, "💎": 7 }, deps: 2 }}
           hideComponentVarLabels
         />
       </Slide>
@@ -903,8 +764,8 @@ export function UseMemoImplementation() {
           up
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
-            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "🍄": 12, "💎": 7 },
+            deps: [undefined, { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
         />
       </Slide>
@@ -915,129 +776,90 @@ export function UseMemoImplementation() {
           up
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
-            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "🍄": 12, "💎": 7 },
+            deps: [undefined, { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="13,30|14" />
+        <ReactCode highlightLines="13,30|14-17" />
         <ComponentCode />
         <SortVars
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
-            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "🍄": 12, "💎": 7 },
+            deps: [undefined, { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
           calculateValue
           deps
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="14|15-17|16|17" />
+        <ReactCode highlightLines="14-17" />
         <ComponentCode />
         <SortVars
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
-            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "🍄": 12, "💎": 7 },
+            deps: [undefined, { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
           calculateValue
           deps
-          memo
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="15-17|19,24|20-23|21" />
-        <ComponentCode />
-        <SortVars
-          currentIndex={0}
-          memos={{
-            value: { "🍎": 3, "🍇": 12, "🍠": 7 },
-            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
-          }}
-          sortBy="'count'"
-          items
-          calculateValue
-          deps
-          memo
           needsUpdating
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="21|22" />
+        <ReactCode highlightLines="19-23" />
         <ComponentCode />
         <SortVars
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
-            deps: [undefined, { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "🍄": 12, "💎": 7 },
+            deps: [undefined, { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
           calculateValue
           deps
-          memo
           needsUpdating
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="22|26" />
+        <ReactCode highlightLines="19-23" />
         <ComponentCode />
         <SortVars
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
-            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "💎": 7, "🍄": 12 },
+            deps: ["count", { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
           calculateValue
           deps
-          memo
           needsUpdating
         />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="26" />
-        <ComponentCode />
-        <SortVars
-          currentIndex={0}
-          memos={{
-            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
-            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
-          }}
-          sortBy="'count'"
-          items
-          calculateValue
-          deps
-          memo
-          needsUpdating
-          returnValue
-        />
-      </Slide>
-      <Slide data-transition="none">
-        <ReactCode highlightLines="27|29" />
+        <ReactCode highlightLines="26-29" />
         <ComponentCode />
         <SortVars
           currentIndex={1}
           memos={{
-            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
-            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "💎": 7, "🍄": 12 },
+            deps: ["count", { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
           calculateValue
           deps
-          memo
           needsUpdating
-          returnValue
         />
       </Slide>
       <Slide data-transition="none">
@@ -1046,10 +868,10 @@ export function UseMemoImplementation() {
         <SortVars
           currentIndex={1}
           memos={{
-            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
-            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "💎": 7, "🍄": 12 },
+            deps: ["count", { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
-          sortBy="'count'"
+          sortBy="count"
           items
           sortedItems
         />
@@ -1060,8 +882,8 @@ export function UseMemoImplementation() {
         <SortVars
           currentIndex={0}
           memos={{
-            value: { "🍎": 3, "🍠": 7, "🍇": 12 },
-            deps: ["count", { "🍎": 3, "🍇": 12, "🍠": 7 }],
+            value: { "🍎": 3, "💎": 7, "🍄": 12 },
+            deps: ["count", { "🍎": 3, "🍄": 12, "💎": 7 }],
           }}
           inlineDeps
         />
@@ -1190,7 +1012,7 @@ function SortVars({
                       <>
                         {inlineDeps ? (
                           <>
-                            "'count'"
+                            "count"
                             <br />
                           </>
                         ) : (
@@ -1283,7 +1105,7 @@ function SortVars({
           marginTop="-.3em"
           hideVarName={hideComponentVarLabels}
         >
-          {sortBy}
+          <div className="tag">{sortBy}</div>
         </SimpleVar>
       )}
       {sortedItems && (
@@ -1296,7 +1118,7 @@ function SortVars({
         >
           sortedItems
           <svg
-            viewBox="0 0 100 210px"
+            viewBox="0 0 100 210"
             stroke="currentColor"
             strokeWidth="3"
             fill="none"

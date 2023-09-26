@@ -124,8 +124,8 @@ function Vars({
               marginLeft: "5px",
             }}
           />
-          {refs?.map((ref) => (
-            <Box fontSize=".5em" width={120}>
+          {refs?.map((ref, index) => (
+            <Box key={index} fontSize=".5em" width={120}>
               {ref}
             </Box>
           ))}
@@ -140,8 +140,8 @@ function Vars({
         </div>
       </div>
       <div style={{ color: "var(--primary-colour)" }}>
-        {nameRef && <Pointer position={0} label="nameRef" />}
-        {countRef && <Pointer position={1} label="countRef" />}
+        {nameRef && <Pointer position={1} label="nameRef" />}
+        {countRef && <Pointer position={0} label="countRef" />}
       </div>
       {typeof refPointer !== "undefined" && (
         <div style={{ color: "var(--purple)" }}>
@@ -159,30 +159,35 @@ function Pointer({ position, label }: { position: 0 | 1; label: string }) {
         position: "absolute",
         display: "flex",
         top: "170px",
-        alignItems: position ? "" : "end",
-        right: position ? "10px" : "",
+        alignItems: position ? "end" : "",
+        left: position ? "180px" : "10px",
         flexDirection: position ? "column-reverse" : "row",
       }}
     >
-      <div style={{ width: "180px", textAlign: position ? "center" : "end" }}>
+      <div
+        style={{
+          width: "180px",
+          textAlign: "end",
+          marginTop: position ? "" : "10px",
+        }}
+      >
         {label}
       </div>
       <svg
         viewBox={position ? "0 0 10 40" : "0 0 100 60"}
-        width={position ? "" : "100px"}
-        height={position ? "40px" : ""}
+        width={position ? "20px" : "100px"}
+        height={position ? "40px" : "60px"}
         stroke="currentColor"
         strokeWidth="3"
         fill="none"
         style={{
           markerEnd: label === "ref" ? "url(#purple-up)" : "url(#green-up)",
-          marginLeft: position ? "35px" : "",
         }}
       >
         {position ? (
           <line x1="5" y1="60" x2="5" y2="0" />
         ) : (
-          <path d="M 0 30 Q 50 25, 50 0, 50 0" />
+          <path d="M 20 30 Q 50 25, 50 0, 50 0" />
         )}
       </svg>
     </div>
@@ -253,17 +258,17 @@ export function MultipleRefs() {
       <Slide data-transition="none">
         <ReactCode />
         <ComponentCode highlightLines="2" />
-        <Vars currentIndex={1} refs={["current: null"]} nameRef />
+        <Vars currentIndex={1} refs={["current: null"]} countRef />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
         <ComponentCode highlightLines="3" />
-        <Vars currentIndex={1} refs={["current: null"]} nameRef />
+        <Vars currentIndex={1} refs={["current: null"]} countRef />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="11,12,14,20|13" />
         <ComponentCode />
-        <Vars currentIndex={1} refs={["current: null"]} nameRef down />
+        <Vars currentIndex={1} refs={["current: null"]} countRef down />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13" />
@@ -271,7 +276,7 @@ export function MultipleRefs() {
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
-          nameRef
+          countRef
           down
         />
       </Slide>
@@ -281,7 +286,7 @@ export function MultipleRefs() {
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
-          nameRef
+          countRef
           down
         />
       </Slide>
@@ -291,7 +296,7 @@ export function MultipleRefs() {
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
-          nameRef
+          countRef
           refPointer={1}
           down
         />
@@ -302,7 +307,7 @@ export function MultipleRefs() {
         <Vars
           currentIndex={1}
           refs={["current: null", "current: null"]}
-          nameRef
+          countRef
           refPointer={1}
           down
         />
@@ -313,7 +318,7 @@ export function MultipleRefs() {
         <Vars
           currentIndex={2}
           refs={["current: null", "current: null"]}
-          nameRef
+          countRef
           refPointer={1}
           down
         />
@@ -378,7 +383,7 @@ export function MultipleRefs() {
       <Slide data-transition="none">
         <ReactCode isBackground />
         <Vars
-          currentIndex={2}
+          currentIndex={0}
           refs={["current: <input />", "current: <input />"]}
         />
         <div style={{ position: "relative" }}>
@@ -395,7 +400,7 @@ export function MultipleRefs() {
         <ReactCode isBackground />
         <ComponentCode highlightLines="5-8|7" />
         <Vars
-          currentIndex={2}
+          currentIndex={0}
           refs={["current: <input />", "current: <input />"]}
           nameRef
           countRef
@@ -419,7 +424,7 @@ function ClosureEnclosure() {
         bottom: "130px",
         left: "50px",
         right: "50px",
-        backgroundColor: "hsl(300 50% 50% / .1)",
+        backgroundColor: "hsl(155 62% 56% / .1)",
       }}
     ></div>
   )
@@ -434,7 +439,7 @@ function ClosureScope() {
         bottom: "0px",
         left: "50px",
         right: "50px",
-        backgroundColor: "hsl(300 50% 50% / .1)",
+        backgroundColor: "hsl(155 62% 56% / .1)",
       }}
     ></div>
   )

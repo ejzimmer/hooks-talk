@@ -47,7 +47,7 @@ export function RenderCounterSlides() {
         >
           <Code>{parentComponentCode}</Code>
           <Code>{renderCounterCode}</Code>
-          <div style={{ gridColumn: "span 2" }}>
+          <div style={{ gridColumn: "span 2", marginTop: "2em" }}>
             <RenderCounterWithRerender />
           </div>
         </div>

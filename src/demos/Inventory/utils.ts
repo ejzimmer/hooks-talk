@@ -5,12 +5,21 @@ export type Item = {
 
 export const items: Item[] = [
   { name: "apple", count: 55 },
-  { name: "durian", count: 3 },
-  { name: "flint", count: 108 },
+  { name: "chestnut", count: 3 },
+  { name: "meat", count: 108 },
   { name: "diamond", count: 1 },
-  { name: "bokoblin horn", count: 27 },
-  { name: "keese wing", count: 18 },
+  { name: "mushroom", count: 27 },
+  { name: "fish", count: 18 },
 ]
+
+export const emoji = {
+  apple: "🍎",
+  chestnut: "🌰",
+  diamond: "💎",
+  mushroom: "🍄",
+  fish: "🐟",
+  meat: "🍖",
+}
 
 export type Props = {
   items: Item[]

@@ -38,7 +38,10 @@ export function RenderCounterWithRerender() {
 
   return (
     <>
-      <button onClick={() => setRerender((rerender) => !rerender)}>
+      <button
+        style={{ marginBottom: ".5em" }}
+        onClick={() => setRerender((rerender) => !rerender)}
+      >
         Trigger render
       </button>
       <RenderCounter />
@@ -59,7 +62,10 @@ export function BrokenRenderCounterWithRerender() {
 
   return (
     <>
-      <button onClick={() => setRerender((rerender) => !rerender)}>
+      <button
+        style={{ marginBottom: ".5em" }}
+        onClick={() => setRerender((rerender) => !rerender)}
+      >
         Click to rerender
       </button>
       <BrokenRenderCounter />

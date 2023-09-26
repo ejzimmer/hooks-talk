@@ -80,7 +80,7 @@ function WithoutUseEffect({
   )
 }
 
-export const withoutUseEffectCode = `export function Inventory({ items, setItems }: Props) {
+export const withoutUseEffectCode = `export function ItemList({ items, setItems }: Props) {
 
   window.addEventListener("keydown", (event) => {
     if (!event.key.match(/^[1-9]$/)) return

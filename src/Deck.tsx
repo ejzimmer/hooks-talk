@@ -5,43 +5,43 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from "react";
-import Reveal, { Api } from "reveal.js";
-import { options } from "./revealOptions";
-import { Intro } from "./slides/0 - intro";
-import { UseRef } from "./slides/1 - useRef";
-import { UseState } from "./slides/2 - useState";
-import { UseEffect } from "./slides/3 - useEffect";
-import { UseMemo } from "./slides/4 - useMemo";
-import RevealHighlight from "reveal.js/plugin/highlight/highlight";
+} from "react"
+import Reveal, { Api } from "reveal.js"
+import { options } from "./revealOptions"
+import { Intro } from "./slides/0 - intro"
+import { UseRef } from "./slides/1 - useRef"
+import { UseState } from "./slides/2 - useState"
+import { UseEffect } from "./slides/3 - useEffect"
+import { UseMemo } from "./slides/4 - useMemo"
+import RevealHighlight from "reveal.js/plugin/highlight/highlight"
 
-import "reveal.js/plugin/highlight/monokai.css";
-import { Fragment, Slide } from "./helpers/Slide";
-import { UseCallback } from "./slides/5 - useCallback";
+import "reveal.js/plugin/highlight/monokai.css"
+import { Fragment, Slide } from "./helpers/Slide"
+import { UseCallback } from "./slides/5 - useCallback"
 
-const DeckContext = createContext<Api | null>(null);
+const DeckContext = createContext<Api | null>(null)
 
 function DeckProvider({ deck, children }: PropsWithChildren<{ deck?: Api }>) {
   return (
     <DeckContext.Provider value={deck ?? null}>{children}</DeckContext.Provider>
-  );
+  )
 }
 
 export function useDeck() {
-  return useContext(DeckContext);
+  return useContext(DeckContext)
 }
 
 export default function Deck() {
-  const [deck, setDeck] = useState<Api>();
+  const [deck, setDeck] = useState<Api>()
 
   useEffect(() => {
     const deck = new Reveal({
       ...options,
       plugins: [RevealHighlight],
-    });
-    deck.initialize();
-    setDeck(deck);
-  }, []);
+    })
+    deck.initialize()
+    setDeck(deck)
+  }, [])
 
   return (
     <DeckProvider deck={deck}>
@@ -51,7 +51,7 @@ export default function Deck() {
         </div>
       </div>
     </DeckProvider>
-  );
+  )
 }
 
 const AllSlides = memo(() => (
@@ -122,10 +122,10 @@ const AllSlides = memo(() => (
       </ul>
     </Slide>
     <Slide data-background-image="./zelda-totk-horses.jpg">
-      <h2 style={{ color: "var(--text-colour)" }}>thanks</h2>
+      <h2 style={{ color: "var(--text-colour)" }}>THANKS</h2>
     </Slide>
     <div style={{ position: "fixed", bottom: 0, right: 0, opacity: ".5" }}>
       @ErinJZimmer
     </div>
   </>
-));
+))

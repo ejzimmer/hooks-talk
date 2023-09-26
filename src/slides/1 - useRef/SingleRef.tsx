@@ -73,7 +73,7 @@ function Vars({ current, count }: { current?: string; count?: boolean }) {
                   y2="5"
                   strokeWidth="3"
                   stroke="currentColor"
-                  marker-end="url(#green)"
+                  markerEnd="url(#green)"
                 />
               </svg>
             </div>
@@ -260,41 +260,41 @@ export function SingleRefImplementation() {
             className="fragment"
             style={{
               position: "absolute",
-              top: "145px",
-              bottom: "62px",
+              top: "160px",
+              bottom: "60px",
               left: "50px",
               right: "50px",
-              backgroundColor: "hsl(300 50% 50% / .1)",
+              backgroundColor: "hsl(155 62% 56% / .1)",
             }}
           />
           <div
             className="fragment"
             style={{
               position: "absolute",
-              top: "35px",
-              bottom: "30px",
+              top: "20px",
+              bottom: "5px",
               left: "50px",
               right: "50px",
-              backgroundColor: "hsl(300 50% 50% / .1)",
+              backgroundColor: "hsl(155 62% 56% / .1)",
             }}
           />
         </div>
-        <ComponentCode highlightLines="2" />
+        <ComponentCode isBackground />
         <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="7,9|8" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode isBackground />
         <Vars />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="8|11" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode isBackground />
         <Vars current="0" />
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="11" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode isBackground />
         <Vars current="0" count />
       </Slide>
 
@@ -323,7 +323,7 @@ export function SingleRefImplementation() {
       </Slide>
       <Slide data-transition="none">
         <SingleRefCode highlightLines="6,12|7,9|11" />
-        <ComponentCode highlightLines="2" />
+        <ComponentCode isBackground />
         <Vars current="1" />
       </Slide>
       <Slide data-transition="none">

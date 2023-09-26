@@ -46,3 +46,353 @@ code.hljs table {
   background: inherit;
   width: 100%;
 }
+
+button {
+  font-family: "Red Hat Display";
+  background: var(--background-colour);
+  color: var(--primary-colour);
+  font-size: 20px;
+  border: 3px solid var(--primary-colour);
+  padding: 0.3em 0.5em;
+  text-shadow: 0 0 3px #4ad59c77;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 1px 1px 5px #4ad59c77;
+  border-radius: 2px;
+}
+button:hover,
+button:focus {
+  outline: none;
+  text-shadow: 0 0 8px #4ad59caa;
+  box-shadow: 1px 1px 8px #4ad59caa;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  gap: 0.3em;
+}
+input {
+  --background-gradient: linear-gradient(
+    to right,
+    transparent,
+    hsl(0 0% 0% / 1) 10% 90%,
+    transparent
+  );
+  background: var(--background-gradient);
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding-left: 1.25em;
+  margin-top: 2px;
+}
+input:focus-visible,
+.input-wrapper:focus-within {
+  outline: none;
+  border-block: 1px solid;
+  border-image: linear-gradient(
+    to right,
+    transparent,
+    hsl(155 62% 56%) 20% 80%,
+    transparent
+  );
+  border-image-slice: 1;
+}
+
+input[pattern] + button,
+input[pattern] + button + button {
+  border: none;
+  box-shadow: none;
+  padding-block: 0.1em;
+  line-height: 0.6;
+  --background-gradient: linear-gradient(
+    to right,
+    transparent,
+    hsl(0 0% 0% / 1) 10% 90%,
+    transparent
+  );
+  background: var(--background-gradient);
+}
+input[pattern]:focus-visible {
+  outline: none;
+}
+
+.reveal ul {
+  list-style-type: none;
+}
+.reveal li {
+  display: flex;
+}
+.reveal ul li::before {
+  content: "";
+  display: block;
+  background-image: url("/public/sword.svg");
+  width: 50px;
+  height: 50px;
+}
+
+ol.items {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  margin-top: 1em;
+  gap: 0.25em;
+  background: linear-gradient(
+    to right,
+    transparent,
+    hsl(0 0% 0% / 0.3) 10% 90%,
+    transparent
+  );
+  padding: 0.25em;
+}
+ol.items button {
+  border: none;
+  text-shadow: none;
+  box-shadow: none;
+  color: white;
+  width: 80px;
+  height: 80px;
+  background: hsl(0 0% 0% / 0.3);
+  position: relative;
+  border: 2px solid #4c4d3e;
+}
+
+.reveal blockquote {
+  background: linear-gradient(
+    to right,
+    transparent,
+    hsl(0 0% 0% / 0.3) 10% 90%,
+    transparent
+  );
+  padding-inline: 2em;
+  border-block: 1px solid;
+  border-image: linear-gradient(
+    to right,
+    transparent,
+    hsl(155 62% 56%) 20% 80%,
+    transparent
+  );
+  border-image-slice: 1;
+}
+
+.reveal .hljs:not(:first-child).fragment {
+  top: 0.5em;
+}
+.fragment.fade.current-fragment pre,
+pre.background {
+  border-image: none;
+  border-color: transparent;
+}
+
+code.hljs {
+  padding-top: 0.5em;
+  background: radial-gradient(
+      circle at 200px -50px,
+      #130d03 0 6px,
+      hsl(39, 25%, 6%) 6px 12px,
+      #130d03 12px 18px,
+      hsl(39, 25%, 6%) 18px 24px,
+      #130d03 24px 30px,
+      hsl(39, 25%, 6%) 30px 36px,
+      #130d03 36px 42px,
+      hsl(39, 25%, 6%) 42px 48px,
+      #130d03 48px 54px,
+      hsl(39, 25%, 6%) 54px 60px,
+      #130d03 60px 66px,
+      hsl(39, 25%, 6%) 66px 72px,
+      #130d03 72px 78px,
+      hsl(39, 25%, 6%) 78px 84px,
+      #130d03 84px 90px,
+      hsl(39, 25%, 6%) 90px 96px,
+      #130d03 96px 102px,
+      hsl(39, 25%, 6%) 102px 108px,
+      #130d03 108px 114px,
+      hsl(39, 25%, 6%) 114px 120px,
+      #130d03 120px 126px,
+      hsl(39, 25%, 6%) 126px 132px,
+      #130d03 132px 138px,
+      hsl(39, 25%, 6%) 138px 144px,
+      #130d03 144px 150px,
+      hsl(39, 25%, 6%) 150px 156px,
+      #130d03 156px 162px,
+      hsl(39, 25%, 6%) 162px 168px,
+      #130d03 168px 174px,
+      hsl(39, 25%, 6%) 174px 180px,
+      #130d03 180px 186px,
+      hsl(39, 25%, 6%) 186px 192px,
+      transparent 192px
+    ),
+    radial-gradient(
+      circle at 600px 0,
+      #130d03 0 6px,
+      hsl(39, 25%, 6%) 6px 12px,
+      #130d03 12px 18px,
+      hsl(39, 25%, 6%) 18px 24px,
+      #130d03 24px 30px,
+      hsl(39, 25%, 6%) 30px 36px,
+      #130d03 36px 42px,
+      hsl(39, 25%, 6%) 42px 48px,
+      #130d03 48px 54px,
+      hsl(39, 25%, 6%) 54px 60px,
+      #130d03 60px 66px,
+      hsl(39, 25%, 6%) 66px 72px,
+      #130d03 72px 78px,
+      hsl(39, 25%, 6%) 78px 84px,
+      #130d03 84px 90px,
+      hsl(39, 25%, 6%) 90px 96px,
+      #130d03 96px 102px,
+      hsl(39, 25%, 6%) 102px 108px,
+      #130d03 108px 114px,
+      hsl(39, 25%, 6%) 114px 120px,
+      #130d03 120px 126px,
+      hsl(39, 25%, 6%) 126px 132px,
+      #130d03 132px 138px,
+      hsl(39, 25%, 6%) 138px 144px,
+      #130d03 144px 150px,
+      hsl(39, 25%, 6%) 150px 156px,
+      #130d03 156px 162px,
+      hsl(39, 25%, 6%) 162px 168px,
+      #130d03 168px 174px,
+      hsl(39, 25%, 6%) 174px 180px,
+      #130d03 180px 186px,
+      hsl(39, 25%, 6%) 186px 192px,
+      transparent 192px
+    ),
+    radial-gradient(
+      circle at 0px 500px,
+      #130d03 0 6px,
+      hsl(39, 25%, 6%) 6px 12px,
+      #130d03 12px 18px,
+      hsl(39, 25%, 6%) 18px 24px,
+      #130d03 24px 30px,
+      hsl(39, 25%, 6%) 30px 36px,
+      #130d03 36px 42px,
+      hsl(39, 25%, 6%) 42px 48px,
+      #130d03 48px 54px,
+      hsl(39, 25%, 6%) 54px 60px,
+      #130d03 60px 66px,
+      hsl(39, 25%, 6%) 66px 72px,
+      #130d03 72px 78px,
+      hsl(39, 25%, 6%) 78px 84px,
+      #130d03 84px 90px,
+      hsl(39, 25%, 6%) 90px 96px,
+      #130d03 96px 102px,
+      hsl(39, 25%, 6%) 102px 108px,
+      #130d03 108px 114px,
+      hsl(39, 25%, 6%) 114px 120px,
+      #130d03 120px 126px,
+      hsl(39, 25%, 6%) 126px 132px,
+      #130d03 132px 138px,
+      hsl(39, 25%, 6%) 138px 144px,
+      #130d03 144px 150px,
+      hsl(39, 25%, 6%) 150px 156px,
+      #130d03 156px 162px,
+      hsl(39, 25%, 6%) 162px 168px,
+      #130d03 168px 174px,
+      hsl(39, 25%, 6%) 174px 180px,
+      #130d03 180px 186px,
+      hsl(39, 25%, 6%) 186px 192px,
+      transparent 192px
+    ),
+    radial-gradient(
+      circle at 400px 400px,
+      #130d03 0 6px,
+      hsl(39, 25%, 6%) 6px 12px,
+      #130d03 12px 18px,
+      hsl(39, 25%, 6%) 18px 24px,
+      #130d03 24px 30px,
+      hsl(39, 25%, 6%) 30px 36px,
+      #130d03 36px 42px,
+      hsl(39, 25%, 6%) 42px 48px,
+      #130d03 48px 54px,
+      hsl(39, 25%, 6%) 54px 60px,
+      #130d03 60px 66px,
+      hsl(39, 25%, 6%) 66px 72px,
+      #130d03 72px 78px,
+      hsl(39, 25%, 6%) 78px 84px,
+      #130d03 84px 90px,
+      hsl(39, 25%, 6%) 90px 96px,
+      #130d03 96px 102px,
+      hsl(39, 25%, 6%) 102px 108px,
+      #130d03 108px 114px,
+      hsl(39, 25%, 6%) 114px 120px,
+      #130d03 120px 126px,
+      hsl(39, 25%, 6%) 126px 132px,
+      #130d03 132px 138px,
+      hsl(39, 25%, 6%) 138px 144px,
+      #130d03 144px 150px,
+      hsl(39, 25%, 6%) 150px 156px,
+      #130d03 156px 162px,
+      hsl(39, 25%, 6%) 162px 168px,
+      #130d03 168px 174px,
+      hsl(39, 25%, 6%) 174px 180px,
+      #130d03 180px 186px,
+      hsl(39, 25%, 6%) 186px 192px,
+      transparent 192px
+    ),
+    radial-gradient(
+      circle at 750px 350px,
+      #130d03 0 6px,
+      hsl(39, 25%, 6%) 6px 12px,
+      #130d03 12px 18px,
+      hsl(39, 25%, 6%) 18px 24px,
+      #130d03 24px 30px,
+      hsl(39, 25%, 6%) 30px 36px,
+      #130d03 36px 42px,
+      hsl(39, 25%, 6%) 42px 48px,
+      #130d03 48px 54px,
+      hsl(39, 25%, 6%) 54px 60px,
+      #130d03 60px 66px,
+      hsl(39, 25%, 6%) 66px 72px,
+      #130d03 72px 78px,
+      hsl(39, 25%, 6%) 78px 84px,
+      #130d03 84px 90px,
+      hsl(39, 25%, 6%) 90px 96px,
+      #130d03 96px 102px,
+      hsl(39, 25%, 6%) 102px 108px,
+      #130d03 108px 114px,
+      hsl(39, 25%, 6%) 114px 120px,
+      #130d03 120px 126px,
+      hsl(39, 25%, 6%) 126px 132px,
+      #130d03 132px 138px,
+      hsl(39, 25%, 6%) 138px 144px,
+      #130d03 144px 150px,
+      hsl(39, 25%, 6%) 150px 156px,
+      #130d03 156px 162px,
+      hsl(39, 25%, 6%) 162px 168px,
+      #130d03 168px 174px,
+      hsl(39, 25%, 6%) 174px 180px,
+      #130d03 180px 186px,
+      hsl(39, 25%, 6%) 186px 192px,
+      transparent 192px
+    ),
+    repeating-radial-gradient(
+      circle at left,
+      #130d03 0 6px,
+      hsl(39, 25%, 6%) 6px 12px
+    );
+}
+
+pre {
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-image: radial-gradient(
+    ellipse at top left,
+    var(--primary-colour),
+    transparent 30%
+  );
+  border-image-slice: 1;
+  padding-top: 0.5em;
+}
+
+.tag {
+  border: 4px solid;
+  border-inline: 12px solid;
+  border-color: hsl(155 62% 56%);
+  padding-inline: 0.3em;
+  font-size: 0.7em;
+  font-family: sans-serif;
+  border-radius: 5px;
+  line-height: 1;
+  background: hsl(155 11% 22%);
+}

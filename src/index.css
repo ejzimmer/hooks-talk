@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --primary-colour: #4ad59c;
-  --background-colour: #333;
+  --primary-colour: hsl(155, 62%, 56%);
+  --background-colour: hsl(39, 25%, 6%);
   --purple: hsl(300 50% 50%);
   --blue: #16a9f2;
 }
@@ -23,6 +23,12 @@ code {
 @font-face {
   font-family: "Hylian Serif";
   src: url("/public/HyliaSerifBeta-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Red Hat Display";
+  src: url("/public/RedHatDisplay.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }

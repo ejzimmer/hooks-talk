@@ -15,7 +15,7 @@ export function UseEffect() {
     <>
       <InventorySlide hideFilter hideSortButtons />
       <Slide>
-        <Code highlightLines="|3-14|8">{withoutUseEffectCode}</Code>
+        <Code highlightLines="|3-14|10|7,13|">{withoutUseEffectCode}</Code>
       </Slide>
       <ShinyTitle title="useEffect" />
       <InverseTitle>

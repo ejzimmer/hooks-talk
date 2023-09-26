@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { Item } from "./utils"
+import { Item, emoji } from "./utils"
 
 export function sortFunction(by: keyof Item) {
   return (a: Item, b: Item) => (a[by] === b[by] ? 0 : a[by] < b[by] ? -1 : 1)
@@ -57,19 +57,21 @@ export function ItemList({
       )}
       {!hideSortButtons && (
         <>
-          <button onClick={() => setSortBy("name")}>Sort by name</button>
+          <button onClick={() => setSortBy("name")}>Sort by name</button>{" "}
           <button onClick={() => setSortBy("count")}>Sort by count</button>
         </>
       )}
-      <ol>
-        {itemsToShow.map((item) => (
-          <ListItem
-            key={item.name}
-            onClick={() => consumeItem(item)}
-            item={item}
-          />
-        ))}
-      </ol>
+      {!!items.length && (
+        <ol className="items">
+          {itemsToShow.map((item) => (
+            <ListItem
+              key={item.name}
+              onClick={() => consumeItem(item)}
+              item={item}
+            />
+          ))}
+        </ol>
+      )}
     </>
   )
 }
@@ -83,20 +85,13 @@ export function ListItem({
 }) {
   return (
     <li>
-      <button
-        onClick={onClick}
-        style={{
-          background: "none",
-          padding: "0",
-          border: "none",
-          lineHeight: "inherit",
-          fontFamily: "inherit",
-          fontSize: "inherit",
-          color: "inherit",
-          cursor: "pointer",
-        }}
-      >
-        {item.name} {item.count}
+      <button onClick={onClick}>
+        <span style={{ fontSize: "2em" }}>
+          {emoji[item.name as keyof typeof emoji]}
+        </span>{" "}
+        <span style={{ position: "absolute", bottom: 0, left: 0 }}>
+          x{item.count}
+        </span>
       </button>
     </li>
   )
@@ -134,7 +129,7 @@ export function ItemListWithTooMuchState({
     <>
       <button onClick={() => handleSort("name")}>Sort by name</button>
       <button onClick={() => handleSort("count")}>Sort by count</button>
-      <ol>
+      <ol className="items">
         {sortedItems.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}
@@ -183,7 +178,7 @@ export function ItemListWithTooMuchEffect({ items, isCurrent }: Props) {
       <input onChange={handleFilter} />
       <button onClick={() => handleSort("name")}>Sort by name</button>
       <button onClick={() => handleSort("count")}>Sort by count</button>
-      <ol>
+      <ol className="items">
         {itemsToShow.map((item) => (
           <ListItem key={item.name} item={item} />
         ))}

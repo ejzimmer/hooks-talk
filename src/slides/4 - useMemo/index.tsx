@@ -71,7 +71,7 @@ export function UseMemo() {
         </Fragment>
       </Slide>
       <Slide>
-        <Code fontSize=".4em" highlightLines="|2|4">
+        <Code fontSize=".4em" highlightLines="|1,2|4">
           {justRightCode}
         </Code>
       </Slide>

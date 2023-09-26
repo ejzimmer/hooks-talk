@@ -23,6 +23,12 @@ export function UseRef() {
         <RenderCounterWithRerender />
       </Slide>
       <BasicUseRefImplementation />
+      <InverseTitle>
+        <h2>Hooks store state in closures</h2>
+      </InverseTitle>
+      <Slide>
+        <Code>{renderCounterCode}</Code>
+      </Slide>
       <Slide>
         <Code>{timedButtonCode}</Code>
       </Slide>
