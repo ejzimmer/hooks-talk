@@ -64,20 +64,3 @@ export function UseState() {
     </>
   )
 }
-
-const addItemUsingRefCode = `function Inventory() {
-  const inventory = useRef([])
-
-  const addItem = (name?: string, count?: string) => {
-    inventory.current = 
-      addItemToInventory(inventory, name, count)
-  }
-
-  return (
-    <>
-      <AddItemForm onSubmit={addItem} />
-      <ItemList items={inventory.current} />
-    </>
-  )
-}
-`

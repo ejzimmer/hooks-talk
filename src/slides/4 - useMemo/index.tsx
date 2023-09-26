@@ -116,42 +116,6 @@ const memoisedCode = `const sortedItems = useMemo(
 );
 `
 
-const unaddableInventoryCode = `export function ItemList({ items, setItems }) {
-  const [sortedItems, setSortedItems] = useState(items);
-
-  const handleSort = (sortBy) => {
-    setItemsToShow(items.toSorted(sortFunction(sortBy)));
-  };
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (!event.key.match(/^[0-9]$/)) return;
-      const indexToUpdate = Number.parseInt(event.key) - 1;
-      const itemToUpdate = sortedItems[indexToUpdate];
-      setSortedItems(
-        sortedItems.map((i) => (i === itemToUpdate ? { ...i, count: --i.count } : i))
-      );
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [sortedItems]);
-
-  return (
-    <>
-      <button onClick={() => handleSort("name")}>Sort by name</button>
-      <button onClick={() => handleSort("count")}>Sort by count</button>
-      <ol>
-        {sortedItems.map((item) => (
-          <ListItem key={item.name} item={item} />
-        ))}
-      </ol>
-    </>
-  );
-}
-`
-
 const itemListWithTooMuchEffectCode = `function ItemList({ items }) {
   const [sortedItems, setSortedItems] = useState(items);
   const [sortBy, setSortBy] = useState();
