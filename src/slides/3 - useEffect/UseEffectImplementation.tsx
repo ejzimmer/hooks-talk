@@ -131,6 +131,8 @@ function Vars({
   cleanup,
   newDeps,
   hideDepsLabel,
+  showDepsLabel,
+  showCallbackLabel,
 }: {
   currentIndex: number
   effects?: any
@@ -145,6 +147,8 @@ function Vars({
   cleanup?: boolean | number
   newDeps?: string[]
   hideDepsLabel?: boolean
+  showDepsLabel?: boolean
+  showCallbackLabel?: boolean
 }) {
   return (
     <div
@@ -336,7 +340,11 @@ function Vars({
       {/* hook props */}
       <div style={{ position: "absolute", top: "165px" }}>
         {callback && (
-          <SimpleVar name="callback" scope="hook" hideVarName={hideHookVars}>
+          <SimpleVar
+            name="callback"
+            scope="hook"
+            hideVarName={hideHookVars && !showCallbackLabel}
+          >
             <span
               style={{ fontSize: ".8em", position: "relative", left: ".3em" }}
             >
@@ -487,7 +495,11 @@ function Vars({
 
       {Array.isArray(newDeps) && (
         <div style={{ position: "absolute", top: "250px", width: "500px" }}>
-          <SimpleVar name="deps" scope="hook" hideVarName={hideDepsLabel}>
+          <SimpleVar
+            name="deps"
+            scope="hook"
+            hideVarName={hideDepsLabel && !showDepsLabel}
+          >
             [
             <span style={{ color: "var(--primary-colour)" }}>
               [<span style={{ fontSize: ".8em" }}>{newDeps.join()}</span>]
@@ -763,7 +775,10 @@ export function UseEffectImplementation() {
           listening
           cleanup
           newDeps={["💎", "🍄"]}
+          showDepsLabel
+          showCallbackLabel
           hideDepsLabel
+          hideHookVars
         />
       </Slide>
       <Slide data-transition="none">
@@ -778,6 +793,7 @@ export function UseEffectImplementation() {
           cleanup
           newDeps={["💎", "🍄"]}
           hideDepsLabel
+          showDepsLabel
         />
       </Slide>
       <Slide data-transition="none">

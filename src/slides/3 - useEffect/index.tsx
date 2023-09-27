@@ -29,8 +29,8 @@ export function UseEffect() {
       <Slide>
         <ul>
           <Fragment as="li">
-            <span style={{ color: "var(--primary-colour)" }}>callback</span>:
-            what we want to happen
+            <span style={{ color: "var(--primary-colour)" }}>effect</span>: what
+            we want to happen
           </Fragment>
           <Fragment as="li">
             <span style={{ color: "var(--primary-colour)" }}>dependencies</span>
@@ -40,7 +40,7 @@ export function UseEffect() {
             <span style={{ color: "var(--primary-colour)" }}>
               cleanup function
             </span>
-            : clean up before callback
+            : called before effect re-run
           </Fragment>
         </ul>
       </Slide>

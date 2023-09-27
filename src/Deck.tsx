@@ -37,6 +37,7 @@ export default function Deck() {
   useEffect(() => {
     const deck = new Reveal({
       ...options,
+      controls: true,
       plugins: [RevealHighlight],
     })
     deck.initialize()
