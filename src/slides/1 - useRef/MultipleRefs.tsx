@@ -70,14 +70,12 @@ function Vars({
   nameRef,
   countRef,
   refPointer,
-  down,
 }: {
   currentIndex: number
   refs?: string[]
   nameRef?: boolean
   countRef?: boolean
   refPointer?: 0 | 1
-  down?: boolean
 }) {
   return (
     <div
@@ -86,7 +84,7 @@ function Vars({
         height: "230px",
         background: "hsl(0 0% 0% / .2)",
         position: "fixed",
-        top: down ? "350px" : 0,
+        top: 0,
         right: 0,
         fontFamily: "Courier",
         padding: ".5em",
@@ -228,32 +226,32 @@ export function MultipleRefs() {
       <Slide data-transition="none">
         <ReactCode highlightLines="11,20|12,14|13" />
         <ComponentCode />
-        <Vars currentIndex={0} down />
+        <Vars currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13" />
         <ComponentCode />
-        <Vars currentIndex={0} refs={["current: null"]} down />
+        <Vars currentIndex={0} refs={["current: null"]} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="16" />
         <ComponentCode />
-        <Vars currentIndex={0} refs={["current: null"]} down />
+        <Vars currentIndex={0} refs={["current: null"]} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="16" />
         <ComponentCode />
-        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} down />
+        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="17" />
         <ComponentCode />
-        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} down />
+        <Vars currentIndex={0} refs={["current: null"]} refPointer={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="17|19" />
         <ComponentCode />
-        <Vars currentIndex={1} refs={["current: null"]} refPointer={0} down />
+        <Vars currentIndex={1} refs={["current: null"]} refPointer={0} />
       </Slide>
       <Slide data-transition="none">
         <ReactCode />
@@ -268,7 +266,7 @@ export function MultipleRefs() {
       <Slide data-transition="none">
         <ReactCode highlightLines="11,12,14,20|13" />
         <ComponentCode />
-        <Vars currentIndex={1} refs={["current: null"]} countRef down />
+        <Vars currentIndex={1} refs={["current: null"]} countRef />
       </Slide>
       <Slide data-transition="none">
         <ReactCode highlightLines="13" />
@@ -277,7 +275,6 @@ export function MultipleRefs() {
           currentIndex={1}
           refs={["current: null", "current: null"]}
           countRef
-          down
         />
       </Slide>
       <Slide data-transition="none">
@@ -287,7 +284,6 @@ export function MultipleRefs() {
           currentIndex={1}
           refs={["current: null", "current: null"]}
           countRef
-          down
         />
       </Slide>
       <Slide data-transition="none">
@@ -298,7 +294,6 @@ export function MultipleRefs() {
           refs={["current: null", "current: null"]}
           countRef
           refPointer={1}
-          down
         />
       </Slide>
       <Slide data-transition="none">
@@ -309,7 +304,6 @@ export function MultipleRefs() {
           refs={["current: null", "current: null"]}
           countRef
           refPointer={1}
-          down
         />
       </Slide>
       <Slide data-transition="none">
@@ -320,7 +314,6 @@ export function MultipleRefs() {
           refs={["current: null", "current: null"]}
           countRef
           refPointer={1}
-          down
         />
       </Slide>
       <Slide data-transition="none">
@@ -382,19 +375,18 @@ export function MultipleRefs() {
       {/* onClick */}
       <Slide data-transition="none">
         <ReactCode isBackground />
+        <ComponentCode highlightLines="5-8" />
+
         <Vars
           currentIndex={0}
           refs={["current: <input />", "current: <input />"]}
         />
-        <div style={{ position: "relative" }}>
-          <ComponentCode highlightLines="5-8" />
-          <Fragment>
-            <ClosureEnclosure />
-          </Fragment>
-          <Fragment>
-            <ClosureScope />
-          </Fragment>
-        </div>
+        <Fragment>
+          <ClosureEnclosure />
+        </Fragment>
+        <Fragment>
+          <ClosureScope />
+        </Fragment>
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
@@ -421,7 +413,7 @@ function ClosureEnclosure() {
       style={{
         height: "90px",
         position: "absolute",
-        bottom: "130px",
+        bottom: "-195px",
         left: "50px",
         right: "50px",
         backgroundColor: "hsl(155 62% 56% / .1)",
@@ -435,11 +427,11 @@ function ClosureScope() {
     <div
       style={{
         position: "absolute",
-        top: "0px",
-        bottom: "0px",
+        bottom: "-320px",
         left: "50px",
         right: "50px",
         backgroundColor: "hsl(155 62% 56% / .1)",
+        height: "307px",
       }}
     ></div>
   )

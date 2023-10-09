@@ -62,17 +62,18 @@ const AllSlides = memo(() => (
     <UseState />
     <UseEffect />
     <UseMemo />
-    <UseCallback />
+    {/* <UseCallback /> */}
     <Slide>
       <h2>What have we learnt?</h2>
       <ul>
-        <Fragment as="li">Hooks are just arrays in closures</Fragment>
-        <Fragment as="li">
+        <Fragment as="li">Hooks store state in arrays in closures</Fragment>
+        {/* <Fragment as="li">
           useRef & useState store data between renders
-        </Fragment>
+        </Fragment> */}
+        <Fragment as="li">useRef does nothing else</Fragment>
         <Fragment as="li">useState triggers re-renders</Fragment>
         <Fragment as="li">useEffect is an escape hatch</Fragment>
-        <Fragment as="li">useMemo & useCallback memoise things</Fragment>
+        {/* <Fragment as="li">useMemo & useCallback memoise things</Fragment> */}
       </ul>
     </Slide>
     <Slide>

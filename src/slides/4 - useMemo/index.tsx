@@ -1,7 +1,6 @@
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
-import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
-import { UseMemoImplementation } from "./UseMemoImplementation"
+import { Fragment, Slide } from "../../helpers/Slide"
 
 export function UseMemo() {
   return (
@@ -75,7 +74,7 @@ export function UseMemo() {
           {justRightCode}
         </Code>
       </Slide>
-      <Slide>
+      {/* <Slide>
         <h2>But what if my calculation is really expensive?</h2>
       </Slide>
       <ShinyTitle title="useMemo" />
@@ -99,22 +98,22 @@ export function UseMemo() {
           <li>calculates a value</li>
           <li>only recalculates the value if the dependencies change</li>
         </ul>
-      </InverseTitle>
+      </InverseTitle> */}
     </>
   )
 }
 
-const unmemoisedCode = `const sortedItems = sortBy 
-  ? items.sort(sortFunction(sortBy)) 
-  : items;
-`
-const memoisedCode = `const sortedItems = useMemo(
-  () => sortBy 
-      ? items.sort(sortFunction(sortBy)) 
-      : items, 
-  [items, sortBy]
-);
-`
+// const unmemoisedCode = `const sortedItems = sortBy
+//   ? items.sort(sortFunction(sortBy))
+//   : items;
+// `
+// const memoisedCode = `const sortedItems = useMemo(
+//   () => sortBy
+//       ? items.sort(sortFunction(sortBy))
+//       : items,
+//   [items, sortBy]
+// );
+// `
 
 const itemListWithTooMuchEffectCode = `function ItemList({ items }) {
   const [sortedItems, setSortedItems] = useState(items);

@@ -391,3 +391,21 @@ pre {
   text-decoration: line-through;
   opacity: 0.4;
 }
+
+pre:not(.background):has(~ pre.background) {
+  max-height: 100%;
+  box-shadow: 10px 0 10px 20px hsl(39, 25%, 6%);
+}
+
+pre ~ pre,
+pre:has(~ pre) {
+  max-height: 300px;
+  transition: max-height 0.2s;
+}
+
+.reveal pre ~ pre {
+  position: fixed;
+  top: 340px;
+  left: 47px;
+  z-index: -1;
+}

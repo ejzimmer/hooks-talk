@@ -56,7 +56,7 @@ export function UseEffect() {
       <InverseTitle>
         <h2>Use useEffect for</h2>
         <ul>
-          <li>native event handlers</li>
+          <Fragment as="li">native event handlers</Fragment>
           <Fragment as="li">
             setTimeout/setInterval/requestAnimationFrame
           </Fragment>

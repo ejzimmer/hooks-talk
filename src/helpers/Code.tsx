@@ -29,7 +29,6 @@ export const Code = forwardRef<HTMLElement, Props>(function Code(
           backgroundColor: isTransparent ? "transparent" : undefined,
           boxShadow: isTransparent ? "none" : undefined,
           overflow: "auto",
-          maxHeight: isTwoUp ? "300px" : "100%",
           border: isTransparent ? "none" : undefined,
         }}
         className={isBackground ? "background" : ""}
