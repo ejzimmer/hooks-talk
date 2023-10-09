@@ -5,7 +5,7 @@ export function WhyFunctionalComponents() {
     <Slide>
       <h2>
         Why we like
-        <br /> functional components
+        <br /> Functional Components
       </h2>
       <ul>
         <Fragment as="li">Pure functions, easier to reason about</Fragment>

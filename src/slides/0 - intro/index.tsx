@@ -1,8 +1,7 @@
-import { ShinyTitle, Slide } from "../../helpers/Slide"
+import { InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
+import { RulesOfHooks } from "../1 - useRef/RulesOfHooks"
 import { FunctionalComponentProblems } from "./FunctionalComponentsProblems"
-import { RenderCounterSlides } from "./RenderCounterSlides"
 import { Title } from "./Title"
-import { TwoKindsOfComponents } from "./TwoKindsOfComponents"
 import { WhyFunctionalComponents } from "./WhyFunctionalComponents"
 
 export function Intro() {
@@ -21,19 +20,39 @@ export function Intro() {
       <Slide>
         <ul>
           <li>Why hooks?</li>
-          <li>useRef</li>
-          <li>useState</li>
-          <li>useEffect</li>
-          <li>useMemo & useCallback</li>
+          <li>The rules of hooks</li>
+          <li>useRef, useState, useEffect</li>
         </ul>
       </Slide>
       <Slide>
         <h2 className="r-fit-text">Why hooks?</h2>
       </Slide>
-      <TwoKindsOfComponents />
       <WhyFunctionalComponents />
       <FunctionalComponentProblems />
-      <RenderCounterSlides />
+      <InverseTitle>
+        <h2 style={{ fontSize: "4em" }}>Hooks</h2>
+      </InverseTitle>
+      <RulesOfHooks />
+      <InverseTitle>
+        <h2>
+          Hooks store state in<br></br> arrays inside closures
+        </h2>
+      </InverseTitle>
+      <Slide>
+        <blockquote>
+          A closure is the combination of a function bundled together (enclosed)
+          with references to its surrounding state (the lexical environment).
+        </blockquote>
+        <cite className="footnote">
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures"
+            target="_blank"
+            rel="noreferrer"
+          >
+            MDN
+          </a>
+        </cite>
+      </Slide>
       <ShinyTitle title="useRef" />
     </>
   )

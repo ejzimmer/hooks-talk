@@ -1,4 +1,4 @@
-import { Fragment, Notes, Slide } from "../../helpers/Slide";
+import { Slide } from "../../helpers/Slide"
 
 export function RulesOfHooks() {
   return (
@@ -6,28 +6,14 @@ export function RulesOfHooks() {
       <Slide>
         <h2>Rules of Hooks</h2>
         <ul>
-          <li>
-            <Fragment className="strike">
-              Only Call Hooks at the Top Level
-            </Fragment>
-            <Fragment>Always call hooks in the same order</Fragment>
-          </li>
-          <li>
-            <Fragment className="strike">
-              Only Call Hooks from React Functions
-            </Fragment>
-            <Fragment>Hooks always exist in the scope of a component</Fragment>
-          </li>
+          <li>Only Call Hooks at the Top Level</li>
+          <li>Only Call Hooks from React Functions</li>
         </ul>
         <cite className="footnote">
           <a href="https://legacy.reactjs.org/docs/hooks-rules.html">
             React docs
           </a>
         </cite>
-        <Notes>
-          these rules only seem to appear in the legacy docs they're mentioned
-          in the new docs but don't have a fancy title
-        </Notes>
       </Slide>
 
       <Slide>
@@ -75,6 +61,7 @@ export function RulesOfHooks() {
               top: "0px",
               backgroundColor: "transparent",
               border: "medium",
+              boxShadow: "none",
             }}
           >
             ×
@@ -110,7 +97,7 @@ export function RulesOfHooks() {
                 called in the exact same order in every component render{" "}
                 <span style={{ color: "#E36049" }}>
                   <u>react-hooks/rules-of-hooks</u>
-                </span>
+                </span>{" "}
                 Search for the{" "}
                 <u>
                   <span style={{ color: "#E36049" }}>keywords</span>
@@ -121,6 +108,25 @@ export function RulesOfHooks() {
           </div>
         </div>{" "}
       </Slide>
+
+      <Slide>
+        <h2>Rules of Hooks</h2>
+        <ul>
+          <li className="fragment strike">Only Call Hooks at the Top Level</li>
+          <li className="fragment">Always call hooks in the same order</li>
+          <li className="fragment strike">
+            Only Call Hooks from React Functions
+          </li>
+          <li className="fragment">
+            A hook belongs to an instance of a component
+          </li>
+        </ul>
+        <cite className="footnote">
+          <a href="https://legacy.reactjs.org/docs/hooks-rules.html">
+            React docs
+          </a>
+        </cite>
+      </Slide>
     </>
-  );
+  )
 }

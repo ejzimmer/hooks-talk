@@ -1,24 +1,15 @@
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
-import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
+import { ShinyTitle, Slide } from "../../helpers/Slide"
 import { UseStateImplementation, inventoryCode } from "./UseStateImplementation"
-import { FunctionalComponentProblems } from "../0 - intro/FunctionalComponentsProblems"
 
 export function UseState() {
   return (
     <>
-      <FunctionalComponentProblems />
-      <InventorySlide hideSortButtons hideFilter items={[]} />
       <ShinyTitle title="useState" />
-      <InverseTitle>
-        <h2>useState</h2>
-        <ul>
-          <Fragment as="li">maintain data between renders</Fragment>
-          <Fragment as="li">trigger render when that data changes</Fragment>
-        </ul>
-      </InverseTitle>
+      <InventorySlide hideSortButtons hideFilter items={[]} />
       <Slide>
-        <Code highlightLines="|12,13|2|4-8|5,7|13">{inventoryCode}</Code>
+        <Code highlightLines="|12,13|1,16|2|4-8|5,7|13">{inventoryCode}</Code>
       </Slide>
       <UseStateImplementation />
       {/* <Slide>
@@ -52,15 +43,6 @@ export function UseState() {
         </div>
       </Slide>
       <ArrayMethods /> */}
-
-      <InverseTitle>
-        <h2>useState</h2>
-        <ul>
-          <li>store states between renders</li>
-          <li>causes a re-render when updated</li>
-          {/* <li>watch out for mutating array methods!</li> */}
-        </ul>
-      </InverseTitle>
     </>
   )
 }

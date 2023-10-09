@@ -15,12 +15,12 @@ export function UseEffect() {
         <Code highlightLines="|3-14|10|7,13|">{withoutUseEffectCode}</Code>
       </Slide>
       <ShinyTitle title="useEffect" />
-      <InverseTitle>
+      {/* <InverseTitle>
         <h2>useEffect</h2>
         <ul>
           <Fragment as="li">handle stuff that's not managed by React</Fragment>
         </ul>
-      </InverseTitle>
+      </InverseTitle> */}
       <Slide>
         <Code fontSize=".4em" highlightLines="|3-19|3,19|4-17|5-14|18|16">
           {keyboardShortcutCode}

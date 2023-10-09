@@ -85,7 +85,7 @@ function Vars({ current, count }: { current?: string; count?: boolean }) {
   )
 }
 
-function ArrowHeadDef() {
+export function ArrowHeadDef() {
   return (
     <svg viewBox="0 0 10 10">
       <defs>

@@ -386,3 +386,8 @@ pre {
   line-height: 1;
   background: hsl(155 11% 22%);
 }
+
+.strike-through {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
