@@ -1,6 +1,6 @@
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
-import { Fragment, Slide } from "../../helpers/Slide"
+import { Fragment, InverseTitle, Slide } from "../../helpers/Slide"
 
 export function UseMemo() {
   return (
@@ -74,6 +74,13 @@ export function UseMemo() {
           {justRightCode}
         </Code>
       </Slide>
+      <InverseTitle>
+        <h2>useEffect</h2>
+        <ul>
+          <li>Stores state in an array inside a closure</li>
+          <li>Manages stuff that React doesn't understand</li>
+        </ul>
+      </InverseTitle>
       {/* <Slide>
         <h2>But what if my calculation is really expensive?</h2>
       </Slide>

@@ -1,6 +1,6 @@
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
-import { ShinyTitle, Slide } from "../../helpers/Slide"
+import { InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 import { UseStateImplementation, inventoryCode } from "./UseStateImplementation"
 
 export function UseState() {
@@ -9,9 +9,18 @@ export function UseState() {
       <InventorySlide hideSortButtons hideFilter items={[]} />
       <ShinyTitle title="useState" />
       <Slide>
-        <Code highlightLines="|12,13|1,16|2|4-8|5,7|13">{inventoryCode}</Code>
+        <Code highlightLines="|2|4-8|5-7|12|13">{inventoryCode}</Code>
       </Slide>
       <UseStateImplementation />
+      <InverseTitle>
+        <h2>useState</h2>
+        <ul>
+          <li>Stores state in an array in a closure</li>
+          <li>
+            Re-renders the component<br></br> when the state changes
+          </li>
+        </ul>
+      </InverseTitle>
       {/* <Slide>
         <div style={{ display: "flex" }}>
           <ItemList

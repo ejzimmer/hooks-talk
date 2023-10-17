@@ -224,7 +224,14 @@ export function MultipleRefs() {
         <Vars currentIndex={0} />
       </Slide>
       <Slide data-transition="none">
-        <ReactCode highlightLines="11,20|12,14|13" />
+        <ReactCode highlightLines="11,20|12,14" />
+        <ComponentCode />
+        <ClosureEnclosure type="hook" />
+        <ClosureScope type="hook" />
+        <Vars currentIndex={0} />
+      </Slide>
+      <Slide data-transition="none">
+        <ReactCode highlightLines="12,14|13" />
         <ComponentCode />
         <Vars currentIndex={0} />
       </Slide>
@@ -381,12 +388,8 @@ export function MultipleRefs() {
           currentIndex={0}
           refs={["current: <input />", "current: <input />"]}
         />
-        <Fragment>
-          <ClosureEnclosure />
-        </Fragment>
-        <Fragment>
-          <ClosureScope />
-        </Fragment>
+        <ClosureEnclosure type="callback" />
+        <ClosureScope type="callback" />
       </Slide>
       <Slide data-transition="none">
         <ReactCode isBackground />
@@ -407,31 +410,35 @@ export function MultipleRefs() {
   )
 }
 
-function ClosureEnclosure() {
+function ClosureEnclosure({ type }: { type: "hook" | "callback" }) {
   return (
     <div
+      className="fragment"
       style={{
-        height: "90px",
+        height: type === "callback" ? "90px" : "205px",
         position: "absolute",
-        bottom: "-195px",
-        left: "50px",
-        right: "50px",
-        backgroundColor: "hsl(155 62% 56% / .1)",
+        bottom: type === "callback" ? "-195px" : undefined,
+        left: type === "callback" ? "100px" : "135px",
+        right: type === "callback" ? "230px" : "290px",
+        top: type === "hook" ? "235px" : undefined,
+        outline: "4px dashed var(--primary-colour)",
       }}
     ></div>
   )
 }
 
-function ClosureScope() {
+function ClosureScope({ type }: { type: "hook" | "callback" }) {
   return (
     <div
+      className="fragment"
       style={{
         position: "absolute",
-        bottom: "-320px",
+        bottom: type === "callback" ? "-320px" : undefined,
+        top: type === "hook" ? "20px" : undefined,
         left: "50px",
         right: "50px",
-        backgroundColor: "hsl(155 62% 56% / .1)",
-        height: "307px",
+        height: type === "hook" ? "430px" : "307px",
+        background: "hsl(155 62% 56% / .3)",
       }}
     ></div>
   )
