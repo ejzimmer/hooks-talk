@@ -17,7 +17,6 @@ import RevealHighlight from "reveal.js/plugin/highlight/highlight"
 
 import "reveal.js/plugin/highlight/monokai.css"
 import { Fragment, Slide } from "./helpers/Slide"
-import { UseCallback } from "./slides/5 - useCallback"
 import { ArrowHeadDef } from "./slides/1 - useRef/SingleRef"
 
 const DeckContext = createContext<Api | null>(null)
