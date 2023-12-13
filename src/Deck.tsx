@@ -18,6 +18,7 @@ import RevealHighlight from "reveal.js/plugin/highlight/highlight"
 import "reveal.js/plugin/highlight/monokai.css"
 import { Fragment, Slide } from "./helpers/Slide"
 import { ArrowHeadDef } from "./slides/1 - useRef/SingleRef"
+import { UseCallback } from "./slides/5 - useCallback"
 
 const DeckContext = createContext<Api | null>(null)
 
@@ -61,7 +62,7 @@ const AllSlides = memo(() => (
     <UseState />
     <UseEffect />
     <UseMemo />
-    {/* <UseCallback /> */}
+    <UseCallback />
     <Slide>
       <h2>What have we learnt?</h2>
       <ul>
@@ -72,7 +73,7 @@ const AllSlides = memo(() => (
         <Fragment as="li">useRef does nothing else</Fragment>
         <Fragment as="li">useState triggers re-renders</Fragment>
         <Fragment as="li">useEffect is an escape hatch</Fragment>
-        {/* <Fragment as="li">useMemo & useCallback memoise things</Fragment> */}
+        <Fragment as="li">useMemo & useCallback memoise things</Fragment>
       </ul>
     </Slide>
     <Slide>

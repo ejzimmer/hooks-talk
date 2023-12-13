@@ -21,7 +21,7 @@ export function Intro() {
         <ul>
           <li>Why hooks?</li>
           <li>The rules of hooks</li>
-          <li>useRef, useState, useEffect</li>
+          <li>useRef, useState, useEffect, useMemo & useCallback</li>
         </ul>
       </Slide>
       <Slide>

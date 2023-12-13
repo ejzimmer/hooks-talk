@@ -1,6 +1,6 @@
 import { InventorySlide } from "../../demos/Inventory"
 import { Code } from "../../helpers/Code"
-import { Fragment, InverseTitle, Slide } from "../../helpers/Slide"
+import { Fragment, InverseTitle, ShinyTitle, Slide } from "../../helpers/Slide"
 
 export function UseMemo() {
   return (
@@ -74,14 +74,14 @@ export function UseMemo() {
           {justRightCode}
         </Code>
       </Slide>
-      <InverseTitle>
+      {/* <InverseTitle>
         <h2>useEffect</h2>
         <ul>
           <li>Stores state in an array inside a closure</li>
           <li>Manages stuff that React doesn't understand</li>
         </ul>
-      </InverseTitle>
-      {/* <Slide>
+      </InverseTitle> */}
+      <Slide>
         <h2>But what if my calculation is really expensive?</h2>
       </Slide>
       <ShinyTitle title="useMemo" />
@@ -95,32 +95,24 @@ export function UseMemo() {
       <Slide>
         <Code highlightLines="">{unmemoisedCode}</Code>
         <Fragment>
-          <Code highlightLines="|1,6|2-4|5">{memoisedCode}</Code>
+          <Code highlightLines="|1,6|2-4|5|">{memoisedCode}</Code>
         </Fragment>
       </Slide>
-      <UseMemoImplementation />
-      <InverseTitle>
-        <h2>useMemo</h2>
-        <ul>
-          <li>calculates a value</li>
-          <li>only recalculates the value if the dependencies change</li>
-        </ul>
-      </InverseTitle> */}
     </>
   )
 }
 
-// const unmemoisedCode = `const sortedItems = sortBy
-//   ? items.sort(sortFunction(sortBy))
-//   : items;
-// `
-// const memoisedCode = `const sortedItems = useMemo(
-//   () => sortBy
-//       ? items.sort(sortFunction(sortBy))
-//       : items,
-//   [items, sortBy]
-// );
-// `
+const unmemoisedCode = `const sortedItems = sortBy
+  ? items.sort(sortFunction(sortBy))
+  : items;
+`
+const memoisedCode = `const sortedItems = useMemo(
+  () => sortBy
+      ? items.sort(sortFunction(sortBy))
+      : items,
+  [items, sortBy]
+);
+`
 
 const itemListWithTooMuchEffectCode = `function ItemList({ items }) {
   const [sortedItems, setSortedItems] = useState(items);
